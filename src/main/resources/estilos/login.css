@@ -1,3 +1,13 @@
+@font-face {
+    font-family: "Open Sans Condensed";
+    src: url("/fonts/OpenSansCondensed-Bold.ttf");
+}
+
+@font-face {
+    font-family: Sacramento;
+    src: url("/fonts/Sacramento-Regular.ttf");
+}
+
 .imagePane {
     -fx-background-image: url("https://images.pexels.com/photos/167696/pexels-photo-167696.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940");
     -fx-background-size: cover;
@@ -27,12 +37,13 @@
     -fx-background-color: #916b47;
     -fx-text-fill: white;
     -fx-text-font-family: "Open Sans Condensed" !important;
-    -fx-border-radius: 0px;
     -fx-border-color: #916b47;
+    -fx-font-weight: bold;
 }
 
 .jfx-text-field, .jfx-password-field {
     -fx-prompt-text-fill: #a38171;
     -jfx-focus-color: #916b47;
     -jfx-unfocus-color: #a38171;
+    -fx-text-fill: #916b47;
 }
