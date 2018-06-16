@@ -1,0 +1,38 @@
+.imagePane {
+    -fx-background-image: url("https://images.pexels.com/photos/167696/pexels-photo-167696.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940");
+    -fx-background-size: cover;
+}
+
+.labelCursiva {
+    -fx-weight: bold;
+    -fx-text-fill: white;
+    -fx-font-family: Sacramento;
+    -fx-font-size: 70px;
+}
+
+.labelSub {
+    -fx-font-size: 25px !important;
+    -fx-font-family: "Open Sans Condensed Light" !important;
+    -fx-text-fill: white;
+}
+
+.title {
+    -fx-font-size: 25px !important;
+    -fx-font-family: "Open Sans Condensed" !important;
+    -fx-text-fill: gray;
+    -fx-weight: bold;
+}
+
+.jfx-button {
+    -fx-background-color: #916b47;
+    -fx-text-fill: white;
+    -fx-text-font-family: "Open Sans Condensed" !important;
+    -fx-border-radius: 0px;
+    -fx-border-color: #916b47;
+}
+
+.jfx-text-field, .jfx-password-field {
+    -fx-prompt-text-fill: #a38171;
+    -jfx-focus-color: #916b47;
+    -jfx-unfocus-color: #a38171;
+}
