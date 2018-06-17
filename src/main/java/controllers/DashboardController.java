@@ -24,4 +24,20 @@ public class DashboardController {
         borderDashboard.setCenter(parent);
     }
 
+    @FXML
+    void setControl(MouseEvent event) throws IOException {
+        Parent parent = FXMLLoader.load(getClass().getResource("/views/Control.fxml"));
+        borderDashboard.setCenter(parent);
+    }
+
+    @FXML
+    void setOtros(MouseEvent event) throws IOException {
+        Parent parent = FXMLLoader.load(getClass().getResource("/views/otros.fxml"));
+        borderDashboard.setCenter(parent);
+    }
+
+
+
+
+
 }
