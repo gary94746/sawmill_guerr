@@ -1,0 +1,64 @@
+/*Globales*/
+@font-face {
+    font-family: "Open Sans Condensed";
+    src: url("/fonts/OpenSansCondensed-Bold.ttf");
+}
+
+.text-field {
+    -fx-border-color: #329f5b;
+}
+
+.label {
+    -fx-font-family: "Open Sans Condensed";
+    -fx-font-size: 14px;
+}
+
+/*Dashboard*/
+.hover_border:hover {
+    -fx-border-color: #00a374;
+    -fx-border-width: 1px 1px 1px 5px;
+    -fx-background-color: rgba(163,129,113,0.2) !important;
+    -fx-cursor: hand;
+}
+
+.hover_border:focused {
+    -fx-background-color: rgb(16, 73, 128) !important;
+}
+
+.labelDash {
+    -fx-font-size: 15px !important;
+    -fx-font-family: "Open Sans Condensed" !important;
+    -fx-text-fill: rgb(190, 188, 188);
+    -fx-weight: bold;
+}
+
+.labelDash:hover {
+    -fx-text-fill: white;
+}
+
+.labelMenu {
+    -fx-font-size: 16px !important;
+}
+
+.labelMenu:hover {
+    -fx-text-fill: #ffffff;
+}
+
+.background {
+     -fx-background-color: rgb(37,79,91);
+}
+
+/*Resumen*/
+.labelResumen {
+    -fx-font-family: "Open Sans Condensed";
+    -fx-text-fill: #254f5b;
+    -fx-font-weight: bold;
+}
+
+.labelTitle {
+    -fx-font-size: 22px;
+}
+
+.labelResult {
+    -fx-font-size: 15px !important;
+}
