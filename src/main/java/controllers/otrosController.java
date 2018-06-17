@@ -7,4 +7,5 @@ public class otrosController {
 
     @FXML
     private VBox vBoxotros;
+    private VBox vBoxotros2;
 }
