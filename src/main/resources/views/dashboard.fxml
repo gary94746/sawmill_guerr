@@ -57,7 +57,7 @@
                   <Insets left="10.0" />
                </padding>
             </HBox>
-            <HBox prefHeight="29.0" prefWidth="168.0" styleClass="hover_border" stylesheets="@../estilos/dashboard.css">
+            <HBox onMouseClicked="#setTransformacion" prefHeight="29.0" prefWidth="168.0" styleClass="hover_border" stylesheets="@../estilos/dashboard.css">
                <children>
                   <FontAwesomeIconView fill="WHITE" glyphName="STEAM" size="20" wrappingWidth="30.0">
                      <HBox.margin>
@@ -91,7 +91,7 @@
                   <Insets left="10.0" />
                </padding>
             </HBox>
-            <HBox prefHeight="29.0" prefWidth="168.0" styleClass="hover_border" stylesheets="@../estilos/dashboard.css">
+            <HBox onMouseClicked="#setTableta" prefHeight="29.0" prefWidth="168.0" styleClass="hover_border" stylesheets="@../estilos/dashboard.css">
                <children>
                   <FontAwesomeIconView fill="WHITE" glyphName="TABLE" size="20" wrappingWidth="30.0">
                      <HBox.margin>

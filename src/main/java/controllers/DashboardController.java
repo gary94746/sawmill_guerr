@@ -17,21 +17,32 @@ public class DashboardController {
     @FXML
     private BorderPane borderDashboard;
 
-
     @FXML
     void setResumen(MouseEvent event) throws IOException {
         Parent parent = FXMLLoader.load(getClass().getResource("/views/resumen.fxml"));
         borderDashboard.setCenter(parent);
     }
+
     @FXML
     void setControl(MouseEvent event) throws IOException {
         Parent parent = FXMLLoader.load(getClass().getResource("/views/Control.fxml"));
         borderDashboard.setCenter(parent);
     }
+
     @FXML
     void setOtros(MouseEvent event) throws IOException {
         Parent parent = FXMLLoader.load(getClass().getResource("/views/otros.fxml"));
         borderDashboard.setCenter(parent);
+    }
+
+    @FXML
+    void setTableta(MouseEvent event) {
+
+    }
+
+    @FXML
+    void setTransformacion(MouseEvent event) {
+
     }
 
 }
