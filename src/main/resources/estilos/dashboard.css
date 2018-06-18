@@ -1,8 +1,4 @@
 /*Globales*/
-@font-face {
-    font-family: "Open Sans Condensed";
-    src: url("/fonts/OpenSansCondensed-Bold.ttf");
-}
 
 .text-field {
     -fx-border-color: #329f5b;
