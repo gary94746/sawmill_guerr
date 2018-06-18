@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import com.jfoenix.controls.JFXTreeTableView?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TreeTableColumn?>
+<?import javafx.scene.control.TreeTableView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.MaderaTabletasController">
+   <children>
+      <Label text="Control de produccion de madera aserrada.">
+         <VBox.margin>
+            <Insets left="20.0" top="10.0" />
+         </VBox.margin>
+      </Label>
+      <Label contentDisplay="RIGHT" text="Fecha:">
+         <graphic>
+            <Label text="  /  /  " />
+         </graphic>
+         <VBox.margin>
+            <Insets left="20.0" top="10.0" />
+         </VBox.margin>
+      </Label>
+      <Label text="Tabletas.">
+         <VBox.margin>
+            <Insets left="20.0" top="10.0" />
+         </VBox.margin>
+      </Label>
+      <HBox alignment="CENTER" prefHeight="62.0" prefWidth="600.0">
+         <children>
+            <Label contentDisplay="RIGHT" text="Longitud:">
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+               <graphic>
+                  <JFXComboBox />
+               </graphic>
+            </Label>
+            <Label contentDisplay="RIGHT" layoutX="10.0" layoutY="10.0" text="Grueso x Ancho:">
+               <HBox.margin>
+                  <Insets left="10.0" />
+               </HBox.margin>
+               <graphic>
+                  <JFXComboBox prefHeight="25.0" prefWidth="93.0" />
+               </graphic>
+            </Label>
+            <Label contentDisplay="RIGHT" layoutX="177.0" layoutY="10.0" text="Piezas:">
+               <graphic>
+                  <JFXTextField prefHeight="25.0" prefWidth="57.0" />
+               </graphic>
+               <HBox.margin>
+                  <Insets left="10.0" />
+               </HBox.margin>
+            </Label>
+            <JFXButton text="+">
+               <HBox.margin>
+                  <Insets left="30.0" />
+               </HBox.margin>
+            </JFXButton>
+         </children>
+      </HBox>
+      <JFXTreeTableView prefHeight="233.0" prefWidth="600.0">
+         <VBox.margin>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </VBox.margin>
+         <columns>
+            <TreeTableColumn prefWidth="75.0" text="Grueso x ancho" />
+            <TreeTableColumn prefWidth="75.0" text="Piezas" />
+            <TreeTableColumn prefWidth="75.0" text="Cubicacion" />
+            <TreeTableColumn prefWidth="75.0" text="Pies-tabla" />
+         </columns>
+         <columnResizePolicy>
+            <TreeTableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy>
+      </JFXTreeTableView>
+      <HBox alignment="CENTER_RIGHT" prefHeight="50.0" prefWidth="600.0">
+         <children>
+            <Label contentDisplay="RIGHT" text="Sub-total:">
+               <HBox.margin>
+                  <Insets right="2.0" top="10.0" />
+               </HBox.margin>
+            </Label>
+            <JFXTextField prefHeight="25.0" prefWidth="87.0" />
+            <Label text="pt.">
+               <HBox.margin>
+                  <Insets right="2.0" top="10.0" />
+               </HBox.margin>
+            </Label>
+         </children>
+         <VBox.margin>
+            <Insets bottom="10.0" left="10.0" right="10.0" />
+         </VBox.margin>
+      </HBox>
+   </children>
+</VBox>
