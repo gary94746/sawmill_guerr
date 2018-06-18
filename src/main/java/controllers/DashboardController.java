@@ -36,13 +36,15 @@ public class DashboardController {
     }
 
     @FXML
-    void setTableta(MouseEvent event) {
-
+    void setTableta(MouseEvent event) throws IOException {
+        Parent parent = FXMLLoader.load(getClass().getResource("/views/controlproduccion2.fxml"));
+        borderDashboard.setCenter(parent);
     }
 
     @FXML
-    void setTransformacion(MouseEvent event) {
-
+    void setTransformacion(MouseEvent event) throws IOException {
+        Parent parent = FXMLLoader.load(getClass().getResource("/views/controltransformacion.fxml"));
+        borderDashboard.setCenter(parent);
     }
 
 }

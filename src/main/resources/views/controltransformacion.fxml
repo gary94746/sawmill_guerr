@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="356.0" prefWidth="600.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.MaderaEnRolloController">
+<VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.MaderaEnRolloController">
    <children>
       <Label text="Control de transformacion de madera en rollo." wrapText="true">
          <VBox.margin>
@@ -51,7 +51,7 @@
             <Insets bottom="10.0" left="10.0" right="10.0" top="30.0" />
          </VBox.margin>
       </HBox>
-      <JFXTreeTableView>
+      <JFXTreeTableView VBox.vgrow="ALWAYS">
          <VBox.margin>
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
          </VBox.margin>
@@ -66,7 +66,7 @@
             <TreeTableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </JFXTreeTableView>
-      <HBox alignment="CENTER_RIGHT" prefHeight="34.0" prefWidth="600.0">
+      <HBox alignment="BOTTOM_RIGHT" prefHeight="34.0" prefWidth="600.0">
          <children>
             <Label contentDisplay="RIGHT" prefHeight="25.0" prefWidth="82.0" text="Volumen total:">
                <HBox.margin>
