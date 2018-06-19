@@ -1,9 +1,4 @@
 /*Globales*/
-
-.text-field {
-    -fx-border-color: #329f5b;
-}
-
 .label {
     -fx-font-family: "Open Sans Condensed";
     -fx-font-size: 14px;
@@ -57,4 +52,8 @@
 
 .labelResult {
     -fx-font-size: 15px !important;
+}
+
+.textField {
+    -fx-border-color: #329f5b;
 }

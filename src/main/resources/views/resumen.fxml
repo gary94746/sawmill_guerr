@@ -63,9 +63,9 @@
                   <String fx:value="labelResumen" />
                   <String fx:value="labelResult" />
                </styleClass></Label>
-            <TextField editable="false" GridPane.columnIndex="1" />
-            <TextField editable="false" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <TextField editable="false" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField editable="false" styleClass="textField" GridPane.columnIndex="1" />
+            <TextField editable="false" styleClass="textField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField editable="false" styleClass="textField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
          </children>
          <VBox.margin>
             <Insets top="10.0" />
