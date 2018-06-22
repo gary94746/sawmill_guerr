@@ -57,3 +57,21 @@
 .textField {
     -fx-border-color: #329f5b;
 }
+
+/*Table*/
+
+.tree-table-row {
+    -fx-background-color: black;
+}
+
+.tree-table-row-cell:selected {
+    -fx-background-color: #c6878f;
+}
+
+.tree-table-view .tree-table-cell {
+    -fx-alignment: center;
+}
+
+.tree-table-view .column-header .label {
+    -fx-text-fill: black;
+}

@@ -23,10 +23,6 @@ public class DashboardController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {
-            ClasesArray clasesArray = ClasesArray.getInstance();
-            var array = clasesArray.getArrayClases();
-            array.forEach(v -> System.out.println(v));
-
             parentResumen = FXMLLoader.load(getClass().getResource("/views/resumen.fxml"));
             borderDashboard.setCenter(parentResumen);
         } catch (IOException e) {
