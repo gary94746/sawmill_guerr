@@ -8,8 +8,11 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import modelo.Conexion;
 
 import java.io.IOException;
+import java.sql.ResultSet;
+import java.sql.Statement;
 
 public class LoginController {
 
@@ -27,5 +30,28 @@ public class LoginController {
         stage.getIcons().add(new Image(getClass().getResourceAsStream("/images/chainsaw.png")));
         stage.setTitle("Menu principal");
         stage.show();
+
+        Conexion conexion = Conexion.getInstance();
+        conexion.establecerConexion();
+
+        try {
+            Statement state = conexion.getConection().createStatement();
+            ResultSet result = state.executeQuery("select * from clase");
+            while (result.next()) {
+                System.out.println(result.getString(2));
+            }
+        }catch (Exception e){}
+
+        finally {
+            conexion.cerrarConexion();
+        }
+
+
+
+
     }
+
+
+
+
 }
