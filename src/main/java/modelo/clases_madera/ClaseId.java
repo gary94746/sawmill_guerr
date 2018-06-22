@@ -1,4 +1,4 @@
-package modelo;
+package modelo.clases_madera;
 
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;

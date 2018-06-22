@@ -1,4 +1,6 @@
-package modelo;
+package modelo.clases_madera;
+
+import modelo.Conexion;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
