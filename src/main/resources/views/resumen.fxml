@@ -25,12 +25,13 @@
       </Label>
       <JFXTreeTableView prefHeight="220.0" prefWidth="591.0" VBox.vgrow="SOMETIMES">
          <columns>
-            <TreeTableColumn prefWidth="75.0" text="MEDIDAS" />
-            <TreeTableColumn prefWidth="75.0" text="CLASE" />
-            <TreeTableColumn prefWidth="75.0" text="TERCERA" />
-            <TreeTableColumn prefWidth="75.0" text="CUARTA" />
-            <TreeTableColumn prefWidth="75.0" text="QUINTA" />
-            <TreeTableColumn prefWidth="75.0" text="TABLA" />
+            <TreeTableColumn prefWidth="75.0" text="PRIMERA" />
+            <TreeTableColumn prefWidth="75.0" text="SEGUNDA" />
+            <TreeTableColumn prefWidth="75.0" text="TERCERA BUENA" />
+            <TreeTableColumn prefWidth="75.0" text="TERCERA MALA" />
+            <TreeTableColumn prefWidth="85.0" text="MADERA CRUZADA" />
+            <TreeTableColumn prefWidth="75.0" text="CUADRADO" />
+            <TreeTableColumn prefWidth="75.0" text="VIGA" />
             <TreeTableColumn prefWidth="75.0" text="TOTAL" />
          </columns>
          <columnResizePolicy>
