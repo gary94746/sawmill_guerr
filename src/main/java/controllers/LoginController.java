@@ -8,6 +8,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import modelo.ClasesArray;
 import modelo.Conexion;
 
 import java.io.IOException;
