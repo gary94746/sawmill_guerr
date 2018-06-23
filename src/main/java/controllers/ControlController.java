@@ -42,7 +42,7 @@ public class ControlController implements Initializable {
 
 
         ComboRegistro.getItems().addAll("3/4\"", "1 1/2\"", "2\"");
-        ComboRegistro.setValue("3/44\"");
+        ComboRegistro.setValue("3/4\"");
 
         ClasesArray clasesArray = ClasesArray.getInstance();
         clasesArray.getArrayClases().forEach(x -> comboClase.getItems().add(x));
