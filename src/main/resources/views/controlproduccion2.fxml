@@ -58,7 +58,7 @@
                   <Insets left="10.0" />
                </HBox.margin>
             </Label>
-            <JFXButton contentDisplay="CENTER" style="-fx-background-color: #916b47;" text="." textFill="WHITE">
+            <JFXButton contentDisplay="CENTER" onAction="#agregaTableta" style="-fx-background-color: #916b47;" text="." textFill="WHITE">
                <HBox.margin>
                   <Insets left="30.0" />
                </HBox.margin>
