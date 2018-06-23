@@ -4,6 +4,8 @@
 <?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import com.jfoenix.controls.JFXTreeTableView?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
@@ -23,13 +25,19 @@
         </columnConstraints>
         <rowConstraints>
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label text="OTROS" textAlignment="CENTER">
+            <Label stylesheets="@../estilos/dashboard.css" text="OTROS" textAlignment="CENTER">
                <GridPane.margin>
-                  <Insets left="10.0" />
+                  <Insets left="10.0" top="10.0" />
                </GridPane.margin>
+               <styleClass>
+                  <String fx:value="labelResumen" />
+                  <String fx:value="labelTitle" />
+               </styleClass>
+               <font>
+                  <Font name="Open Sans Condensed Bold" size="22.0" />
+               </font>
             </Label>
          </children>
       </GridPane>
@@ -76,13 +84,40 @@
                </GridPane.margin>
             </Label>
             <JFXTextField maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="26.0" prefWidth="119.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <JFXButton prefHeight="26.0" prefWidth="86.0" style="-fx-background-color: #a38171;" text="Agregar" textAlignment="CENTER" textFill="WHITE" GridPane.rowIndex="2">
-               <GridPane.margin>
-                  <Insets left="20.0" top="25.0" />
-               </GridPane.margin>
+            <JFXButton fx:id="agregar" contentDisplay="CENTER" onAction="#addControl" prefHeight="14.0" prefWidth="0.0" style="-fx-background-color: #916b47;" text="." textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="5" GridPane.rowIndex="2">
                <font>
                   <Font name="Century Gothic" size="14.0" />
                </font>
+               <graphic>
+                  <FontAwesomeIconView fill="WHITE" glyphName="PLUS" size="14" text="" wrappingWidth="10.199980735778809" />
+               </graphic>
+            </JFXButton>
+            <JFXButton contentDisplay="CENTER" prefHeight="28.0" prefWidth="2.0" style="-fx-background-color: #916b47;" text="." textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="5" GridPane.rowIndex="2">
+               <font>
+                  <Font name="Century Gothic" size="14.0" />
+               </font>
+               <graphic>
+                  <FontAwesomeIconView fill="WHITE" glyphName="EDIT" size="15">
+                     <font>
+                        <Font size="1.0" />
+                     </font>
+                  </FontAwesomeIconView>
+               </graphic>
+               <GridPane.margin>
+                  <Insets left="40.0" right="200.0" />
+               </GridPane.margin>
+            </JFXButton>
+            <JFXButton prefHeight="35.0" prefWidth="35.0" style="-fx-background-color: #916b47;" text="." textFill="WHITE" GridPane.columnIndex="5" GridPane.rowIndex="2">
+               <graphic>
+                  <FontAwesomeIconView fill="WHITE" glyphName="TRASH" size="15" wrappingWidth="1.600006103515625">
+                     <font>
+                        <Font size="1.0" />
+                     </font>
+                  </FontAwesomeIconView>
+               </graphic>
+               <GridPane.margin>
+                  <Insets left="85.0" />
+               </GridPane.margin>
             </JFXButton>
          </children>
          <VBox.margin>
@@ -107,13 +142,16 @@
                <GridPane.margin>
                   <Insets left="20.0" />
                </GridPane.margin></Label>
-            <JFXButton prefHeight="28.0" prefWidth="114.0" style="-fx-background-color: #a38171;" text="Mostrar todo" textFill="WHITE" GridPane.columnIndex="3">
-               <GridPane.margin>
-                  <Insets left="15.0" />
-               </GridPane.margin>
+            <JFXButton alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="36.0" style="-fx-background-color: #916b47;" text="." textFill="WHITE" GridPane.columnIndex="3">
                <font>
-                  <Font name="Century Gothic" size="14.0" />
+                  <Font size="14.0" />
                </font>
+               <graphic>
+                  <FontAwesomeIconView fill="WHITE" glyphName="HISTORY" size="14" />
+               </graphic>
+               <GridPane.margin>
+                  <Insets left="30.0" />
+               </GridPane.margin>
             </JFXButton>
          </children>
       </GridPane>
