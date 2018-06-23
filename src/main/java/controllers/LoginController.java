@@ -1,11 +1,13 @@
 package controllers;
 
+import com.jfoenix.controls.JFXTreeTableColumn;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.TreeTableColumn;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
@@ -24,7 +26,7 @@ public class LoginController {
         Stage stage = new Stage();
         Scene scene = new Scene(parent);
         stage.setScene(scene);
-        stage.getIcons().add(new Image(getClass().getResourceAsStream("/images/chainsaw.png")));
+        stage.getIcons().add(new Image(getClass().getResourceAsStream("/images/60c83449-dd46-44df-9384-0713810ea1c3.jpeg")));
         stage.setTitle("Menu principal");
         stage.show();
     }

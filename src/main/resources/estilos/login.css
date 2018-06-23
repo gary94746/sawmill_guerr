@@ -24,16 +24,16 @@
 }
 
 .jfx-button {
-    -fx-background-color: #916b47;
+    -fx-background-color: #009931;
     -fx-text-fill: white;
     -fx-text-font-family: "Open Sans Condensed" !important;
-    -fx-border-color: #916b47;
+    -fx-border-color: #009931;
     -fx-font-weight: bold;
 }
 
 .jfx-text-field, .jfx-password-field {
-    -fx-prompt-text-fill: #a38171;
-    -jfx-focus-color: #916b47;
+    -fx-prompt-text-fill: #009931;
+    -jfx-focus-color: #009931;
     -jfx-unfocus-color: #a38171;
-    -fx-text-fill: #916b47;
+    -fx-text-fill: #009931;
 }

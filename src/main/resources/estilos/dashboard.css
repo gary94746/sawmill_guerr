@@ -65,7 +65,11 @@
 }
 
 .tree-table-row-cell:selected {
-    -fx-background-color: #c6878f;
+    -fx-background-color: #009931;
+}
+
+.tree-table-view:focused .tree-table-row-cell:selected .tree-table-cell {
+    -fx-text-fill: white;
 }
 
 .tree-table-view .tree-table-cell {

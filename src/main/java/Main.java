@@ -13,7 +13,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws IOException {
 
         Parent root = FXMLLoader.load(getClass().getResource("views/login.fxml"));
-        primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("/images/chainsaw.png")));
+        primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("/images/60c83449-dd46-44df-9384-0713810ea1c3.jpeg")));
         primaryStage.setResizable(false);
         primaryStage.setTitle("Cordon Grande");
         primaryStage.setScene(new Scene(root));
