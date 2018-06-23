@@ -7,7 +7,6 @@
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TreeTableColumn?>
 <?import javafx.scene.control.TreeTableView?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -194,45 +193,7 @@
             <Insets top="35.0" />
          </VBox.margin>
       </GridPane>
-      <JFXTreeTableView prefHeight="239.0" prefWidth="774.0" VBox.vgrow="ALWAYS">
-         <columns>
-            <TreeTableColumn prefWidth="75.0" text="MED" />
-            <TreeTableColumn prefWidth="75.0" text="PRIMERA">
-               <columns>
-                  <TreeTableColumn prefWidth="75.0" text="PZAS" />
-                  <TreeTableColumn prefWidth="75.0" text="CUB" />
-                  <TreeTableColumn prefWidth="75.0" text="PT" />
-               </columns>
-            </TreeTableColumn>
-            <TreeTableColumn prefWidth="75.0" text="SEGUNDA">
-               <columns>
-                  <TreeTableColumn prefWidth="75.0" text="PZAS" />
-                  <TreeTableColumn prefWidth="75.0" text="CUB" />
-                  <TreeTableColumn prefWidth="75.0" text="PT" />
-               </columns>
-            </TreeTableColumn>
-            <TreeTableColumn prefWidth="75.0" text="TERCERA BUENA">
-               <columns>
-                  <TreeTableColumn prefWidth="75.0" text="PZAS" />
-                  <TreeTableColumn prefWidth="75.0" text="CUB" />
-                  <TreeTableColumn prefWidth="75.0" text="PT" />
-               </columns>
-            </TreeTableColumn>
-            <TreeTableColumn prefWidth="75.0" text="TERCER MALA">
-               <columns>
-                  <TreeTableColumn prefWidth="75.0" text="PZAS" />
-                  <TreeTableColumn prefWidth="75.0" text="CUB" />
-                  <TreeTableColumn prefWidth="75.0" text="PT" />
-               </columns>
-            </TreeTableColumn>
-            <TreeTableColumn prefWidth="75.0" text="MADERA CRUZADA">
-               <columns>
-                  <TreeTableColumn prefWidth="75.0" text="PZAS" />
-                  <TreeTableColumn prefWidth="75.0" text="CUB" />
-                  <TreeTableColumn prefWidth="75.0" text="PT" />
-               </columns>
-            </TreeTableColumn>
-         </columns>
+      <JFXTreeTableView fx:id="tablaControl" prefHeight="239.0" prefWidth="774.0" VBox.vgrow="ALWAYS">
          <columnResizePolicy>
             <TreeTableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
