@@ -35,7 +35,7 @@ public class ResumenController implements Initializable {
     }
 
 
-
+    //.asObject
     private void columns() {
         final TreeItem<Resumen> root = new RecursiveTreeItem<>(list, RecursiveTreeObject::getChildren);
         treTable.setRoot(root);
