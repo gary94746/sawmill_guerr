@@ -1,12 +1,10 @@
 package controllers;
 
-import com.jfoenix.controls.JFXComboBox;
-import com.jfoenix.controls.JFXTreeTableColumn;
-import com.jfoenix.controls.JFXTreeTableView;
-import com.jfoenix.controls.RecursiveTreeItem;
+import com.jfoenix.controls.*;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TreeItem;
@@ -20,6 +18,7 @@ import modelo.grueso.GruesoArray;
 import modelo.grueso.GruesoId;
 import modelo.Control_madera.madera_control;
 
+import javax.swing.*;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -35,6 +34,12 @@ public class ControlController implements Initializable {
     private JFXComboBox<String> ComboRegistro;
     @FXML
     private JFXTreeTableView <madera_control> tablaControl;
+    @FXML
+    private JFXTextField txtPiezas;
+    @FXML
+    private JFXTextField txtCubicacion;
+    @FXML
+    private JFXTextField txtPT;
 
 
     private ObservableList<madera_control> list;
@@ -92,6 +97,7 @@ public class ControlController implements Initializable {
                 return param.getValue().getValue().claseProperty();
             } else
                 return Columna1.getComputedValue(param);
+
         });
 
         //subcolumna 1
@@ -111,7 +117,7 @@ public class ControlController implements Initializable {
 
         subcolumna2.setCellValueFactory((TreeTableColumn.CellDataFeatures<madera_control, Double> param) -> {
             if (subcolumna2.validateValue(param)) {
-                return param.getValue().getValue().gruesoProperty().asObject();
+                return param.getValue().getValue().cubicacionProperty().asObject();
             } else
                 return subcolumna2.getComputedValue(param);
         });
@@ -123,7 +129,7 @@ public class ControlController implements Initializable {
 
         subcolumna3.setCellValueFactory((TreeTableColumn.CellDataFeatures<madera_control, Double> param) -> {
             if (subcolumna3.validateValue(param)) {
-                return param.getValue().getValue().gruesoProperty().asObject();
+                return param.getValue().getValue().ptProperty().asObject();
             } else
                 return subcolumna3.getComputedValue(param);
         });
@@ -135,7 +141,7 @@ public class ControlController implements Initializable {
 
         Columna2.setCellValueFactory((TreeTableColumn.CellDataFeatures<madera_control, String> param) -> {
             if (Columna2.validateValue(param)) {
-                return param.getValue().getValue().claseProperty();
+                return param.getValue().getValue().clase_segundaProperty();
             } else
                 return Columna2.getComputedValue(param);
         });
@@ -146,7 +152,7 @@ public class ControlController implements Initializable {
 
         subcolumna4.setCellValueFactory((TreeTableColumn.CellDataFeatures<madera_control, Integer> param) -> {
             if (subcolumna4.validateValue(param)) {
-                return param.getValue().getValue().piezaProperty().asObject();
+                return param.getValue().getValue().pieza_segundaProperty().asObject();
             } else
                 return subcolumna4.getComputedValue(param);
         });
@@ -157,7 +163,7 @@ public class ControlController implements Initializable {
 
         subcolumna5.setCellValueFactory((TreeTableColumn.CellDataFeatures<madera_control, Double> param) -> {
             if (subcolumna5.validateValue(param)) {
-                return param.getValue().getValue().gruesoProperty().asObject();
+                return param.getValue().getValue().cubicacion_segundaProperty().asObject();
             } else
                 return subcolumna5.getComputedValue(param);
         });
@@ -169,7 +175,7 @@ public class ControlController implements Initializable {
 
         subcolumna6.setCellValueFactory((TreeTableColumn.CellDataFeatures<madera_control, Double> param) -> {
             if (subcolumna6.validateValue(param)) {
-                return param.getValue().getValue().gruesoProperty().asObject();
+                return param.getValue().getValue().pt_segundaProperty().asObject();
             } else
                 return subcolumna6.getComputedValue(param);
         });
@@ -181,7 +187,7 @@ public class ControlController implements Initializable {
 
         Columna3.setCellValueFactory((TreeTableColumn.CellDataFeatures<madera_control, String> param) -> {
             if (Columna3.validateValue(param)) {
-                return param.getValue().getValue().claseProperty();
+                return param.getValue().getValue().clase_tercerabProperty();
             } else
                 return Columna3.getComputedValue(param);
         });
@@ -192,7 +198,7 @@ public class ControlController implements Initializable {
 
         subcolumna7.setCellValueFactory((TreeTableColumn.CellDataFeatures<madera_control, Integer> param) -> {
             if (subcolumna7.validateValue(param)) {
-                return param.getValue().getValue().piezaProperty().asObject();
+                return param.getValue().getValue().pieza_tercerabProperty().asObject();
             } else
                 return subcolumna7.getComputedValue(param);
         });
@@ -203,7 +209,7 @@ public class ControlController implements Initializable {
 
         subcolumna8.setCellValueFactory((TreeTableColumn.CellDataFeatures<madera_control, Double> param) -> {
             if (subcolumna8.validateValue(param)) {
-                return param.getValue().getValue().gruesoProperty().asObject();
+                return param.getValue().getValue().cubicacion_tercerabProperty().asObject();
             } else
                 return subcolumna8.getComputedValue(param);
         });
@@ -215,7 +221,7 @@ public class ControlController implements Initializable {
 
         subcolumna9.setCellValueFactory((TreeTableColumn.CellDataFeatures<madera_control, Double> param) -> {
             if (subcolumna9.validateValue(param)) {
-                return param.getValue().getValue().gruesoProperty().asObject();
+                return param.getValue().getValue().pt_tercerabProperty().asObject();
             } else
                 return subcolumna9.getComputedValue(param);
         });
@@ -227,7 +233,7 @@ public class ControlController implements Initializable {
 
         Columna4.setCellValueFactory((TreeTableColumn.CellDataFeatures<madera_control, String> param) -> {
             if (Columna4.validateValue(param)) {
-                return param.getValue().getValue().claseProperty();
+                return param.getValue().getValue().clase_terceraMProperty();
             } else
                 return Columna4.getComputedValue(param);
         });
@@ -238,7 +244,7 @@ public class ControlController implements Initializable {
 
         subcolumna10.setCellValueFactory((TreeTableColumn.CellDataFeatures<madera_control, Integer> param) -> {
             if (subcolumna10.validateValue(param)) {
-                return param.getValue().getValue().piezaProperty().asObject();
+                return param.getValue().getValue().pieza_terceraMProperty().asObject();
             } else
                 return subcolumna10.getComputedValue(param);
         });
@@ -249,7 +255,7 @@ public class ControlController implements Initializable {
 
         subcolumna11.setCellValueFactory((TreeTableColumn.CellDataFeatures<madera_control, Double> param) -> {
             if (subcolumna11.validateValue(param)) {
-                return param.getValue().getValue().gruesoProperty().asObject();
+                return param.getValue().getValue().cubicacion_terceraMProperty().asObject();
             } else
                 return subcolumna11.getComputedValue(param);
         });
@@ -261,7 +267,7 @@ public class ControlController implements Initializable {
 
         subcolumna12.setCellValueFactory((TreeTableColumn.CellDataFeatures<madera_control, Double> param) -> {
             if (subcolumna12.validateValue(param)) {
-                return param.getValue().getValue().gruesoProperty().asObject();
+                return param.getValue().getValue().pt_terceraMProperty().asObject();
             } else
                 return subcolumna12.getComputedValue(param);
         });
@@ -273,7 +279,7 @@ public class ControlController implements Initializable {
 
         Columna5.setCellValueFactory((TreeTableColumn.CellDataFeatures<madera_control, String> param) -> {
             if (Columna5.validateValue(param)) {
-                return param.getValue().getValue().claseProperty();
+                return param.getValue().getValue().clase_cruzadaProperty();
             } else
                 return Columna5.getComputedValue(param);
         });
@@ -284,7 +290,7 @@ public class ControlController implements Initializable {
 
         subcolumna13.setCellValueFactory((TreeTableColumn.CellDataFeatures<madera_control, Integer> param) -> {
             if (subcolumna13.validateValue(param)) {
-                return param.getValue().getValue().piezaProperty().asObject();
+                return param.getValue().getValue().pieza_cruzadaProperty().asObject();
             } else
                 return subcolumna13.getComputedValue(param);
         });
@@ -295,7 +301,7 @@ public class ControlController implements Initializable {
 
         subcolumna14.setCellValueFactory((TreeTableColumn.CellDataFeatures<madera_control, Double> param) -> {
             if (subcolumna14.validateValue(param)) {
-                return param.getValue().getValue().gruesoProperty().asObject();
+                return param.getValue().getValue().cubicacion_cruzadaProperty().asObject();
             } else
                 return subcolumna14.getComputedValue(param);
         });
@@ -307,19 +313,53 @@ public class ControlController implements Initializable {
 
         subcolumna15.setCellValueFactory((TreeTableColumn.CellDataFeatures<madera_control, Double> param) -> {
             if (subcolumna15.validateValue(param)) {
-                return param.getValue().getValue().gruesoProperty().asObject();
+                return param.getValue().getValue().pt_cruzadaProperty().asObject();
             } else
                 return subcolumna15.getComputedValue(param);
         });
         //FIN DE LA COLUMNA 5
 
+        //INICIO COLUMNA 0
+        JFXTreeTableColumn<madera_control, String> Columna0 = new JFXTreeTableColumn<>("MEDIDA");
+        Columna0.setEditable(false);
+
+        Columna0.setCellValueFactory((TreeTableColumn.CellDataFeatures<madera_control, String> param) -> {
+            if (Columna0.validateValue(param)) {
+                return param.getValue().getValue().claseProperty();
+            } else
+                return Columna0.getComputedValue(param);
+        });
+
+        //subcolumna 4
+        JFXTreeTableColumn<madera_control, String> subcolumna01 = new JFXTreeTableColumn<>("GRUESO");
+        subcolumna01.setEditable(false);
+
+        subcolumna01.setCellValueFactory((TreeTableColumn.CellDataFeatures<madera_control, String> param) -> {
+            if (subcolumna01.validateValue(param)) {
+                return param.getValue().getValue().gruesoProperty();
+            } else
+                return subcolumna01.getComputedValue(param);
+        });
+
+        //subcolumna 5
+        JFXTreeTableColumn<madera_control, String> subcolumna02 = new JFXTreeTableColumn<>("ANCHO");
+        subcolumna02.setEditable(false);
+
+        subcolumna02.setCellValueFactory((TreeTableColumn.CellDataFeatures<madera_control, String> param) -> {
+            if (subcolumna02.validateValue(param)) {
+                return param.getValue().getValue().anchoProperty();
+            } else
+                return subcolumna02.getComputedValue(param);
+        });
+        //FIN DE LA COLUMNA 0
 
 
 
         //Operaciones con la tabla
         tablaControl.setEditable(false);
         tablaControl.setShowRoot(false);
-        tablaControl.getColumns().setAll(Columna1, Columna2,Columna3,Columna4,Columna5);
+        tablaControl.getColumns().setAll(Columna0,Columna1, Columna2,Columna3,Columna4,Columna5);
+        Columna0.getColumns().setAll(subcolumna01,subcolumna02);
         Columna1.getColumns().setAll(subcolumna1,subcolumna2,subcolumna3);
         Columna2.getColumns().setAll(subcolumna4,subcolumna5,subcolumna6);
         Columna3.getColumns().setAll(subcolumna7,subcolumna8,subcolumna9);
@@ -327,6 +367,29 @@ public class ControlController implements Initializable {
         Columna5.getColumns().setAll(subcolumna13,subcolumna14,subcolumna15);
 
 
+    }
+
+    public void agregarRegistro(madera_control x){
+      list.add(x);
 
     }
+
+    @FXML
+    void addControl(ActionEvent event) {
+
+     if(comboClase.getSelectionModel().getSelectedItem()=="PRIMERA") {
+
+         agregarRegistro(new madera_control(comboGr.getSelectionModel().getSelectedItem(),
+                 comboAnc.getSelectionModel().getSelectedItem(), Integer.parseInt(txtPiezas.getText()),
+                 comboClase.getSelectionModel().getSelectedItem(), Double.parseDouble(txtCubicacion.getText()),
+                 Double.parseDouble(txtPT.getText())));
+     }
+
+
+    }
+
+
+
+
+
 }
