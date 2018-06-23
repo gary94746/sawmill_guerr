@@ -1,8 +1,27 @@
 /*Globales*/
 .label {
-    -fx-font-family: "Open Sans Condensed";
+    -fx-font-family: "Open Sans Condensed" !important;
     -fx-font-size: 14px;
 }
+
+.jfx-button {
+    -jfx-button-type: RAISED;
+    -fx-background-color: #009931 !important;
+    -fx-text-fill: white;
+}
+
+.jfx-text-field {
+    -jfx-focus-color: #009931 !important;
+    -jfx-unfocus-color: #a38171 !important;
+    -fx-alignment: center !important;
+}
+
+.jfx-combo-box {
+    -jfx-focus-color: #009931 !important;
+    -jfx-unfocus-color: #a38171 !important;
+    -fx-text-alignment: center;
+}
+
 
 /*Dashboard*/
 .hover_border:hover {
