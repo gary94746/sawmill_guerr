@@ -42,7 +42,7 @@
                   <Insets left="10.0" />
                </HBox.margin>
             </Label>
-            <JFXTextField prefHeight="25.0" prefWidth="80.0">
+            <JFXTextField fx:id="txtD2" prefHeight="25.0" prefWidth="80.0">
                <HBox.margin>
                   <Insets left="2.0" />
                </HBox.margin></JFXTextField>

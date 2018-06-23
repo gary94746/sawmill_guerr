@@ -14,8 +14,16 @@ public class Rollo extends RecursiveTreeObject<Rollo> {
     private DoubleProperty dt;
     private DoubleProperty vol;
 
-    public Rollo(int id, int num, double d1, double d2, double dt, double vol) {
+    /*public Rollo(int id, int num, double d1, double d2, double dt, double vol) {
         this.id = new SimpleIntegerProperty(id);
+        this.num = new SimpleIntegerProperty(num);
+        this.d1 = new SimpleDoubleProperty(d1);
+        this.d2 = new SimpleDoubleProperty(d2);
+        this.dt = new SimpleDoubleProperty(dt);
+        this.vol = new SimpleDoubleProperty(vol);
+    }*/
+
+    public Rollo(int num, double d1, double d2, double dt, double vol) {
         this.num = new SimpleIntegerProperty(num);
         this.d1 = new SimpleDoubleProperty(d1);
         this.d2 = new SimpleDoubleProperty(d2);
