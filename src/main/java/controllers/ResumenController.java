@@ -13,6 +13,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeTableColumn;
 import javafx.scene.layout.VBox;
+import modelo.Control_madera.madera_control;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -38,7 +39,7 @@ public class ResumenController implements Initializable {
     }
 
 
-
+    //.asObject
     private void columns() {
         final TreeItem<Example> root = new RecursiveTreeItem<>(list, RecursiveTreeObject::getChildren);
         list.forEach(x -> System.out.println(x));
