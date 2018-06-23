@@ -34,6 +34,7 @@ public class MaderaEnRolloController implements Initializable {
         columnas();
     }
 
+    // Se establecen las columnas de la tabla.
     private void columnas() {
         final TreeItem<Rollo> root = new RecursiveTreeItem<>(list, RecursiveTreeObject::getChildren);
         list.forEach(x -> System.out.println(x));

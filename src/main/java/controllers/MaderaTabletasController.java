@@ -1,19 +1,40 @@
 package controllers;
 
+import com.jfoenix.controls.JFXTreeTableColumn;
+import com.jfoenix.controls.JFXTreeTableView;
+import com.jfoenix.controls.RecursiveTreeItem;
+import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.TreeItem;
+import javafx.scene.control.TreeTableColumn;
 import javafx.scene.image.Image;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
+import modelo.rollo.Rollo;
+import modelo.tabletas.Tabletas;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-public class MaderaTabletasController {
+public class MaderaTabletasController implements Initializable {
 
+    @FXML
+    private JFXTreeTableView<Tabletas> tabla2;
+
+    private ObservableList<Tabletas> list;
+
+    @FXML
+    void agregaTableta(ActionEvent event) {
+        System.out.println("Hola2");
+    }
 
     // Abre un Stage con la vista extra de tabletas.
     @FXML
@@ -28,5 +49,64 @@ public class MaderaTabletasController {
         stage.show();
     }
 
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        list = FXCollections.observableArrayList();
+        columnas();
+    }
 
+    private void columnas() {
+        final TreeItem<Tabletas> root = new RecursiveTreeItem<>(list, RecursiveTreeObject::getChildren);
+        list.forEach(x -> System.out.println(x));
+        tabla2.setRoot(root);
+
+        // Columna de grueso por ancho.
+        JFXTreeTableColumn<Tabletas, String> gruesoporancho = new JFXTreeTableColumn<>("Grueso por ancho");
+        gruesoporancho.setEditable(false);
+
+        gruesoporancho.setCellValueFactory((TreeTableColumn.CellDataFeatures<Tabletas, String> param) -> {
+            if (gruesoporancho.validateValue(param))
+                return param.getValue().getValue().gruesoxanchoProperty();
+            else
+                return gruesoporancho.getComputedValue(param);
+        });
+
+        // Columna de piezas.
+        JFXTreeTableColumn<Tabletas, Integer> piezas = new JFXTreeTableColumn<>("Piezas");
+        piezas.setEditable(false);
+
+        piezas.setCellValueFactory((TreeTableColumn.CellDataFeatures<Tabletas, Integer> param) -> {
+            if (piezas.validateValue(param))
+                return param.getValue().getValue().piezasProperty().asObject();
+            else
+                return piezas.getComputedValue(param);
+        });
+
+        // Columna de cubicacion.
+        JFXTreeTableColumn<Tabletas, Double> cubicacion = new JFXTreeTableColumn<>("Cubicacion");
+        cubicacion.setEditable(false);
+
+        cubicacion.setCellValueFactory((TreeTableColumn.CellDataFeatures<Tabletas, Double> param) -> {
+            if (cubicacion.validateValue(param))
+                return param.getValue().getValue().cubicacionProperty().asObject();
+            else
+                return cubicacion.getComputedValue(param);
+        });
+
+        // Columna de pies-tabla.
+        JFXTreeTableColumn<Tabletas, Double> piestabla = new JFXTreeTableColumn<>("Pies - Tabla");
+        piestabla.setEditable(false);
+
+        piestabla.setCellValueFactory((TreeTableColumn.CellDataFeatures<Tabletas, Double> param) -> {
+            if (piestabla.validateValue(param))
+                return param.getValue().getValue().cubicacionProperty().asObject();
+            else
+                return piestabla.getComputedValue(param);
+        });
+
+        //Operaciones con la tabla
+        tabla2.setEditable(false);
+        tabla2.setShowRoot(false);
+        tabla2.getColumns().setAll(gruesoporancho, piezas, cubicacion, piestabla);
+    }
 }
