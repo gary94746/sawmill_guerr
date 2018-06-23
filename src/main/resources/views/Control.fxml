@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="499.0" prefWidth="774.0" stylesheets="@../estilos/conProduccion.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ControlController">
+<VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="499.0" prefWidth="774.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ControlController">
    <children>
       <GridPane>
         <columnConstraints>
@@ -24,8 +24,14 @@
         <rowConstraints>
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
+         <padding>
+            <Insets top="10.0" />
+         </padding>
+         <VBox.margin>
+            <Insets />
+         </VBox.margin>
          <children>
-            <Label maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" stylesheets="@../estilos/dashboard.css" text="CONTROL DE PRODUCCION DE MADERA ASERRADA">
+            <Label stylesheets="@../estilos/dashboard.css" text="CONTROL DE PRODUCCION DE MADERA ASERRADA">
                <GridPane.margin>
                   <Insets left="10.0" top="10.0" />
                </GridPane.margin>
@@ -34,16 +40,10 @@
                   <String fx:value="labelTitle" />
                </styleClass>
                <font>
-                  <Font name="Open Sans Condensed Bold" size="22.0" />
+                  <Font size="64.0" />
                </font>
             </Label>
          </children>
-         <padding>
-            <Insets top="10.0" />
-         </padding>
-         <VBox.margin>
-            <Insets />
-         </VBox.margin>
       </GridPane>
       <GridPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
         <columnConstraints>
