@@ -1,16 +1,19 @@
 package controllers;
 
-import com.jfoenix.controls.JFXTreeTableColumn;
-import com.jfoenix.controls.JFXTreeTableView;
-import com.jfoenix.controls.RecursiveTreeItem;
+import com.jfoenix.controls.*;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeTableColumn;
+import javafx.scene.control.TreeTableRow;
 import modelo.rollo.Rollo;
 
 import java.net.URL;
@@ -19,14 +22,26 @@ import java.util.ResourceBundle;
 public class MaderaEnRolloController implements Initializable {
 
     @FXML
-    private JFXTreeTableView<Rollo> tabla1;
+    private JFXTextField txtD1;
 
+    @FXML
+    private JFXTextField txtD2;
+
+    @FXML
+    private JFXTreeTableView<Rollo> tabla1;
     private ObservableList<Rollo> list;
+    private int count = 1;
 
     @FXML
     void agregaRollo(ActionEvent event) {
-        System.out.println("Hola");
+        double a = (Integer.valueOf(txtD1.getText()) + Integer.valueOf(txtD2.getText())) / 2;
+        double b = Math.pow(a / 100, 2) * 0.7854 * 2.56;
+        list.add(new Rollo(count,Integer.valueOf(txtD1.getText()),Integer.valueOf(txtD2.getText()),a,b));
+        txtD1.setText("");
+        txtD2.setText("");
+        count++;
     }
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -34,6 +49,7 @@ public class MaderaEnRolloController implements Initializable {
         columnas();
     }
 
+    // Se establecen las columnas de la tabla.
     private void columnas() {
         final TreeItem<Rollo> root = new RecursiveTreeItem<>(list, RecursiveTreeObject::getChildren);
         list.forEach(x -> System.out.println(x));

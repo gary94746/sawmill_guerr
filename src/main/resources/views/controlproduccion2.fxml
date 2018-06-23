@@ -8,7 +8,6 @@
 <?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TreeTableColumn?>
 <?import javafx.scene.control.TreeTableView?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
@@ -59,7 +58,7 @@
                   <Insets left="10.0" />
                </HBox.margin>
             </Label>
-            <JFXButton contentDisplay="CENTER" style="-fx-background-color: #916b47;" text="." textFill="WHITE">
+            <JFXButton contentDisplay="CENTER" onAction="#agregaTableta" style="-fx-background-color: #916b47;" text="." textFill="WHITE">
                <HBox.margin>
                   <Insets left="30.0" />
                </HBox.margin>
@@ -96,16 +95,10 @@
             </JFXButton>
          </children>
       </HBox>
-      <JFXTreeTableView prefHeight="233.0" prefWidth="600.0" VBox.vgrow="ALWAYS">
+      <JFXTreeTableView fx:id="tabla2" prefHeight="233.0" prefWidth="600.0" VBox.vgrow="ALWAYS">
          <VBox.margin>
             <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
          </VBox.margin>
-         <columns>
-            <TreeTableColumn prefWidth="75.0" text="Grueso x ancho" />
-            <TreeTableColumn prefWidth="75.0" text="Piezas" />
-            <TreeTableColumn prefWidth="75.0" text="Cubicacion" />
-            <TreeTableColumn prefWidth="75.0" text="Pies-tabla" />
-         </columns>
          <columnResizePolicy>
             <TreeTableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>

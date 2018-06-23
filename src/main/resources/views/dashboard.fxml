@@ -20,6 +20,19 @@
                   <String fx:value="labelDash" />
                   <String fx:value="labelMenu" />
                </styleClass></Label>
+            <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
+               <children>
+                  <FontAwesomeIconView fill="WHITE" glyphName="CALENDAR_ALT" size="18" wrappingWidth="20.0">
+                     <HBox.margin>
+                        <Insets right="10.0" />
+                     </HBox.margin>
+                  </FontAwesomeIconView>
+                  <Label fx:id="lblDate" styleClass="labelDash" text="today" />
+               </children>
+               <padding>
+                  <Insets right="20.0" />
+               </padding>
+            </HBox>
          </children>
          <padding>
             <Insets left="10.0" right="10.0" />
@@ -124,6 +137,26 @@
                <padding>
                   <Insets left="10.0" />
                </padding>
+            </HBox>
+            <HBox onMouseClicked="#setEmpleados" prefHeight="29.0" prefWidth="168.0" styleClass="hover_border" stylesheets="@../estilos/dashboard.css">
+               <children>
+                  <FontAwesomeIconView fill="WHITE" glyphName="USER_CIRCLE" size="20" wrappingWidth="30.0">
+                     <HBox.margin>
+                        <Insets right="10.0" top="5.0" />
+                     </HBox.margin>
+                  </FontAwesomeIconView>
+                  <Label prefHeight="60.0" prefWidth="123.0" styleClass="labelDash" text="EMPLEADOS" textFill="WHITE" HBox.hgrow="ALWAYS">
+                     <font>
+                        <Font name="Open Sans Condensed Light" size="15.0" />
+                     </font>
+                  </Label>
+               </children>
+               <padding>
+                  <Insets left="10.0" />
+               </padding>
+               <VBox.margin>
+                  <Insets top="20.0" />
+               </VBox.margin>
             </HBox>
          </children>
          <padding>
