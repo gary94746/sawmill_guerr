@@ -84,23 +84,23 @@ public class ControlController implements Initializable {
 
 
         //INICIO COLUMNA 1
-        JFXTreeTableColumn<madera_control, Double> Columna1 = new JFXTreeTableColumn<>("PRIMERA");
+        JFXTreeTableColumn<madera_control, String> Columna1 = new JFXTreeTableColumn<>("PRIMERA");
         Columna1.setEditable(false);
 
-        Columna1.setCellValueFactory((TreeTableColumn.CellDataFeatures<madera_control, Double> param) -> {
+        Columna1.setCellValueFactory((TreeTableColumn.CellDataFeatures<madera_control, String> param) -> {
             if (Columna1.validateValue(param)) {
-                return param.getValue().getValue().gruesoProperty().asObject();
+                return param.getValue().getValue().claseProperty();
             } else
                 return Columna1.getComputedValue(param);
         });
 
         //subcolumna 1
-        JFXTreeTableColumn<madera_control, Double> subcolumna1 = new JFXTreeTableColumn<>("PIEZAS");
+        JFXTreeTableColumn<madera_control, Integer> subcolumna1 = new JFXTreeTableColumn<>("PIEZAS");
         subcolumna1.setEditable(false);
 
-        subcolumna1.setCellValueFactory((TreeTableColumn.CellDataFeatures<madera_control, Double> param) -> {
+        subcolumna1.setCellValueFactory((TreeTableColumn.CellDataFeatures<madera_control, Integer> param) -> {
             if (subcolumna1.validateValue(param)) {
-                return param.getValue().getValue().gruesoProperty().asObject();
+                return param.getValue().getValue().piezaProperty().asObject();
             } else
                 return subcolumna1.getComputedValue(param);
         });
@@ -130,23 +130,23 @@ public class ControlController implements Initializable {
           //FIN DE LA COLUMNA 1
 
         //INICIO COLUMNA 2
-        JFXTreeTableColumn<madera_control, Double> Columna2 = new JFXTreeTableColumn<>("SEGUNDA");
+        JFXTreeTableColumn<madera_control, String> Columna2 = new JFXTreeTableColumn<>("SEGUNDA");
         Columna2.setEditable(false);
 
-        Columna2.setCellValueFactory((TreeTableColumn.CellDataFeatures<madera_control, Double> param) -> {
+        Columna2.setCellValueFactory((TreeTableColumn.CellDataFeatures<madera_control, String> param) -> {
             if (Columna2.validateValue(param)) {
-                return param.getValue().getValue().gruesoProperty().asObject();
+                return param.getValue().getValue().claseProperty();
             } else
                 return Columna2.getComputedValue(param);
         });
 
         //subcolumna 4
-        JFXTreeTableColumn<madera_control, Double> subcolumna4 = new JFXTreeTableColumn<>("PIEZAS");
+        JFXTreeTableColumn<madera_control, Integer> subcolumna4 = new JFXTreeTableColumn<>("PIEZAS");
         subcolumna4.setEditable(false);
 
-        subcolumna4.setCellValueFactory((TreeTableColumn.CellDataFeatures<madera_control, Double> param) -> {
+        subcolumna4.setCellValueFactory((TreeTableColumn.CellDataFeatures<madera_control, Integer> param) -> {
             if (subcolumna4.validateValue(param)) {
-                return param.getValue().getValue().gruesoProperty().asObject();
+                return param.getValue().getValue().piezaProperty().asObject();
             } else
                 return subcolumna4.getComputedValue(param);
         });
@@ -176,23 +176,23 @@ public class ControlController implements Initializable {
         //FIN DE LA COLUMNA 2
 
         //INICIO COLUMNA 3
-        JFXTreeTableColumn<madera_control, Double> Columna3 = new JFXTreeTableColumn<>("TERCERA BUENA");
+        JFXTreeTableColumn<madera_control, String> Columna3 = new JFXTreeTableColumn<>("TERCERA BUENA");
         Columna3.setEditable(false);
 
-        Columna3.setCellValueFactory((TreeTableColumn.CellDataFeatures<madera_control, Double> param) -> {
+        Columna3.setCellValueFactory((TreeTableColumn.CellDataFeatures<madera_control, String> param) -> {
             if (Columna3.validateValue(param)) {
-                return param.getValue().getValue().gruesoProperty().asObject();
+                return param.getValue().getValue().claseProperty();
             } else
                 return Columna3.getComputedValue(param);
         });
 
         //subcolumna 4
-        JFXTreeTableColumn<madera_control, Double> subcolumna7 = new JFXTreeTableColumn<>("PIEZAS");
+        JFXTreeTableColumn<madera_control, Integer> subcolumna7 = new JFXTreeTableColumn<>("PIEZAS");
         subcolumna7.setEditable(false);
 
-        subcolumna7.setCellValueFactory((TreeTableColumn.CellDataFeatures<madera_control, Double> param) -> {
+        subcolumna7.setCellValueFactory((TreeTableColumn.CellDataFeatures<madera_control, Integer> param) -> {
             if (subcolumna7.validateValue(param)) {
-                return param.getValue().getValue().gruesoProperty().asObject();
+                return param.getValue().getValue().piezaProperty().asObject();
             } else
                 return subcolumna7.getComputedValue(param);
         });
@@ -221,70 +221,24 @@ public class ControlController implements Initializable {
         });
         //FIN DE LA COLUMNA 3
 
-        //INICIO COLUMNA 5
-        JFXTreeTableColumn<madera_control, Double> Columna5 = new JFXTreeTableColumn<>("MADERA CRUZADA");
-        Columna5.setEditable(false);
-
-        Columna5.setCellValueFactory((TreeTableColumn.CellDataFeatures<madera_control, Double> param) -> {
-            if (Columna5.validateValue(param)) {
-                return param.getValue().getValue().gruesoProperty().asObject();
-            } else
-                return Columna5.getComputedValue(param);
-        });
-
-        //subcolumna 4
-        JFXTreeTableColumn<madera_control, Double> subcolumna13 = new JFXTreeTableColumn<>("PIEZAS");
-        subcolumna13.setEditable(false);
-
-        subcolumna13.setCellValueFactory((TreeTableColumn.CellDataFeatures<madera_control, Double> param) -> {
-            if (subcolumna13.validateValue(param)) {
-                return param.getValue().getValue().gruesoProperty().asObject();
-            } else
-                return subcolumna13.getComputedValue(param);
-        });
-
-        //subcolumna 5
-        JFXTreeTableColumn<madera_control, Double> subcolumna14 = new JFXTreeTableColumn<>("CUB");
-        subcolumna14.setEditable(false);
-
-        subcolumna14.setCellValueFactory((TreeTableColumn.CellDataFeatures<madera_control, Double> param) -> {
-            if (subcolumna14.validateValue(param)) {
-                return param.getValue().getValue().gruesoProperty().asObject();
-            } else
-                return subcolumna14.getComputedValue(param);
-        });
-
-
-        //subcolumna 3
-        JFXTreeTableColumn<madera_control, Double> subcolumna15 = new JFXTreeTableColumn<>("PT");
-        subcolumna15.setEditable(false);
-
-        subcolumna15.setCellValueFactory((TreeTableColumn.CellDataFeatures<madera_control, Double> param) -> {
-            if (subcolumna15.validateValue(param)) {
-                return param.getValue().getValue().gruesoProperty().asObject();
-            } else
-                return subcolumna15.getComputedValue(param);
-        });
-        //FIN DE LA COLUMNA 4
-
         //INICIO COLUMNA 4
-        JFXTreeTableColumn<madera_control, Double> Columna4 = new JFXTreeTableColumn<>("TERCERA MALA");
+        JFXTreeTableColumn<madera_control, String> Columna4 = new JFXTreeTableColumn<>("TERCERA MALA");
         Columna4.setEditable(false);
 
-        Columna4.setCellValueFactory((TreeTableColumn.CellDataFeatures<madera_control, Double> param) -> {
+        Columna4.setCellValueFactory((TreeTableColumn.CellDataFeatures<madera_control, String> param) -> {
             if (Columna4.validateValue(param)) {
-                return param.getValue().getValue().gruesoProperty().asObject();
+                return param.getValue().getValue().claseProperty();
             } else
                 return Columna4.getComputedValue(param);
         });
 
         //subcolumna 4
-        JFXTreeTableColumn<madera_control, Double> subcolumna10 = new JFXTreeTableColumn<>("PIEZAS");
+        JFXTreeTableColumn<madera_control, Integer> subcolumna10 = new JFXTreeTableColumn<>("PIEZAS");
         subcolumna10.setEditable(false);
 
-        subcolumna10.setCellValueFactory((TreeTableColumn.CellDataFeatures<madera_control, Double> param) -> {
+        subcolumna10.setCellValueFactory((TreeTableColumn.CellDataFeatures<madera_control, Integer> param) -> {
             if (subcolumna10.validateValue(param)) {
-                return param.getValue().getValue().gruesoProperty().asObject();
+                return param.getValue().getValue().piezaProperty().asObject();
             } else
                 return subcolumna10.getComputedValue(param);
         });
@@ -312,6 +266,54 @@ public class ControlController implements Initializable {
                 return subcolumna12.getComputedValue(param);
         });
         //FIN DE LA COLUMNA 4
+
+        //INICIO COLUMNA 5
+        JFXTreeTableColumn<madera_control, String> Columna5 = new JFXTreeTableColumn<>("MADERA CRUZADA");
+        Columna5.setEditable(false);
+
+        Columna5.setCellValueFactory((TreeTableColumn.CellDataFeatures<madera_control, String> param) -> {
+            if (Columna5.validateValue(param)) {
+                return param.getValue().getValue().claseProperty();
+            } else
+                return Columna5.getComputedValue(param);
+        });
+
+        //subcolumna 4
+        JFXTreeTableColumn<madera_control, Integer> subcolumna13 = new JFXTreeTableColumn<>("PIEZAS");
+        subcolumna13.setEditable(false);
+
+        subcolumna13.setCellValueFactory((TreeTableColumn.CellDataFeatures<madera_control, Integer> param) -> {
+            if (subcolumna13.validateValue(param)) {
+                return param.getValue().getValue().piezaProperty().asObject();
+            } else
+                return subcolumna13.getComputedValue(param);
+        });
+
+        //subcolumna 5
+        JFXTreeTableColumn<madera_control, Double> subcolumna14 = new JFXTreeTableColumn<>("CUB");
+        subcolumna14.setEditable(false);
+
+        subcolumna14.setCellValueFactory((TreeTableColumn.CellDataFeatures<madera_control, Double> param) -> {
+            if (subcolumna14.validateValue(param)) {
+                return param.getValue().getValue().gruesoProperty().asObject();
+            } else
+                return subcolumna14.getComputedValue(param);
+        });
+
+
+        //subcolumna 3
+        JFXTreeTableColumn<madera_control, Double> subcolumna15 = new JFXTreeTableColumn<>("PT");
+        subcolumna15.setEditable(false);
+
+        subcolumna15.setCellValueFactory((TreeTableColumn.CellDataFeatures<madera_control, Double> param) -> {
+            if (subcolumna15.validateValue(param)) {
+                return param.getValue().getValue().gruesoProperty().asObject();
+            } else
+                return subcolumna15.getComputedValue(param);
+        });
+        //FIN DE LA COLUMNA 5
+
+
 
 
         //Operaciones con la tabla
