@@ -84,7 +84,7 @@
                   <Insets left="20.0" />
                </GridPane.margin>
             </Label>
-            <JFXComboBox fx:id="comboClase" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="26.0" prefWidth="118.0" promptText="PRIMERA" GridPane.columnIndex="5">
+            <JFXComboBox fx:id="comboClase" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="26.0" prefWidth="118.0" GridPane.columnIndex="5">
                <GridPane.margin>
                   <Insets bottom="5.0" left="10.0" right="20.0" />
                </GridPane.margin>
