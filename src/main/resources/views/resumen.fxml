@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox fx:id="vBoxResumen" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="514.0" prefWidth="839.0" stylesheets="@../estilos/dashboard.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ResumenController">
+<VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="514.0" prefWidth="839.0" stylesheets="@../estilos/dashboard.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ResumenController">
    <children>
       <Label prefHeight="16.0" prefWidth="599.0" text="Resumen">
          <VBox.margin>
@@ -23,21 +23,13 @@
             <String fx:value="labelResumen" />
          </styleClass>
       </Label>
-      <JFXTreeTableView prefHeight="220.0" prefWidth="591.0" VBox.vgrow="SOMETIMES">
-         <columns>
-            <TreeTableColumn prefWidth="50.0" text="MEDIDA" />
-            <TreeTableColumn prefWidth="75.0" text="PRIMERA" />
-            <TreeTableColumn prefWidth="75.0" text="SEGUNDA" />
-            <TreeTableColumn text="TERCERA BUENA" />
-            <TreeTableColumn prefWidth="75.0" text="TERCERA MALA" />
-            <TreeTableColumn prefWidth="85.0" text="MADERA CRUZADA" />
-            <TreeTableColumn prefWidth="75.0" text="CUADRADO" />
-            <TreeTableColumn prefWidth="75.0" text="VIGA" />
-            <TreeTableColumn prefWidth="75.0" text="TOTAL" />
-         </columns>
+      <JFXTreeTableView fx:id="treTable" prefHeight="220.0" prefWidth="591.0" VBox.vgrow="SOMETIMES">
          <columnResizePolicy>
             <TreeTableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
+         <columns>
+            <TreeTableColumn prefWidth="75.0" text="Column X" />
+         </columns>
       </JFXTreeTableView>
       <GridPane hgap="20.0" vgap="5.0">
         <columnConstraints>
