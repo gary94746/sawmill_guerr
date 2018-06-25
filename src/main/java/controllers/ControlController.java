@@ -41,6 +41,10 @@ public class ControlController implements Initializable {
     private JFXTextField txtCubicacion;
     @FXML
     private JFXTextField txtPT;
+    @FXML
+    private JFXComboBox<String> comboLargo;
+
+    double valcub;
 
 
     private ObservableList<madera_control> list;
@@ -49,7 +53,7 @@ public class ControlController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
 
 
-
+        //Customizacion de componentes
         ComboRegistro.getItems().addAll("3/4\"", "1 1/2\"", "2\"");
         ComboRegistro.setValue("3/4\"");
 
@@ -62,7 +66,13 @@ public class ControlController implements Initializable {
         comboClase.getItems().addAll("PRIMERA","SEGUNDA","TERCERA BUENA","TERCERA MALA","MADERA CRUZADA");
         comboClase.setValue("PRIMERA");
 
-        txtCubicacion.setText("2.062");
+        comboLargo.getItems().addAll("3/4\"","16 1/2\"");
+        comboLargo.setValue("3/4\"");
+
+        valcub=(.75*4*8.25)/12;
+        txtCubicacion.setText(String.valueOf(valcub));
+
+        txtPT.setText("0");
 
 
         /**ClasesArray clasesArray = ClasesArray.getInstance();
@@ -387,6 +397,18 @@ public class ControlController implements Initializable {
 
     }
 
+    public void CalPt(){
+        try {
+            double val1 = Double.parseDouble(txtCubicacion.getText());
+            double val2 = Integer.parseInt(txtPiezas.getText());
+            double resultado = val1 * val2;
+            txtPT.setText(String.valueOf(resultado));
+        }catch (Exception e){
+
+        }
+
+    }
+
     @FXML
     void addControl(ActionEvent event) {
 
@@ -410,29 +432,32 @@ public class ControlController implements Initializable {
     @FXML
     void actionAncho(ActionEvent event) {
         if(comboAnc.getSelectionModel().getSelectedItem()=="4"){
-            txtCubicacion.setText("2.062");
+            valcub=(.75*4*8.25)/12;
+            txtCubicacion.setText(String.valueOf(valcub));
         }else if(comboAnc.getSelectionModel().getSelectedItem()=="6"){
-            txtCubicacion.setText("3.093");
+            valcub=(.75*6*8.25)/12;
+            txtCubicacion.setText(String.valueOf(valcub));
         }else if(comboAnc.getSelectionModel().getSelectedItem()=="8"){
-            txtCubicacion.setText("4.125");
+            valcub=(.75*8*8.25)/12;
+            txtCubicacion.setText(String.valueOf(valcub));
         }else if(comboAnc.getSelectionModel().getSelectedItem()=="10"){
-            txtCubicacion.setText("5.156");
+            valcub=(.75*10*8.25)/12;
+            txtCubicacion.setText(String.valueOf(valcub));
         }else if(comboAnc.getSelectionModel().getSelectedItem()=="12"){
-            txtCubicacion.setText("6.187");
+            valcub=(.75*12*8.25)/12;
+            txtCubicacion.setText(String.valueOf(valcub));
         }
-
     }
 
     @FXML
     void ActionPieza(KeyEvent event) {
-        try {
-            double val1 = Double.parseDouble(txtCubicacion.getText());
-            double val2 = Integer.parseInt(txtPiezas.getText());
-            double resultado = val1 * val2;
-            txtPT.setText(String.valueOf(resultado));
-        }catch (Exception e){
-
+        if(txtPiezas.getText().equals("")){
+            txtPT.setText("0");
+        }else{
+            CalPt();
         }
+
+
     }
 
     @FXML
