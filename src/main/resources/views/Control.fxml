@@ -33,7 +33,7 @@
             <Insets />
          </VBox.margin>
          <children>
-            <Label stylesheets="@../estilos/dashboard.css" text="CONTROL DE PRODUCCION DE MADERA ASERRADA">
+            <Label stylesheets="@../estilos/dashboard.css" text="Control de produccion de madera aserrada">
                <GridPane.margin>
                   <Insets left="10.0" top="10.0" />
                </GridPane.margin>
