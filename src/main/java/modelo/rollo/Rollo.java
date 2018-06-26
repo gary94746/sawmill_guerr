@@ -5,9 +5,11 @@ import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.collections.ObservableList;
 import modelo.otros_madera.otros_mad;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class Rollo extends RecursiveTreeObject<Rollo> {
@@ -18,14 +20,14 @@ public class Rollo extends RecursiveTreeObject<Rollo> {
     private DoubleProperty dt;
     private DoubleProperty vol;
 
-    /*public Rollo(int id, int num, double d1, double d2, double dt, double vol) {
+    public Rollo(int id, int num, double d1, double d2, double dt, double vol) {
         this.id = new SimpleIntegerProperty(id);
         this.num = new SimpleIntegerProperty(num);
         this.d1 = new SimpleDoubleProperty(d1);
         this.d2 = new SimpleDoubleProperty(d2);
         this.dt = new SimpleDoubleProperty(dt);
         this.vol = new SimpleDoubleProperty(vol);
-    }*/
+    }
 
     public Rollo(int num, double d1, double d2, double dt, double vol) {
         this.num = new SimpleIntegerProperty(num);
@@ -143,4 +145,36 @@ public class Rollo extends RecursiveTreeObject<Rollo> {
         }
         return null;
     }
+
+    public static void obtenerDatos(Connection connection, ObservableList<Rollo> list) {
+        try {
+            var datos = "SELECT * FROM rollo where fecha = current_date order by numero";
+            System.out.println(datos);
+
+            var statementP = connection.createStatement();
+            var resultSet1 = statementP.executeQuery(datos);
+
+            while (resultSet1.next()) {
+                list.add(new Rollo(resultSet1.getInt("id"), resultSet1.getInt("numero"),  resultSet1.getInt("diametro1"), resultSet1.getDouble("diametro2"),
+                        resultSet1.getDouble("diametro_promedio"), resultSet1.getDouble("volumen")));
+            }
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    public static int eliminarRollo(Connection connection, int id) {
+        try {
+            final String query = "DELETE FROM rollo WHERE id = ?";
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setInt(1,id);
+            return statement.executeUpdate();
+        }catch (SQLException e){
+            e.printStackTrace();
+            return 0;
+        }
+    }
+
+
 }

@@ -29,6 +29,9 @@ public class MaderaEnRolloController implements Initializable {
     private JFXTextField txtD2;
 
     @FXML
+    private JFXTextField volumenTotal;
+
+    @FXML
     private JFXTreeTableView<Rollo> tabla1;
     private ObservableList<Rollo> list;
 
@@ -46,10 +49,27 @@ public class MaderaEnRolloController implements Initializable {
     }
 
 
+    @FXML
+    void eliminaRollo(ActionEvent event) {
+        int row = tabla1.getSelectionModel().getSelectedItem().getValue().getId();
+        conexion.establecerConexion();
+        Rollo.eliminarRollo(conexion.getConection(), row);
+        conexion.cerrarConexion();
+        list.removeIf(x -> x.getId() == row);
+    }
+
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         list = FXCollections.observableArrayList();
         columnas();
+        conexion.establecerConexion();
+        Rollo.obtenerDatos(conexion.getConection(), list);
+        conexion.cerrarConexion();
+
+        var total = list.parallelStream().mapToDouble(Rollo::getVol).sum();
+        System.out.println(total);
+        volumenTotal.setText(total + "");
     }
 
     // Se establecen las columnas de la tabla.

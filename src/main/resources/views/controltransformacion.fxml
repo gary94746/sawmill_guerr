@@ -62,7 +62,7 @@
                   <Insets left="10.0" />
                </HBox.margin>
             </JFXButton>
-            <JFXButton contentDisplay="CENTER" layoutX="473.0" layoutY="18.0" style="-fx-background-color: #916b47;" text="." textFill="#916b47">
+            <JFXButton contentDisplay="CENTER" layoutX="473.0" layoutY="18.0" onAction="#eliminaRollo" style="-fx-background-color: #916b47;" text="." textFill="#916b47">
                <graphic>
                   <FontAwesomeIconView fill="WHITE" glyphName="TRASH" size="14" text="" />
                </graphic>
@@ -104,7 +104,7 @@
                   <Insets left="10.0" />
                </HBox.margin>
             </Label>
-            <JFXTextField prefHeight="25.0" prefWidth="131.0">
+            <JFXTextField fx:id="volumenTotal" prefHeight="25.0" prefWidth="131.0">
                <HBox.margin>
                   <Insets />
                </HBox.margin>

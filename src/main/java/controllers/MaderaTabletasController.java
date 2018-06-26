@@ -32,19 +32,23 @@ public class MaderaTabletasController implements Initializable {
     private JFXTreeTableView<Tabletas> tabla2;
 
     private ObservableList<Tabletas> list;
+    private double cubos;
 
     @FXML
     private JFXComboBox<String> comboLongitud;
 
     @FXML
-    private JFXComboBox<String> comboGruesoporancho;
+    private JFXComboBox<String> comboGrueso;
+
+    @FXML
+    private JFXComboBox<String> comboAncho;
 
     private Conexion conexion = Conexion.getInstance();
 
 
     @FXML
     void agregaTableta(ActionEvent event) {
-        System.out.println("Hola2");
+
     }
 
     // Abre un Stage con la vista extra de tabletas.
@@ -65,8 +69,10 @@ public class MaderaTabletasController implements Initializable {
         list = FXCollections.observableArrayList();
         comboLongitud.getItems().addAll("2", "3", "4", "5", "6", "7");
         comboLongitud.setValue("2");
-        comboGruesoporancho.getItems().addAll("3/4 x 4", "3/4 x 6", "3/4 x 8", "3/4 x 10", "3/4 x 12", "1 1/2 x 4", "1 1/2 x 6", "1 1/2 x 8", "1 1/2 x 10", "1 1/2 x 12");
-        comboGruesoporancho.setValue("3/4 x 4");
+        comboGrueso.getItems().addAll("3/4", "1 1/2");
+        comboGrueso.setValue("3/4");
+        comboAncho.getItems().addAll("2", "4", "6", "8", "10", "12");
+        comboAncho.setValue("2");
 
         columnas();
     }
@@ -127,16 +133,6 @@ public class MaderaTabletasController implements Initializable {
     }
 
     public void asignarCubicacion(){
-        
-    }
 
-    /**public void agregarTableta(Tabletas x){
-        conexion.establecerConexion();
-        var newOtros = Tabletas.addOtros(conexion.getConection(),x);
-        conexion.cerrarConexion();
-        System.out.println(newOtros==null);
-        if (newOtros != null) {
-            list.add(newOtros);
-        }
-    }*/
+    }
 }

@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.MaderaTabletasController">
+<VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="440.0" prefWidth="702.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.MaderaTabletasController">
    <children>
       <Label stylesheets="@../estilos/dashboard.css" text="Control de produccion de madera aserrada.">
          <VBox.margin>
@@ -34,20 +34,28 @@
       </Label>
       <HBox alignment="CENTER" prefHeight="62.0" prefWidth="600.0">
          <children>
+            <Label contentDisplay="RIGHT" layoutX="10.0" layoutY="10.0" text="Grueso:">
+               <HBox.margin>
+                  <Insets right="10.0" />
+               </HBox.margin>
+               <graphic>
+                  <JFXComboBox fx:id="comboGrueso" prefHeight="25.0" prefWidth="82.0" />
+               </graphic>
+            </Label>
+            <Label contentDisplay="RIGHT" layoutX="53.0" layoutY="29.0" text="Ancho:">
+               <graphic>
+                  <JFXComboBox fx:id="comboAncho" prefHeight="25.0" prefWidth="77.0" />
+               </graphic>
+               <HBox.margin>
+                  <Insets right="10.0" />
+               </HBox.margin>
+            </Label>
             <Label contentDisplay="RIGHT" text="Longitud:">
                <HBox.margin>
-                  <Insets />
+                  <Insets right="10.0" />
                </HBox.margin>
                <graphic>
                   <JFXComboBox fx:id="comboLongitud" />
-               </graphic>
-            </Label>
-            <Label contentDisplay="RIGHT" layoutX="10.0" layoutY="10.0" text="Grueso por ancho:">
-               <HBox.margin>
-                  <Insets left="10.0" />
-               </HBox.margin>
-               <graphic>
-                  <JFXComboBox fx:id="comboGruesoporancho" prefHeight="25.0" prefWidth="111.0" />
                </graphic>
             </Label>
             <Label contentDisplay="RIGHT" layoutX="177.0" layoutY="10.0" text="Piezas:">
@@ -55,7 +63,7 @@
                   <JFXTextField prefHeight="25.0" prefWidth="57.0" />
                </graphic>
                <HBox.margin>
-                  <Insets left="10.0" />
+                  <Insets />
                </HBox.margin>
             </Label>
             <JFXButton contentDisplay="CENTER" onAction="#agregaTableta" style="-fx-background-color: #916b47;" text="." textFill="WHITE">
