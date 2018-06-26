@@ -1,13 +1,23 @@
 package modelo.resumen;
 
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
+import javafx.beans.binding.DoubleExpression;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.util.Collections;
 
 public class Resumen extends RecursiveTreeObject<Resumen> {
     private StringProperty medida;
+    private StringProperty clase;
     private DoubleProperty primera;
     private DoubleProperty segunda;
     private DoubleProperty tercera_buena;
@@ -26,6 +36,24 @@ public class Resumen extends RecursiveTreeObject<Resumen> {
         this.madera_cruzada = new SimpleDoubleProperty(madera_cruzada);
         this.cuadrado = new SimpleDoubleProperty(cuadrado);
         this.viga = new SimpleDoubleProperty(viga);
+        this.total = new SimpleDoubleProperty(total);
+    }
+
+    public Resumen() {
+        this.medida = new SimpleStringProperty("");
+        this.primera = new SimpleDoubleProperty(0.000);
+        this.segunda = new SimpleDoubleProperty(0.000);
+        this.tercera_buena = new SimpleDoubleProperty(0.000);
+        this.tercera_mala = new SimpleDoubleProperty(0.000);
+        this.madera_cruzada = new SimpleDoubleProperty(0.000);
+        this.cuadrado = new SimpleDoubleProperty(0.000);
+        this.viga = new SimpleDoubleProperty(0.000);
+        this.total = new SimpleDoubleProperty(0.000);
+    }
+
+    public Resumen(String grueso, String clase, Double total) {
+        this.medida = new SimpleStringProperty(grueso);
+        this.clase = new SimpleStringProperty(clase);
         this.total = new SimpleDoubleProperty(total);
     }
 
@@ -135,5 +163,129 @@ public class Resumen extends RecursiveTreeObject<Resumen> {
 
     public void setTotal(double total) {
         this.total.set(total);
+    }
+
+    public String getClase() {
+        return clase.get();
+    }
+
+    public StringProperty claseProperty() {
+        return clase;
+    }
+
+    public void setClase(String clase) {
+        this.clase.set(clase);
+    }
+
+    public double getTotalSum() {
+        NumberFormat format = new DecimalFormat("#0.000");
+        var returned = primera.get() + segunda.get() +
+                tercera_buena.get() + tercera_mala.get() + madera_cruzada.get() + cuadrado.get() + viga.get();
+        var x = format.format(returned);
+        return Double.parseDouble(x);
+    }
+
+    public static void get_data(Connection connection, ObservableList<Resumen> lista, String date1, String date2) {
+         try{
+             ObservableList<Resumen> fxlis = FXCollections.observableArrayList();
+
+             //TEMPORAL VALUES
+             var r1 = new Resumen();
+                r1.setMedida("3/4\"");
+             var r2 = new Resumen();
+                r2.setMedida("1 1/2\"");
+             var r3 = new Resumen();
+                r3.setMedida("2\"");
+
+             var query = "SELECT * FROM get_resumen('"+date1+"'::date,'"+date2+"'::date)";
+             var statement = connection.createStatement();
+             var rs = statement.executeQuery(query);
+
+             while (rs.next())
+                 fxlis.add(new Resumen(rs.getString(1), rs.getString(2), rs.getDouble(3)));
+
+             fxlis.forEach(x -> {
+                 switch (x.getMedida()) {
+                     case "3/4":
+                         if (r1.getPrimera() == 0.000)
+                             r1.setPrimera((x.getClase().equals("PRIMERA")) ? x.getTotal() : 0.000);
+
+                         if (r1.getSegunda() == 0.000)
+                             r1.setSegunda((x.getClase().equals("SEGUNDA")) ? x.getTotal() : 0.000);
+
+                         if (r1.getTercera_buena() == 0.000)
+                             r1.setTercera_buena((x.getClase().equals("TERCERA BUENA")) ? x.getTotal() : 0.000);
+
+                         if (r1.getTercera_mala() == 0.000)
+                             r1.setTercera_mala((x.getClase().equals("TERCERA MALA")) ? x.getTotal() : 0.000);
+
+                         if (r1.getMadera_cruzada() == 0.000)
+                             r1.setMadera_cruzada((x.getClase().equals("MADERA CRUZADA")) ? x.getTotal() : 0.000);
+
+                         if (r1.getCuadrado() == 0.000)
+                             r1.setCuadrado((x.getClase().equals("CUADRADO")) ? x.getTotal() : 0.000);
+
+                         if (r1.getViga() == 0.000)
+                             r1.setViga((x.getClase().equals("VIGA")) ? x.getTotal() : 0.000);
+
+                         r1.setTotal(r1.getTotalSum());
+
+                         break;
+                     case "1 1/2":
+                         if (r2.getPrimera() == 0.000)
+                             r2.setPrimera((x.getClase().equals("PRIMERA")) ? x.getTotal() : 0.000);
+
+                         if (r2.getSegunda() == 0.000)
+                             r2.setSegunda((x.getClase().equals("SEGUNDA")) ? x.getTotal() : 0.000);
+
+                         if (r2.getTercera_buena() == 0.000)
+                             r2.setTercera_buena((x.getClase().equals("TERCERA BUENA")) ? x.getTotal() : 0.000);
+
+                         if (r2.getTercera_mala() == 0.000)
+                             r2.setTercera_mala((x.getClase().equals("TERCERA MALA")) ? x.getTotal() : 0.000);
+
+                         if (r2.getMadera_cruzada() == 0.000)
+                             r2.setMadera_cruzada((x.getClase().equals("MADERA CRUZADA")) ? x.getTotal() : 0.000);
+
+                         if (r2.getCuadrado() == 0.000)
+                             r2.setCuadrado((x.getClase().equals("CUADRADO")) ? x.getTotal() : 0.000);
+
+                         if (r2.getViga() == 0.000)
+                             r2.setViga((x.getClase().equals("VIGA")) ? x.getTotal() : 0.000);
+
+                         r2.setTotal(r2.getTotalSum());
+                         break;
+                     case "2":
+                         if (r3.getPrimera() == 0.000)
+                             r3.setPrimera((x.getClase().equals("PRIMERA")) ? x.getTotal() : 0.000);
+
+                         if (r3.getSegunda() == 0.000)
+                             r3.setSegunda((x.getClase().equals("SEGUNDA")) ? x.getTotal() : 0.000);
+
+                         if (r3.getTercera_buena() == 0.000)
+                             r3.setTercera_buena((x.getClase().equals("TERCERA BUENA")) ? x.getTotal() : 0.000);
+
+                         if (r3.getTercera_mala() == 0.000)
+                             r3.setTercera_mala((x.getClase().equals("TERCERA MALA")) ? x.getTotal() : 0.000);
+
+                         if (r3.getMadera_cruzada() == 0.000)
+                             r3.setMadera_cruzada((x.getClase().equals("MADERA CRUZADA")) ? x.getTotal() : 0.000);
+
+                         if (r3.getCuadrado() == 0.000)
+                             r3.setCuadrado((x.getClase().equals("CUADRADO")) ? x.getTotal() : 0.000);
+
+                         if (r3.getViga() == 0.000)
+                             r3.setViga((x.getClase().equals("VIGA")) ? x.getTotal() : 0.000);
+
+                         r3.setTotal(r3.getTotalSum());
+                         break;
+                 }
+             });
+
+             lista.addAll(r1,r2,r3);
+
+         }catch (SQLException e) {
+             e.printStackTrace();
+         }
     }
 }

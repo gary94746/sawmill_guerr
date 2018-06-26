@@ -1,5 +1,6 @@
 package controllers;
 
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTreeTableColumn;
 import com.jfoenix.controls.JFXTreeTableView;
 import com.jfoenix.controls.RecursiveTreeItem;
@@ -8,11 +9,14 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Tooltip;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeTableColumn;
 import javafx.scene.layout.VBox;
+import modelo.Conexion;
 import modelo.resumen.Resumen;
 
 import java.net.URL;
@@ -21,21 +25,31 @@ import java.util.ResourceBundle;
 
 public class ResumenController implements Initializable {
 
-    @FXML
-    private JFXTreeTableView<Resumen> treTable;
+    @FXML private JFXButton btnHistorial;
+    @FXML private JFXButton btnImprimir;
+    @FXML private JFXTreeTableView<Resumen> treTable;
 
     private ObservableList<Resumen> list;
+    private Conexion conexion = Conexion.getInstance();
 
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        //Tooltips
+        btnImprimir.setTooltip(new Tooltip("Imprimir en pdf"));
+        btnHistorial.setTooltip(new Tooltip("Ver el historial"));
+
         list = FXCollections.observableArrayList();
-        list.add(new Resumen("3/4\"",1678.704,215.101,565.254,2541.103,5412.023,58746.412,2563.123,45213.000));
         columns();
+
+        //lista
+        conexion.establecerConexion();
+        Resumen.get_data(conexion.getConection(), list, "2016-03-01","2018-03-08");
+        conexion.cerrarConexion();
+
     }
 
 
-    //.asObject
     private void columns() {
         final TreeItem<Resumen> root = new RecursiveTreeItem<>(list, RecursiveTreeObject::getChildren);
         treTable.setRoot(root);
@@ -118,4 +132,15 @@ public class ResumenController implements Initializable {
         treTable.setShowRoot(false);
         treTable.getColumns().setAll(clmMedida, clmPrimera, clmSegunda, clmTerceraBuena, clmTerceraMala, clmMaderaCruzada, clmCuadrado, clmViga, clmTotal);
     }
+
+    @FXML
+    void historial(ActionEvent event) {
+        System.out.println("Esta en el historial");
+    }
+
+    @FXML
+    void imprimir(ActionEvent event) {
+        System.out.println("Imprimio en pdf");
+    }
+
 }
