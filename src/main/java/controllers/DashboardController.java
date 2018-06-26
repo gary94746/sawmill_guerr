@@ -33,7 +33,7 @@ public class DashboardController implements Initializable {
             borderDashboard.setCenter(parentResumen);
 
             //Fecha actual
-            var date = new SimpleDateFormat("dd-MM-yyyy");
+            var date = new SimpleDateFormat("dd/MM/yyyy");
             lblDate.setText(date.format(new Date()));
 
         } catch (IOException e) {

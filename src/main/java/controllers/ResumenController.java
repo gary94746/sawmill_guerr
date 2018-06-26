@@ -1,9 +1,6 @@
 package controllers;
 
-import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXTreeTableColumn;
-import com.jfoenix.controls.JFXTreeTableView;
-import com.jfoenix.controls.RecursiveTreeItem;
+import com.jfoenix.controls.*;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -12,6 +9,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.control.Tooltip;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeTableColumn;
@@ -20,31 +18,42 @@ import modelo.Conexion;
 import modelo.resumen.Resumen;
 
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.ResourceBundle;
 
 public class ResumenController implements Initializable {
 
-    @FXML private JFXButton btnHistorial;
     @FXML private JFXButton btnImprimir;
+    @FXML private JFXButton btnBuscar;
     @FXML private JFXTreeTableView<Resumen> treTable;
+    @FXML private JFXDatePicker date1;
+    @FXML private JFXDatePicker date2;
 
     private ObservableList<Resumen> list;
     private Conexion conexion = Conexion.getInstance();
 
+    @FXML private Label lblResumen;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         //Tooltips
         btnImprimir.setTooltip(new Tooltip("Imprimir en pdf"));
-        btnHistorial.setTooltip(new Tooltip("Ver el historial"));
+        btnBuscar.setTooltip(new Tooltip("Buscar"));
+
+        //Resumen actual
+        //Fecha actual
+        var dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        var dateFormat1 = new SimpleDateFormat("yyyy-MM-dd");
+        lblResumen.setText("Resumen del: " + dateFormat.format(new Date()));
 
         list = FXCollections.observableArrayList();
         columns();
 
         //lista
         conexion.establecerConexion();
-        Resumen.get_data(conexion.getConection(), list, "2016-03-01","2018-03-08");
+        Resumen.get_data(conexion.getConection(), list, dateFormat1.format(new Date()),dateFormat1.format(new Date()));
         conexion.cerrarConexion();
 
     }
@@ -134,8 +143,18 @@ public class ResumenController implements Initializable {
     }
 
     @FXML
-    void historial(ActionEvent event) {
-        System.out.println("Esta en el historial");
+    void buscar(ActionEvent event) {
+        var datePicker1 = date1.getValue().getYear() + "-" + date1.getValue().getMonthValue()+ "-" + date1.getValue().getDayOfMonth();
+        var datePicker2 = date2.getValue().getYear() + "-" + date2.getValue().getMonthValue()+ "-" + date2.getValue().getDayOfMonth();
+
+        list.removeIf(x -> true);
+        conexion.establecerConexion();
+        Resumen.get_data(conexion.getConection(), list, datePicker1, datePicker2);
+        conexion.cerrarConexion();
+
+        lblResumen.setText("Resumen del: " +
+                date1.getValue().getDayOfMonth() + "/" + date1.getValue().getMonthValue()+ "/" + date1.getValue().getYear() + " al: " +
+                date2.getValue().getDayOfMonth() + "/" + date2.getValue().getMonthValue()+ "/" + date2.getValue().getYear());
     }
 
     @FXML

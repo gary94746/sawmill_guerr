@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXDatePicker?>
 <?import com.jfoenix.controls.JFXTreeTableView?>
 <?import de.jensd.fx.glyphs.materialicons.MaterialIconView?>
 <?import java.lang.String?>
@@ -17,7 +18,7 @@
 
 <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="514.0" prefWidth="839.0" stylesheets="@../estilos/dashboard.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ResumenController">
    <children>
-      <Label prefHeight="16.0" prefWidth="599.0" text="Resumen">
+      <Label fx:id="lblResumen" prefHeight="16.0" prefWidth="599.0" text="Resumen">
          <VBox.margin>
             <Insets bottom="10.0" />
          </VBox.margin>
@@ -31,12 +32,32 @@
             <Insets bottom="10.0" />
          </VBox.margin>
          <children>
-            <JFXButton fx:id="btnHistorial" contentDisplay="CENTER" onAction="#historial" prefHeight="14.0" prefWidth="0.0" style="-fx-background-color: #916b47;" textAlignment="CENTER" textFill="#009931">
+            <HBox prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
+               <children>
+                  <Label text="Buscar por fecha:       De:" />
+                  <JFXDatePicker fx:id="date1" editable="false">
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                  </JFXDatePicker>
+                  <Label text="A:">
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                  </Label>
+                  <JFXDatePicker fx:id="date2" editable="false">
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                  </JFXDatePicker>
+               </children>
+            </HBox>
+            <JFXButton fx:id="btnBuscar" contentDisplay="CENTER" onAction="#buscar" prefHeight="14.0" prefWidth="0.0" style="-fx-background-color: #916b47;" textAlignment="CENTER" textFill="#009931">
                <font>
                   <Font size="14.0" />
                </font>
                <graphic>
-                  <MaterialIconView fill="WHITE" glyphName="HISTORY" size="18" />
+                  <MaterialIconView fill="WHITE" glyphName="SEARCH" size="18" text="" />
                </graphic>
             </JFXButton>
             <JFXButton fx:id="btnImprimir" contentDisplay="CENTER" onAction="#imprimir" prefHeight="14.0" prefWidth="0.0" style="-fx-background-color: #916b47;" textAlignment="CENTER" textFill="#009931">
