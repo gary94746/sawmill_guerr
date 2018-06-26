@@ -6,6 +6,9 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 
+import java.sql.Connection;
+import java.sql.SQLException;
+
 public class Rollo extends RecursiveTreeObject<Rollo> {
     private IntegerProperty id;
     private IntegerProperty num;
@@ -101,5 +104,18 @@ public class Rollo extends RecursiveTreeObject<Rollo> {
 
     public void setVol(double vol) {
         this.vol.set(vol);
+    }
+
+    public static double getVolumenRollosFecha(Connection connection, String date1, String date2) {
+        try {
+            var stm = connection.createStatement();
+            var rs  =stm.executeQuery("SELECT * FROM get_volumen_rollos('"+date1+"'::date,'"+date2+"'::date)");
+
+            if (rs.next())
+                return rs.getDouble(1);
+        }catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return -1.0;
     }
 }
