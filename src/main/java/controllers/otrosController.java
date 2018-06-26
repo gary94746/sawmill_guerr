@@ -55,6 +55,8 @@ public class otrosController implements Initializable {
         ComboPz.getItems().addAll("POL 4X4","POL 3.5X3.5","POL 3X3","BAR 2X4","BAR 1.5X3.5","VIGA 4x4","VIGA 4x6","VIGA 4x8");
         ComboPz.setValue("POL 4X4");
         txtPt.setText("0");
+        txtCubicacion.setEditable(false);
+        txtPt.setEditable(false);
         valcub=(4*4*8.25)/12;
         txtCubicacion.setText(String.valueOf(valcub));
         list = FXCollections.observableArrayList();
