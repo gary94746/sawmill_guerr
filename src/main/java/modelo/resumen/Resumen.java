@@ -39,6 +39,18 @@ public class Resumen extends RecursiveTreeObject<Resumen> {
         this.total = new SimpleDoubleProperty(total);
     }
 
+    public Resumen(String medida, Double primera, Double segunda, Double tercera_buena, Double tercera_mala, Double madera_cruzada, Double cuadrado, Double viga) {
+        this.medida = new SimpleStringProperty(medida);
+        this.primera = new SimpleDoubleProperty(primera);
+        this.segunda = new SimpleDoubleProperty(segunda);
+        this.tercera_buena = new SimpleDoubleProperty(tercera_buena);
+        this.tercera_mala = new SimpleDoubleProperty(tercera_mala);
+        this.madera_cruzada = new SimpleDoubleProperty(madera_cruzada);
+        this.cuadrado = new SimpleDoubleProperty(cuadrado);
+        this.viga = new SimpleDoubleProperty(viga);
+        this.total = new SimpleDoubleProperty(getTotalSum());
+    }
+
     public Resumen() {
         this.medida = new SimpleStringProperty("");
         this.primera = new SimpleDoubleProperty(0.000);

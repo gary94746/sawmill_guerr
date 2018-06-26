@@ -46,7 +46,6 @@ public class ResumenController implements Initializable {
         btnImprimir.setTooltip(new Tooltip("Imprimir en pdf"));
         btnBuscar.setTooltip(new Tooltip("Buscar"));
 
-        //Resumen actual
         //Fecha actual
         var dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         var dateFormat1 = new SimpleDateFormat("yyyy-MM-dd");
@@ -55,14 +54,8 @@ public class ResumenController implements Initializable {
         list = FXCollections.observableArrayList();
         columns();
 
-        var suma = list.parallelStream().mapToDouble(Resumen::getTotal).sum();
-        System.out.println(suma);
-
-        //lista
-        conexion.establecerConexion();
-        Resumen.get_data(conexion.getConection(), list, dateFormat1.format(new Date()),dateFormat1.format(new Date()));
-        conexion.cerrarConexion();
-
+        //actual data
+        loadData(dateFormat1.format(new Date()),dateFormat1.format(new Date()));
     }
 
 
@@ -154,22 +147,12 @@ public class ResumenController implements Initializable {
         var datePicker1 = date1.getValue().getYear() + "-" + date1.getValue().getMonthValue()+ "-" + date1.getValue().getDayOfMonth();
         var datePicker2 = date2.getValue().getYear() + "-" + date2.getValue().getMonthValue()+ "-" + date2.getValue().getDayOfMonth();
 
-        list.removeIf(x -> true);
-        conexion.establecerConexion();
-        Resumen.get_data(conexion.getConection(), list, datePicker1, datePicker2);
-        var volRollos = Rollo.getVolumenRollosFecha(conexion.getConection(), datePicker1, datePicker2);
-        conexion.cerrarConexion();
-
         lblResumen.setText("Resumen del: " +
                 date1.getValue().getDayOfMonth() + "/" + date1.getValue().getMonth()+ "/" + date1.getValue().getYear() + " al: " +
-                date2.getValue().getDayOfMonth() + "/" + date2.getValue().getMonth()+ "/" + date2.getValue().getYear());
+                date2.getValue().getDayOfMonth() + "/" + date2.getValue().getMonth()+ "/" + date2.getValue().getYear()
+        );
 
-
-        var suma = list.parallelStream().mapToDouble(Resumen::getTotal).sum() * 0.00236;
-        NumberFormat d = new DecimalFormat("#0.000");
-        txtVolA.setText(d.format(suma));
-        txtRollo.setText(volRollos +"");
-        txtCofA.setText(d.format((suma/volRollos)*100));
+        loadData(datePicker1, datePicker2);
     }
 
     @FXML
@@ -177,4 +160,49 @@ public class ResumenController implements Initializable {
         System.out.println("Imprimio en pdf");
     }
 
+    private double format3Decimals(double numero) {
+        NumberFormat d = new DecimalFormat("#0.000");
+        var f = d.format(numero);
+        return Double.parseDouble(f);
+    }
+
+    private void loadData(String datePicker1, String datePicker2) {
+        list.removeIf(x -> true);
+        conexion.establecerConexion();
+        Resumen.get_data(conexion.getConection(), list, datePicker1, datePicker2);
+        var volRollos = Rollo.getVolumenRollosFecha(conexion.getConection(), datePicker1, datePicker2);
+        conexion.cerrarConexion();
+
+        // TOTALES /////////////
+        var tPrimera = format3Decimals(list.parallelStream().mapToDouble(Resumen::getPrimera).sum());
+        var tSegunda = format3Decimals(list.parallelStream().mapToDouble(Resumen::getSegunda).sum());
+        var tTBuena = format3Decimals(list.parallelStream().mapToDouble(Resumen::getTercera_buena).sum());
+        var tTMala = format3Decimals(list.parallelStream().mapToDouble(Resumen::getTercera_mala).sum());
+        var tMCruz = format3Decimals(list.parallelStream().mapToDouble(Resumen::getMadera_cruzada).sum());
+        var tCuadrado = format3Decimals(list.parallelStream().mapToDouble(Resumen::getCuadrado).sum());
+        var tViga = format3Decimals(list.parallelStream().mapToDouble(Resumen::getViga).sum());
+        var tTotal = format3Decimals(list.parallelStream().mapToDouble(Resumen::getTotal).sum());
+
+
+        //Text Fields Inferiores
+        var suma = tPrimera * 0.00236;
+        txtVolA.setText(""+format3Decimals(suma));
+        txtRollo.setText(volRollos +"");
+        txtCofA.setText(""+format3Decimals((suma/volRollos)*100));
+
+        //  total
+        list.add(new Resumen("TOTAL", tPrimera, tSegunda, tTBuena, tTMala, tMCruz, tCuadrado, tViga, tTotal));
+
+        //  % de clases
+        list.add(new Resumen(
+                "% CLASES",
+                format3Decimals((tPrimera/tTotal)*100),
+                format3Decimals((tSegunda/tTotal)*100),
+                format3Decimals((tTBuena/tTotal)*100),
+                format3Decimals((tTMala/tTotal)*100),
+                format3Decimals((tMCruz/tTotal)*100),
+                format3Decimals((tCuadrado/tTotal)*100),
+                format3Decimals((tViga/tTotal)*100)
+        ));
+    }
 }
