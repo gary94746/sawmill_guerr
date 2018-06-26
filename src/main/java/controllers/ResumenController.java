@@ -9,15 +9,15 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Label;
-import javafx.scene.control.Tooltip;
-import javafx.scene.control.TreeItem;
-import javafx.scene.control.TreeTableColumn;
+import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import modelo.Conexion;
 import modelo.resumen.Resumen;
+import modelo.rollo.Rollo;
 
 import java.net.URL;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -30,6 +30,10 @@ public class ResumenController implements Initializable {
     @FXML private JFXTreeTableView<Resumen> treTable;
     @FXML private JFXDatePicker date1;
     @FXML private JFXDatePicker date2;
+    @FXML private TextField txtRollo;
+    @FXML private TextField txtVolA;
+    @FXML private TextField txtCofA;
+
 
     private ObservableList<Resumen> list;
     private Conexion conexion = Conexion.getInstance();
@@ -50,6 +54,9 @@ public class ResumenController implements Initializable {
 
         list = FXCollections.observableArrayList();
         columns();
+
+        var suma = list.parallelStream().mapToDouble(Resumen::getTotal).sum();
+        System.out.println(suma);
 
         //lista
         conexion.establecerConexion();
@@ -150,11 +157,19 @@ public class ResumenController implements Initializable {
         list.removeIf(x -> true);
         conexion.establecerConexion();
         Resumen.get_data(conexion.getConection(), list, datePicker1, datePicker2);
+        var volRollos = Rollo.getVolumenRollosFecha(conexion.getConection(), datePicker1, datePicker2);
         conexion.cerrarConexion();
 
         lblResumen.setText("Resumen del: " +
-                date1.getValue().getDayOfMonth() + "/" + date1.getValue().getMonthValue()+ "/" + date1.getValue().getYear() + " al: " +
-                date2.getValue().getDayOfMonth() + "/" + date2.getValue().getMonthValue()+ "/" + date2.getValue().getYear());
+                date1.getValue().getDayOfMonth() + "/" + date1.getValue().getMonth()+ "/" + date1.getValue().getYear() + " al: " +
+                date2.getValue().getDayOfMonth() + "/" + date2.getValue().getMonth()+ "/" + date2.getValue().getYear());
+
+
+        var suma = list.parallelStream().mapToDouble(Resumen::getTotal).sum() * 0.00236;
+        NumberFormat d = new DecimalFormat("#0.000");
+        txtVolA.setText(d.format(suma));
+        txtRollo.setText(volRollos +"");
+        txtCofA.setText(d.format((suma/volRollos)*100));
     }
 
     @FXML
