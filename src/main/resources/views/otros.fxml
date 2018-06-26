@@ -64,25 +64,25 @@
                   <Insets left="15.0" />
                </GridPane.margin>
             </Label>
-            <JFXComboBox fx:id="ComboPz" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="26.0" prefWidth="140.0" GridPane.columnIndex="1" />
+            <JFXComboBox fx:id="ComboPz" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#ActionComboPz" prefHeight="26.0" prefWidth="140.0" GridPane.columnIndex="1" />
             <Label text="CUBICACION:" GridPane.columnIndex="4">
                <GridPane.margin>
                   <Insets left="22.0" />
                </GridPane.margin>
             </Label>
-            <JFXTextField prefHeight="26.0" prefWidth="114.0" GridPane.columnIndex="5">
+            <JFXTextField fx:id="txtCubicacion" prefHeight="26.0" prefWidth="114.0" GridPane.columnIndex="5">
                <GridPane.margin>
                   <Insets left="10.0" right="20.0" />
                </GridPane.margin>
             </JFXTextField>
-            <TextField prefHeight="26.0" prefWidth="152.0" GridPane.columnIndex="3" />
+            <TextField fx:id="txtPieza" onKeyReleased="#ActionPieza" prefHeight="26.0" prefWidth="152.0" GridPane.columnIndex="3" />
             <Label text="PT" GridPane.rowIndex="1">
                <GridPane.margin>
                   <Insets left="20.0" />
                </GridPane.margin>
             </Label>
-            <JFXTextField maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="26.0" prefWidth="119.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <JFXButton contentDisplay="CENTER" prefHeight="14.0" prefWidth="0.0" style="-fx-background-color: #916b47;" text="." textFill="WHITE" GridPane.columnIndex="3" GridPane.rowIndex="1">
+            <JFXTextField fx:id="txtPt" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="26.0" prefWidth="119.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <JFXButton fx:id="btnAgregar" contentDisplay="CENTER" onAction="#addOtros" prefHeight="14.0" prefWidth="0.0" style="-fx-background-color: #916b47;" text="." textFill="WHITE" GridPane.columnIndex="3" GridPane.rowIndex="1">
                <graphic>
                   <FontAwesomeIconView fill="WHITE" glyphName="PLUS" />
                </graphic>
