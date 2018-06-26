@@ -39,7 +39,7 @@
                   <Insets />
                </HBox.margin>
                <graphic>
-                  <JFXComboBox />
+                  <JFXComboBox fx:id="comboLongitud" />
                </graphic>
             </Label>
             <Label contentDisplay="RIGHT" layoutX="10.0" layoutY="10.0" text="Grueso por ancho:">
@@ -47,7 +47,7 @@
                   <Insets left="10.0" />
                </HBox.margin>
                <graphic>
-                  <JFXComboBox prefHeight="25.0" prefWidth="93.0" />
+                  <JFXComboBox fx:id="comboGruesoporancho" prefHeight="25.0" prefWidth="111.0" />
                </graphic>
             </Label>
             <Label contentDisplay="RIGHT" layoutX="177.0" layoutY="10.0" text="Piezas:">

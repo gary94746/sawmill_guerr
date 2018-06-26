@@ -5,6 +5,7 @@ import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import modelo.otros_madera.otros_mad;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -117,5 +118,29 @@ public class Rollo extends RecursiveTreeObject<Rollo> {
             e.printStackTrace();
         }
         return -1.0;
+    }
+
+    public static Rollo addRollo(Connection connection, int numero, double diametro1, double diametro2) {
+        try {
+            var roll_added = "SELECT * FROM add_rollos(" + numero + "," + diametro1 + "," + diametro2 + ");";
+            System.out.println(roll_added);
+
+            var statementP = connection.createStatement();
+            var resultSet1 = statementP.executeQuery(roll_added);
+
+            if (resultSet1.next())
+                return new Rollo(
+                        resultSet1.getInt("numero"),
+                        resultSet1.getInt("diametro1"),
+                        resultSet1.getDouble("diametro2"),
+                        resultSet1.getDouble("diametro_promedio"),
+                        resultSet1.getDouble("volumen")
+                );
+
+        }catch (Exception e){
+            e.printStackTrace();
+
+        }
+        return null;
     }
 }

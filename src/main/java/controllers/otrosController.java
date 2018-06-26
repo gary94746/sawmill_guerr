@@ -12,6 +12,7 @@ import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeTableColumn;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.VBox;
+import modelo.Conexion;
 import modelo.Control_madera.madera_control;
 import modelo.otros_madera.otros_mad;
 
@@ -45,6 +46,8 @@ public class otrosController implements Initializable {
     double valcub;
     private ObservableList<otros_mad> list;
 
+    private Conexion conexion = Conexion.getInstance();
+
 
 
     @Override
@@ -52,9 +55,12 @@ public class otrosController implements Initializable {
         ComboPz.getItems().addAll("POL 4X4","POL 3.5X3.5","POL 3X3","BAR 2X4","BAR 1.5X3.5","VIGA 4x4","VIGA 4x6","VIGA 4x8");
         ComboPz.setValue("POL 4X4");
         txtPt.setText("0");
+        txtCubicacion.setEditable(false);
+        txtPt.setEditable(false);
         valcub=(4*4*8.25)/12;
         txtCubicacion.setText(String.valueOf(valcub));
         list = FXCollections.observableArrayList();
+        list.add(new otros_mad("12",1,2,3));
         columns();
 
     }
@@ -118,13 +124,17 @@ public class otrosController implements Initializable {
         tablaOtros.setEditable(false);
         tablaOtros.setShowRoot(false);
         tablaOtros.getColumns().setAll(Columna1, Columna2,Columna3,Columna4);
-
     }
 
 
     public void agregarRegistro(otros_mad x){
-        list.add(x);
-
+        conexion.establecerConexion();
+        var newOtros = otros_mad.addOtros(conexion.getConection(),x);
+        conexion.cerrarConexion();
+        System.out.println(newOtros==null);
+        if (newOtros != null) {
+           list.add(newOtros);
+       }
     }
 
     public void CalPt(){

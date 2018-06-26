@@ -14,6 +14,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeTableColumn;
 import javafx.scene.control.TreeTableRow;
+import modelo.Conexion;
 import modelo.rollo.Rollo;
 
 import java.net.URL;
@@ -30,13 +31,15 @@ public class MaderaEnRolloController implements Initializable {
     @FXML
     private JFXTreeTableView<Rollo> tabla1;
     private ObservableList<Rollo> list;
+
     private int count = 1;
+
+    private Conexion conexion = Conexion.getInstance();
+
 
     @FXML
     void agregaRollo(ActionEvent event) {
-        double a = (Integer.valueOf(txtD1.getText()) + Integer.valueOf(txtD2.getText())) / 2;
-        double b = Math.pow(a / 100, 2) * 0.7854 * 2.56;
-        list.add(new Rollo(count,Integer.valueOf(txtD1.getText()),Integer.valueOf(txtD2.getText()),a,b));
+        agregarRegistro(null);
         txtD1.setText("");
         txtD2.setText("");
         count++;
@@ -116,4 +119,13 @@ public class MaderaEnRolloController implements Initializable {
         tabla1.getColumns().setAll(numero, diametro1, diametro2, diametropromedio, volumen);
     }
 
+    public void agregarRegistro(Rollo x){
+        conexion.establecerConexion();
+        var newRollo = Rollo.addRollo(conexion.getConection(), count, Double.parseDouble(txtD1.getText()), Double.parseDouble(txtD2.getText()));
+        conexion.cerrarConexion();
+        System.out.println(newRollo == null);
+        if (newRollo != null) {
+            list.add(newRollo);
+        }
+    }
 }
