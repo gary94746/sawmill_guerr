@@ -4,6 +4,9 @@ import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import javafx.beans.property.*;
 import javafx.collections.ObservableList;
 
+import java.sql.Connection;
+import java.sql.SQLException;
+
 public class otros_mad extends RecursiveTreeObject<otros_mad> {
 
     private IntegerProperty id;
@@ -21,6 +24,37 @@ public class otros_mad extends RecursiveTreeObject<otros_mad> {
         this.cubicacion = new SimpleDoubleProperty(cubicacion);
         this.pt = new SimpleDoubleProperty(pt);
     }
+
+    public static otros_mad addOtros(Connection connection, otros_mad otros) {
+       try {
+           var others_added = "SELECT * FROM add_otros('" +
+                   otros.getSelPieza() +
+                   "'," + otros.getPieza() + "" +
+                   "," + otros.getCubicacion() + "," +
+                   otros.getPt() + ");";
+           System.out.println(others_added);
+
+           var statementP = connection.createStatement();
+           var resultSet1 = statementP.executeQuery(others_added);
+
+           if (resultSet1.next())
+               return new otros_mad(
+                       resultSet1.getString("otros"),
+                       resultSet1.getInt("piezas"),
+                       resultSet1.getDouble("cubicacion"),
+                       resultSet1.getDouble("pies_tabla"));
+
+       }catch (Exception e){
+           e.printStackTrace();
+
+       }
+        return null;
+    }
+
+
+
+
+
 
 
     public int getId() {
