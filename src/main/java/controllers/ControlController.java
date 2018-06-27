@@ -10,6 +10,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeTableColumn;
 import javafx.scene.input.KeyEvent;
+import modelo.Conexion;
 import modelo.Control_madera.madera_control;
 
 import java.net.URL;
@@ -37,6 +38,7 @@ public class ControlController implements Initializable {
     private JFXComboBox<String> comboLargo;
 
     double valcub;
+    private Conexion conexion = Conexion.getInstance();
 
 
     private ObservableList<madera_control> list;
@@ -191,11 +193,6 @@ public class ControlController implements Initializable {
 
     }
 
-    public void agregarRegistro(madera_control x){
-        list.add(x);
-
-    }
-
     public void CalPt(){
         try {
             double val1 = Double.parseDouble(txtCubicacion.getText());
@@ -208,17 +205,7 @@ public class ControlController implements Initializable {
 
     }
 
-    @FXML
-    void addControl(ActionEvent event) {
-            agregarRegistro(new madera_control(comboGr.getSelectionModel().getSelectedItem(),
-                    comboAnc.getSelectionModel().getSelectedItem(),comboClase.getSelectionModel().getSelectedItem(),
-                    Integer.parseInt(txtPiezas.getText()),Double.parseDouble(txtCubicacion.getText()),
-                    Double.parseDouble(txtPT.getText()),comboLargo.getSelectionModel().getSelectedItem()));
-    }
-
-
-    @FXML
-    void actionAncho(ActionEvent event) {
+    public void calCubicacion(){
         if(comboAnc.getSelectionModel().getSelectedItem()=="4"){
             valcub=(.75*4*8.25)/12;
             txtCubicacion.setText(String.valueOf(valcub));
@@ -235,6 +222,32 @@ public class ControlController implements Initializable {
             valcub=(.75*12*8.25)/12;
             txtCubicacion.setText(String.valueOf(valcub));
         }
+
+    }
+
+    public void agregarRegistro(madera_control x){
+        conexion.establecerConexion();
+        var newOtros = madera_control.addControl(conexion.getConection(),x);
+        conexion.cerrarConexion();
+        System.out.println(newOtros==null);
+        if (newOtros != null) {
+            list.add(newOtros);
+        }
+    }
+
+    @FXML
+    void addControl(ActionEvent event) {
+            agregarRegistro(new madera_control(comboGr.getSelectionModel().getSelectedItem(),
+                    comboAnc.getSelectionModel().getSelectedItem(),comboClase.getSelectionModel().getSelectedItem(),
+                    Integer.parseInt(txtPiezas.getText()),Double.parseDouble(txtCubicacion.getText()),
+                    Double.parseDouble(txtPT.getText()),comboLargo.getSelectionModel().getSelectedItem()));
+    }
+
+
+    @FXML
+    void actionAncho(ActionEvent event) {
+        calCubicacion();
+        CalPt();
     }
 
     @FXML

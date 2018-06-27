@@ -17,31 +17,19 @@ import modelo.Control_madera.madera_control;
 import modelo.otros_madera.otros_mad;
 
 import java.net.URL;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.ResourceBundle;
 
 public class otrosController implements Initializable {
 
-    @FXML
-    private VBox vBoxOtros;
-
-
-    @FXML
-    private VBox vBoxotros;
-
-    @FXML
-    private JFXComboBox<String> ComboPz;
-
-    @FXML
-    private JFXTreeTableView<otros_mad> tablaOtros;
-
-    @FXML
-    private JFXTextField txtCubicacion;
-
-    @FXML
-    private TextField txtPieza;
-
-    @FXML
-    private JFXTextField txtPt;
+    @FXML private JFXComboBox<String> ComboPz;
+    @FXML private JFXTreeTableView<otros_mad> tablaOtros;
+    @FXML private JFXTextField txtCubicacion;
+    @FXML private TextField txtPieza;
+    @FXML private JFXTextField txtPt;
+    @FXML private JFXTextField txtTotalPieza;
+    @FXML private JFXTextField txtTotalPt;
 
     double valcub;
     private ObservableList<otros_mad> list;
@@ -64,7 +52,7 @@ public class otrosController implements Initializable {
         conexion.cerrarConexion();
         txtCubicacion.setText(String.valueOf(valcub));
         columns();
-
+        Totales();
     }
 
 
@@ -148,11 +136,7 @@ public class otrosController implements Initializable {
             list.removeIf(l -> l.getId() == success.getId());
             list.add(success);
             tablaOtros.getSelectionModel().getSelectedIndex();
-
         }
-
-
-
     }
 
 
@@ -167,6 +151,13 @@ public class otrosController implements Initializable {
 
         }
 
+    }
+
+    void Totales(){
+        var tTotal  = format3Decimals(list.parallelStream().mapToDouble(otros_mad::getPieza).sum());
+        var tTotalPt= format3Decimals(list.parallelStream().mapToDouble(otros_mad::getPt).sum());
+        txtTotalPieza.setText((tTotal+""));
+        txtTotalPt.setText((tTotalPt+""));
     }
 
     void CalCubicacion(){
@@ -199,6 +190,12 @@ public class otrosController implements Initializable {
 
     }
 
+    private double format3Decimals(double numero) {
+        NumberFormat d = new DecimalFormat("#0.000");
+        var f = d.format(numero);
+        return Double.parseDouble(f);
+    }
+
 
 
     @FXML
@@ -225,6 +222,7 @@ public class otrosController implements Initializable {
         agregarRegistro(new otros_mad(ComboPz.getSelectionModel().getSelectedItem(),
                 Integer.parseInt(txtPieza.getText()),Double.parseDouble(txtCubicacion.getText()),
                 Double.parseDouble(txtPt.getText())));
+        Totales();
     }
 
     @FXML
@@ -236,10 +234,7 @@ public class otrosController implements Initializable {
     }
 
     public void camposEditar(otros_mad otros){
-
         //otros.set
-
-
     }
 
     @FXML
