@@ -25,9 +25,10 @@ public class Resumen extends RecursiveTreeObject<Resumen> {
     private DoubleProperty madera_cruzada;
     private DoubleProperty cuadrado;
     private DoubleProperty viga;
+    private DoubleProperty polin;
     private DoubleProperty total;
 
-    public Resumen(String medida, Double primera, Double segunda, Double tercera_buena, Double tercera_mala, Double madera_cruzada, Double cuadrado, Double viga, Double total) {
+    public Resumen(String medida, Double primera, Double segunda, Double tercera_buena, Double tercera_mala, Double madera_cruzada, Double cuadrado, Double viga, Double polin,Double total) {
         this.medida = new SimpleStringProperty(medida);
         this.primera = new SimpleDoubleProperty(primera);
         this.segunda = new SimpleDoubleProperty(segunda);
@@ -36,10 +37,11 @@ public class Resumen extends RecursiveTreeObject<Resumen> {
         this.madera_cruzada = new SimpleDoubleProperty(madera_cruzada);
         this.cuadrado = new SimpleDoubleProperty(cuadrado);
         this.viga = new SimpleDoubleProperty(viga);
+        this.polin = new SimpleDoubleProperty(polin);
         this.total = new SimpleDoubleProperty(total);
     }
 
-    public Resumen(String medida, Double primera, Double segunda, Double tercera_buena, Double tercera_mala, Double madera_cruzada, Double cuadrado, Double viga) {
+    public Resumen(String medida, Double primera, Double segunda, Double tercera_buena, Double tercera_mala, Double madera_cruzada, Double cuadrado, Double viga, Double polin) {
         this.medida = new SimpleStringProperty(medida);
         this.primera = new SimpleDoubleProperty(primera);
         this.segunda = new SimpleDoubleProperty(segunda);
@@ -48,6 +50,7 @@ public class Resumen extends RecursiveTreeObject<Resumen> {
         this.madera_cruzada = new SimpleDoubleProperty(madera_cruzada);
         this.cuadrado = new SimpleDoubleProperty(cuadrado);
         this.viga = new SimpleDoubleProperty(viga);
+        this.polin = new SimpleDoubleProperty(polin);
         this.total = new SimpleDoubleProperty(getTotalSum());
     }
 
@@ -60,6 +63,7 @@ public class Resumen extends RecursiveTreeObject<Resumen> {
         this.madera_cruzada = new SimpleDoubleProperty(0.000);
         this.cuadrado = new SimpleDoubleProperty(0.000);
         this.viga = new SimpleDoubleProperty(0.000);
+        this.polin = new SimpleDoubleProperty(0.000);
         this.total = new SimpleDoubleProperty(0.000);
     }
 
@@ -189,10 +193,22 @@ public class Resumen extends RecursiveTreeObject<Resumen> {
         this.clase.set(clase);
     }
 
+    public double getPolin() {
+        return polin.get();
+    }
+
+    public DoubleProperty polinProperty() {
+        return polin;
+    }
+
+    public void setPolin(double polin) {
+        this.polin.set(polin);
+    }
+
     public double getTotalSum() {
         NumberFormat format = new DecimalFormat("#0.000");
         var returned = primera.get() + segunda.get() +
-                tercera_buena.get() + tercera_mala.get() + madera_cruzada.get() + cuadrado.get() + viga.get();
+                tercera_buena.get() + tercera_mala.get() + madera_cruzada.get() + cuadrado.get() + viga.get() + polin.get();
         var x = format.format(returned);
         return Double.parseDouble(x);
     }
@@ -218,7 +234,7 @@ public class Resumen extends RecursiveTreeObject<Resumen> {
 
              fxlis.forEach(x -> {
                  switch (x.getMedida()) {
-                     case "3/4":
+                     case "3/4\"":
                          if (r1.getPrimera() == 0.000)
                              r1.setPrimera((x.getClase().equals("PRIMERA")) ? x.getTotal() : 0.000);
 
@@ -243,7 +259,7 @@ public class Resumen extends RecursiveTreeObject<Resumen> {
                          r1.setTotal(r1.getTotalSum());
 
                          break;
-                     case "1 1/2":
+                     case "1 1/2\"":
                          if (r2.getPrimera() == 0.000)
                              r2.setPrimera((x.getClase().equals("PRIMERA")) ? x.getTotal() : 0.000);
 
@@ -259,15 +275,9 @@ public class Resumen extends RecursiveTreeObject<Resumen> {
                          if (r2.getMadera_cruzada() == 0.000)
                              r2.setMadera_cruzada((x.getClase().equals("MADERA CRUZADA")) ? x.getTotal() : 0.000);
 
-                         if (r2.getCuadrado() == 0.000)
-                             r2.setCuadrado((x.getClase().equals("CUADRADO")) ? x.getTotal() : 0.000);
-
-                         if (r2.getViga() == 0.000)
-                             r2.setViga((x.getClase().equals("VIGA")) ? x.getTotal() : 0.000);
-
                          r2.setTotal(r2.getTotalSum());
                          break;
-                     case "2":
+                     case "2\"":
                          if (r3.getPrimera() == 0.000)
                              r3.setPrimera((x.getClase().equals("PRIMERA")) ? x.getTotal() : 0.000);
 
@@ -283,12 +293,6 @@ public class Resumen extends RecursiveTreeObject<Resumen> {
                          if (r3.getMadera_cruzada() == 0.000)
                              r3.setMadera_cruzada((x.getClase().equals("MADERA CRUZADA")) ? x.getTotal() : 0.000);
 
-                         if (r3.getCuadrado() == 0.000)
-                             r3.setCuadrado((x.getClase().equals("CUADRADO")) ? x.getTotal() : 0.000);
-
-                         if (r3.getViga() == 0.000)
-                             r3.setViga((x.getClase().equals("VIGA")) ? x.getTotal() : 0.000);
-
                          r3.setTotal(r3.getTotalSum());
                          break;
                  }
@@ -299,5 +303,94 @@ public class Resumen extends RecursiveTreeObject<Resumen> {
          }catch (SQLException e) {
              e.printStackTrace();
          }
+    }
+
+    public static void get_data_otros(Connection connection, ObservableList<Resumen> lista, String date1, String date2) {
+        try{
+            ObservableList<Resumen> fxlis = FXCollections.observableArrayList();
+
+            //TEMPORAL VALUES
+            var r1 = new Resumen();
+            r1.setMedida("POL 4X4");
+            var r2 = new Resumen();
+            r2.setMedida("POL 3.5X3.5");
+            var r3 = new Resumen();
+            r3.setMedida("CUAD 2X4");
+            var r4 = new Resumen();
+            r4.setMedida("CUAD 1.5X3.5");
+            var r5 = new Resumen();
+            r5.setMedida("VIGA 4x4");
+            var r6 = new Resumen();
+            r6.setMedida("VIGA 4x6");
+            var r7 = new Resumen();
+            r7.setMedida("VIGA 4x8");
+            var r8 = new Resumen();
+            r8.setMedida("POL 3X3");
+
+            var query = "SELECT * FROM get_resumen_otros('"+date1+"'::date,'"+date2+"'::date)";
+            var statement = connection.createStatement();
+            var rs = statement.executeQuery(query);
+
+            while (rs.next())
+                fxlis.add(new Resumen("", rs.getString(1), rs.getDouble(2)));
+
+            fxlis.forEach(x -> {
+                switch (x.getClase()) {
+                    case "POL 4X4":
+                        if (r1.getPolin() == 0.000)
+                            r1.setPolin((x.getClase().equals("POL 4X4")) ? x.getTotal() : 0.000);
+
+                        r1.setTotal(r1.getTotalSum());
+                        break;
+                    case "POL 3X3":
+                        if (r8.getPolin() == 0.000)
+                            r8.setPolin((x.getClase().equals("POL 3X3")) ? x.getTotal() : 0.000);
+
+                        r8.setTotal(r8.getTotalSum());
+                        break;
+                    case "POL 3.5X3.5":
+                        if (r2.getPolin() == 0.000)
+                            r2.setPolin((x.getClase().equals("POL 3.5X3.5")) ? x.getTotal() : 0.000);
+
+                        r2.setTotal(r2.getTotalSum());
+                        break;
+                    case "CUAD 2X4":
+                        if (r3.getCuadrado() == 0.000)
+                            r3.setCuadrado((x.getClase().equals("CUAD 2X4")) ? x.getTotal() : 0.000);
+
+                        r3.setTotal(r3.getTotalSum());
+                        break;
+                    case "CUAD 1.5X3.5":
+                        if (r4.getCuadrado() == 0.000)
+                            r4.setCuadrado((x.getClase().equals("CUAD 1.5X3.5")) ? x.getTotal() : 0.000);
+
+                        r4.setTotal(r4.getTotalSum());
+                        break;
+                    case "VIGA 4x4":
+                        if (r5.getViga() == 0.000)
+                            r5.setViga((x.getClase().equals("VIGA 4x4")) ? x.getTotal() : 0.000);
+
+                        r5.setTotal(r5.getTotalSum());
+                        break;
+                    case "VIGA 4x6":
+                        if (r6.getViga() == 0.000)
+                            r6.setViga((x.getClase().equals("VIGA 4x6")) ? x.getTotal() : 0.000);
+
+                        r6.setTotal(r6.getTotalSum());
+                        break;
+                    case "VIGA 4x8":
+                        if (r7.getViga() == 0.000)
+                            r7.setViga((x.getClase().equals("VIGA 4x8")) ? x.getTotal() : 0.000);
+
+                        r7.setTotal(r7.getTotalSum());
+                        break;
+                }
+            });
+
+            lista.addAll(r1,r2,r8,r3,r4,r5,r6,r7);
+
+        }catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

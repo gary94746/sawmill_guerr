@@ -44,6 +44,7 @@ public class DashboardController implements Initializable {
 
     @FXML
     void setResumen(MouseEvent event) throws IOException {
+        parentResumen = FXMLLoader.load(getClass().getResource("/views/resumen.fxml"));
         borderDashboard.setCenter(parentResumen);
     }
 
