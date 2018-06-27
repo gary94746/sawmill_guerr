@@ -67,21 +67,19 @@ public class Tabletas extends RecursiveTreeObject<Tabletas> {
         this.piestabla.set(piestabla);
     }
 
-    /**public static Rollo addRollo(Connection connection, int numero, double diametro1, double diametro2) {
+    public static Tabletas addTableta(Connection connection, String gruesoporancho, int piezas, double cubicacion, double pies_tabla, int longitud) {
         try {
-            var roll_added = "SELECT * FROM add_rollos(" + numero + "," + diametro1 + "," + diametro2 + ");";
-            System.out.println(roll_added);
+            var tab_added = "SELECT * FROM add_tabletas('" + gruesoporancho + "'," + piezas + "," + cubicacion + "," + pies_tabla + "," + longitud + ");";
 
             var statementP = connection.createStatement();
-            var resultSet1 = statementP.executeQuery(roll_added);
+            var resultSet1 = statementP.executeQuery(tab_added);
 
             if (resultSet1.next())
-                return new Rollo(
-                        resultSet1.getInt("numero"),
-                        resultSet1.getInt("diametro1"),
-                        resultSet1.getDouble("diametro2"),
-                        resultSet1.getDouble("diametro_promedio"),
-                        resultSet1.getDouble("volumen")
+                return new Tabletas(
+                        resultSet1.getString("gruesoporancho"),
+                        resultSet1.getInt("piezas"),
+                        resultSet1.getDouble("cubicacion"),
+                        resultSet1.getDouble("pies_tabla")
                 );
 
         }catch (Exception e){
@@ -89,5 +87,5 @@ public class Tabletas extends RecursiveTreeObject<Tabletas> {
 
         }
         return null;
-    }*/
+    }
 }
