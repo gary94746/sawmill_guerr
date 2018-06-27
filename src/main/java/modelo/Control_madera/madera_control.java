@@ -2,8 +2,11 @@ package modelo.Control_madera;
 
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import javafx.beans.property.*;
+import javafx.collections.ObservableList;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
 public class madera_control extends RecursiveTreeObject<madera_control> {
 
@@ -159,6 +162,43 @@ public class madera_control extends RecursiveTreeObject<madera_control> {
 
         }
         return null;
+    }
+
+    public static void obtenerDatos(Connection connection, ObservableList<madera_control> list,String grueso,String clase) {
+        try {
+            var datos = "select * from control_produccion where fecha= current_date and grueso like '" +grueso+ "' "+"and clase like '" + clase + "'";
+
+            System.out.println(datos);
+            var statementP = connection.createStatement();
+            var resultSet1 = statementP.executeQuery(datos);
+
+            while (resultSet1.next()) {
+                list.add(new madera_control(
+                        resultSet1.getInt("id"),
+                        resultSet1.getString("grueso"),
+                        resultSet1.getString("ancho"),
+                        resultSet1.getString("clase"),
+                        resultSet1.getInt("piezas"),
+                        resultSet1.getDouble("cubicacion"),
+                        resultSet1.getDouble("pies_tabla"),
+                        resultSet1.getString("largo")));
+            }
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    public static int eliminarOtros(Connection connection, int id) {
+        try {
+            final String query = "DELETE FROM control_produccion WHERE id = ?";
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setInt(1,id);
+            return statement.executeUpdate();
+        }catch (SQLException e){
+            e.printStackTrace();
+            return 0;
+        }
     }
 
 

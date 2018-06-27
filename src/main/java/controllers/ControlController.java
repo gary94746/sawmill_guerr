@@ -18,24 +18,16 @@ import java.util.ResourceBundle;
 
 public class ControlController implements Initializable {
 
-    @FXML
-    private JFXComboBox<String> comboGr;
-    @FXML
-    private JFXComboBox<String> comboAnc;
-    @FXML
-    private JFXComboBox<String> comboClase;
-    @FXML
-    private JFXComboBox<String> ComboRegistro;
-    @FXML
-    private JFXTreeTableView <madera_control> tablaControl;
-    @FXML
-    private JFXTextField txtPiezas;
-    @FXML
-    private JFXTextField txtCubicacion;
-    @FXML
-    private JFXTextField txtPT;
-    @FXML
-    private JFXComboBox<String> comboLargo;
+    @FXML private JFXComboBox<String> comboGr;
+    @FXML private JFXComboBox<String> comboAnc;
+    @FXML private JFXComboBox<String> comboClase;
+    @FXML private JFXTreeTableView <madera_control> tablaControl;
+    @FXML private JFXTextField txtPiezas;
+    @FXML private JFXTextField txtCubicacion;
+    @FXML private JFXTextField txtPT;
+    @FXML private JFXComboBox<String> comboLargo;
+    @FXML private JFXComboBox<String> FiltrarGrueso;
+    @FXML private JFXComboBox<String> FiltrarClase;
 
     double valcub;
     private Conexion conexion = Conexion.getInstance();
@@ -46,8 +38,11 @@ public class ControlController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         //Customizacion de componentes
-        ComboRegistro.getItems().addAll("3/4\"", "1 1/2\"", "2\"");
-        ComboRegistro.setValue("3/4\"");
+        FiltrarGrueso.getItems().addAll("3/4\"", "1 1/2\"", "2\"");
+        FiltrarGrueso.setValue("3/4\"");
+
+        FiltrarClase.getItems().addAll("PRIMERA","SEGUNDA","TERCERA BUENA","TERCERA MALA","MADERA CRUZADA");
+        FiltrarClase.setValue("PRIMERA");
 
         comboGr.getItems().addAll("3/4\"", "1 1/2\"", "2\"");
         comboGr.setValue("3/4\"");
@@ -65,20 +60,10 @@ public class ControlController implements Initializable {
         txtCubicacion.setText(String.valueOf(valcub));
 
         txtPT.setText("0");
-
-
-        /**ClasesArray clasesArray = ClasesArray.getInstance();
-        clasesArray.getArrayClases().forEach(x -> comboClase.getItems().add(x));
-
-        GruesoArray gruesoArray = GruesoArray.getInstance();
-        gruesoArray.getArrayList().forEach(y-> comboGr.getItems().add(y));
-        comboGr.setValue(gruesoArray.getArrayList().get(0));
-
-
-        AnchoArray anchoArray = AnchoArray.getInstance();
-        anchoArray.getArrayList().forEach(j-> comboAnc.getItems().add(j));
-        comboAnc.setValue(anchoArray.getArrayList().get(0));*/
         list = FXCollections.observableArrayList();
+
+        llenarTabla();
+
         columns();
 
     }
@@ -102,7 +87,6 @@ public class ControlController implements Initializable {
 
     private void columns() {
         final TreeItem<madera_control> root = new RecursiveTreeItem<>(list, RecursiveTreeObject::getChildren);
-        list.forEach(x -> System.out.println(x));
         tablaControl.setRoot(root);
 
 
@@ -235,6 +219,13 @@ public class ControlController implements Initializable {
         }
     }
 
+    public void llenarTabla(){
+        list.removeIf(x->true);
+        conexion.establecerConexion();
+        madera_control.obtenerDatos(conexion.getConection(), list, FiltrarGrueso.getSelectionModel().getSelectedItem(),FiltrarClase.getSelectionModel().getSelectedItem());
+        conexion.cerrarConexion();
+    }
+
     @FXML
     void addControl(ActionEvent event) {
             agregarRegistro(new madera_control(comboGr.getSelectionModel().getSelectedItem(),
@@ -264,6 +255,26 @@ public class ControlController implements Initializable {
     @FXML
     void ActionClase(ActionEvent event) {
         columns();
+
+    }
+
+    @FXML
+    void actionFiltroClase(ActionEvent event) {
+        llenarTabla();
+    }
+
+    @FXML
+    void actionFiltroGrueso(ActionEvent event) {
+        llenarTabla();
+    }
+
+    @FXML
+    void deleteControlP(ActionEvent event) {
+        int row = tablaControl.getSelectionModel().getSelectedItem().getValue().getId();
+        conexion.establecerConexion();
+        madera_control.eliminarOtros(conexion.getConection(), row);
+        conexion.cerrarConexion();
+        list.removeIf(x -> x.getId() == row);
 
     }
 

@@ -31,6 +31,8 @@ public class otrosController implements Initializable {
     @FXML private JFXTextField txtTotalPieza;
     @FXML private JFXTextField txtTotalPt;
 
+
+
     double valcub;
     private ObservableList<otros_mad> list;
 

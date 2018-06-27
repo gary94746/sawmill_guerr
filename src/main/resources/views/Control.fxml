@@ -145,7 +145,7 @@
                   </FontAwesomeIconView>
                </graphic>
             </JFXButton>
-            <JFXButton prefHeight="35.0" prefWidth="35.0" style="-fx-background-color: #916b47;" text="." textFill="WHITE" GridPane.columnIndex="5" GridPane.rowIndex="4">
+            <JFXButton fx:id="btnDelete" onAction="#deleteControlP" prefHeight="35.0" prefWidth="35.0" style="-fx-background-color: #916b47;" text="." textFill="WHITE" GridPane.columnIndex="5" GridPane.rowIndex="4">
                <GridPane.margin>
                   <Insets left="85.0" />
                </GridPane.margin>
@@ -189,8 +189,11 @@
                <GridPane.margin>
                   <Insets left="20.0" />
                </GridPane.margin></Label>
-            <Label maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="18.0" prefWidth="119.0" text="Registro seleccionado:" GridPane.columnIndex="3" />
-            <JFXComboBox fx:id="ComboRegistro" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="26.0" prefWidth="104.0" promptText="3/4&quot;" GridPane.columnIndex="4" />
+            <Label maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="18.0" prefWidth="119.0" text="Grueso:" GridPane.columnIndex="3">
+               <GridPane.margin>
+                  <Insets left="80.0" />
+               </GridPane.margin></Label>
+            <JFXComboBox fx:id="FiltrarGrueso" maxHeight="-Infinity" maxWidth="-Infinity" onAction="#actionFiltroGrueso" prefHeight="26.0" prefWidth="126.0" GridPane.columnIndex="4" />
             <JFXButton alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="36.0" style="-fx-background-color: #916b47;" text="." textFill="WHITE" GridPane.columnIndex="5">
                <GridPane.margin>
                   <Insets left="15.0" right="15.0" />
@@ -202,6 +205,12 @@
                   <FontAwesomeIconView fill="WHITE" glyphName="HISTORY" size="14" />
                </graphic>
             </JFXButton>
+            <Label text="Clase:" GridPane.columnIndex="1">
+               <GridPane.margin>
+                  <Insets left="80.0" />
+               </GridPane.margin>
+            </Label>
+            <JFXComboBox fx:id="FiltrarClase" onAction="#actionFiltroClase" prefHeight="26.0" prefWidth="140.0" GridPane.columnIndex="2" />
          </children>
          <VBox.margin>
             <Insets top="35.0" />
