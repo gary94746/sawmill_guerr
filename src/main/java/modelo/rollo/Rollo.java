@@ -149,7 +149,6 @@ public class Rollo extends RecursiveTreeObject<Rollo> {
     public static void obtenerDatos(Connection connection, ObservableList<Rollo> list) {
         try {
             var datos = "SELECT * FROM rollo where fecha = current_date order by numero";
-            System.out.println(datos);
 
             var statementP = connection.createStatement();
             var resultSet1 = statementP.executeQuery(datos);

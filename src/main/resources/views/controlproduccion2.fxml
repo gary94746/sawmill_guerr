@@ -60,7 +60,7 @@
             </Label>
             <Label contentDisplay="RIGHT" layoutX="177.0" layoutY="10.0" text="Piezas:">
                <graphic>
-                  <JFXTextField prefHeight="25.0" prefWidth="57.0" />
+                  <JFXTextField fx:id="txtPiezas" prefHeight="25.0" prefWidth="57.0" />
                </graphic>
                <HBox.margin>
                   <Insets />

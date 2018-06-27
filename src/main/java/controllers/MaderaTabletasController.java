@@ -1,9 +1,6 @@
 package controllers;
 
-import com.jfoenix.controls.JFXComboBox;
-import com.jfoenix.controls.JFXTreeTableColumn;
-import com.jfoenix.controls.JFXTreeTableView;
-import com.jfoenix.controls.RecursiveTreeItem;
+import com.jfoenix.controls.*;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -33,6 +30,8 @@ public class MaderaTabletasController implements Initializable {
 
     private ObservableList<Tabletas> list;
     private double cubos;
+    private double pt;
+    private String concatena;
 
     @FXML
     private JFXComboBox<String> comboLongitud;
@@ -43,12 +42,18 @@ public class MaderaTabletasController implements Initializable {
     @FXML
     private JFXComboBox<String> comboAncho;
 
+    @FXML
+    private JFXTextField txtPiezas;
+
     private Conexion conexion = Conexion.getInstance();
 
 
     @FXML
     void agregaTableta(ActionEvent event) {
-
+        asignarCubicacion(comboGrueso.getSelectionModel().getSelectedItem(), Double.parseDouble(comboAncho.getSelectionModel().getSelectedItem()), Double.parseDouble(comboLongitud.getSelectionModel().getSelectedItem()));
+        calcularPt(cubos, Integer.parseInt(txtPiezas.getText()));
+        gruesoAncho(comboGrueso.getSelectionModel().getSelectedItem(), comboAncho.getSelectionModel().getSelectedItem());
+        agregarRegistro(null);
     }
 
     // Abre un Stage con la vista extra de tabletas.
@@ -71,8 +76,8 @@ public class MaderaTabletasController implements Initializable {
         comboLongitud.setValue("2");
         comboGrueso.getItems().addAll("3/4", "1 1/2");
         comboGrueso.setValue("3/4");
-        comboAncho.getItems().addAll("2", "4", "6", "8", "10", "12");
-        comboAncho.setValue("2");
+        comboAncho.getItems().addAll("4", "6", "8", "10", "12");
+        comboAncho.setValue("4");
 
         columnas();
     }
@@ -121,7 +126,7 @@ public class MaderaTabletasController implements Initializable {
 
         piestabla.setCellValueFactory((TreeTableColumn.CellDataFeatures<Tabletas, Double> param) -> {
             if (piestabla.validateValue(param))
-                return param.getValue().getValue().cubicacionProperty().asObject();
+                return param.getValue().getValue().piestablaProperty().asObject();
             else
                 return piestabla.getComputedValue(param);
         });
@@ -132,7 +137,32 @@ public class MaderaTabletasController implements Initializable {
         tabla2.getColumns().setAll(gruesoporancho, piezas, cubicacion, piestabla);
     }
 
-    public void asignarCubicacion(){
+    public void asignarCubicacion(String grueso, double ancho, double longitud){
+        double valorGrueso = 0;
 
+        if (grueso == "3/4") {
+            valorGrueso = 0.75;
+        } else if (grueso == "1 1/2") {
+            valorGrueso = 1.5;
+        }
+
+        cubos = (valorGrueso * ancho * longitud)/12;
+    }
+
+    public double calcularPt(double cubicacion, int piezas) {
+        return cubicacion * piezas;
+    }
+
+    public void gruesoAncho(String grueso, String ancho) {
+        concatena = grueso + " x " + ancho;
+    }
+
+    public void agregarRegistro(Rollo x){
+        conexion.establecerConexion();
+        var newTableta = Tabletas.addTableta(conexion.getConection(), concatena, Integer.parseInt(txtPiezas.getText()), cubos, calcularPt(cubos, Integer.parseInt(txtPiezas.getText())), Integer.parseInt(comboLongitud.getSelectionModel().getSelectedItem()));
+        conexion.cerrarConexion();
+        if (newTableta != null) {
+            list.add(newTableta);
+        }
     }
 }

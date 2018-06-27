@@ -18,6 +18,8 @@ import modelo.Conexion;
 import modelo.rollo.Rollo;
 
 import java.net.URL;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.ResourceBundle;
 
 public class MaderaEnRolloController implements Initializable {
@@ -58,6 +60,17 @@ public class MaderaEnRolloController implements Initializable {
         list.removeIf(x -> x.getId() == row);
     }
 
+    @FXML
+    void buscarFecha(ActionEvent event) {
+
+    }
+
+    private double format3Decimals(double numero) {
+        NumberFormat d = new DecimalFormat("#0.000");
+        var f = d.format(numero);
+        return Double.parseDouble(f);
+    }
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -68,8 +81,7 @@ public class MaderaEnRolloController implements Initializable {
         conexion.cerrarConexion();
 
         var total = list.parallelStream().mapToDouble(Rollo::getVol).sum();
-        System.out.println(total);
-        volumenTotal.setText(total + "");
+        volumenTotal.setText(format3Decimals(total) + "");
     }
 
     // Se establecen las columnas de la tabla.
