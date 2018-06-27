@@ -79,8 +79,9 @@
 
 /*Table*/
 
-.tree-table-row {
-    -fx-background-color: black;
+.tree-table-cell {
+    -fx-border-color: gray;
+    -fx-border-width: 0.1px;
 }
 
 .tree-table-row-cell:selected {
