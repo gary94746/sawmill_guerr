@@ -129,16 +129,16 @@ public class ResumenController implements Initializable {
         final TreeItem<Resumen> root = new RecursiveTreeItem<>(list, RecursiveTreeObject::getChildren);
         treTable.setRoot(root);
 
-        JFXTreeTableColumn<Resumen, String> clmMedida = new JFXTreeTableColumn<>("Medida");
-        JFXTreeTableColumn<Resumen, Double> clmPrimera = new JFXTreeTableColumn<>("Primera");
-        JFXTreeTableColumn<Resumen, Double> clmSegunda = new JFXTreeTableColumn<>("Segunda");
-        JFXTreeTableColumn<Resumen, Double> clmTerceraBuena = new JFXTreeTableColumn<>("Tercera Buena");
-        JFXTreeTableColumn<Resumen, Double> clmTerceraMala = new JFXTreeTableColumn<>("Tercera Mala");
-        JFXTreeTableColumn<Resumen, Double> clmMaderaCruzada = new JFXTreeTableColumn<>("Madera Cruzada");
-        JFXTreeTableColumn<Resumen, Double> clmCuadrado = new JFXTreeTableColumn<>("Cuadrado");
-        JFXTreeTableColumn<Resumen, Double> clmViga = new JFXTreeTableColumn<>("Viga");
-        JFXTreeTableColumn<Resumen, Double> clmPolin = new JFXTreeTableColumn<>("Polin");
-        JFXTreeTableColumn<Resumen, Double> clmTotal = new JFXTreeTableColumn<>("Total");
+        JFXTreeTableColumn<Resumen, String> clmMedida = new JFXTreeTableColumn<>("Medida".toUpperCase());
+        JFXTreeTableColumn<Resumen, Double> clmPrimera = new JFXTreeTableColumn<>("Primera".toUpperCase());
+        JFXTreeTableColumn<Resumen, Double> clmSegunda = new JFXTreeTableColumn<>("Segunda".toUpperCase());
+        JFXTreeTableColumn<Resumen, Double> clmTerceraBuena = new JFXTreeTableColumn<>("Tercera Buena".toUpperCase());
+        JFXTreeTableColumn<Resumen, Double> clmTerceraMala = new JFXTreeTableColumn<>("Tercera Mala".toUpperCase());
+        JFXTreeTableColumn<Resumen, Double> clmMaderaCruzada = new JFXTreeTableColumn<>("Madera Cruzada".toUpperCase());
+        JFXTreeTableColumn<Resumen, Double> clmCuadrado = new JFXTreeTableColumn<>("Cuadrado".toUpperCase());
+        JFXTreeTableColumn<Resumen, Double> clmViga = new JFXTreeTableColumn<>("Viga".toUpperCase());
+        JFXTreeTableColumn<Resumen, Double> clmPolin = new JFXTreeTableColumn<>("Polin".toUpperCase());
+        JFXTreeTableColumn<Resumen, Double> clmTotal = new JFXTreeTableColumn<>("Total".toUpperCase());
 
         clmMedida.setCellValueFactory((TreeTableColumn.CellDataFeatures<Resumen, String> param) -> {
             if (clmMedida.validateValue(param))

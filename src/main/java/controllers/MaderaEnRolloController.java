@@ -59,12 +59,17 @@ public class MaderaEnRolloController implements Initializable {
 
     @FXML
     void returnFecha(ActionEvent event) {
+        list.removeIf(x -> true);
+
         conexion.establecerConexion();
         Rollo.obtenerDatos(conexion.getConection(), list);
         conexion.cerrarConexion();
 
-        txtD1.setEditable(true);
-        txtD2.setEditable(true);
+        txtD1.setDisable(false);
+        txtD2.setDisable(false);
+
+        var total = list.parallelStream().mapToDouble(Rollo::getVol).sum();
+        volumenTotal.setText(format3Decimals(total) + "");
     }
 
     @FXML
@@ -88,6 +93,9 @@ public class MaderaEnRolloController implements Initializable {
          cargarDatos(datePicker1);
          txtD1.setDisable(true);
          txtD2.setDisable(true);
+
+        var total = list.parallelStream().mapToDouble(Rollo::getVol).sum();
+        volumenTotal.setText(format3Decimals(total) + "");
     }
 
     private void cargarDatos(String datePicker) {
