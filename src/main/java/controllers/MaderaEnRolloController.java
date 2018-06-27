@@ -48,6 +48,8 @@ public class MaderaEnRolloController implements Initializable {
         txtD1.setText("");
         txtD2.setText("");
         count++;
+        var total = list.parallelStream().mapToDouble(Rollo::getVol).sum();
+        volumenTotal.setText(format3Decimals(total) + "");
     }
 
 
@@ -79,9 +81,6 @@ public class MaderaEnRolloController implements Initializable {
         conexion.establecerConexion();
         Rollo.obtenerDatos(conexion.getConection(), list);
         conexion.cerrarConexion();
-
-        var total = list.parallelStream().mapToDouble(Rollo::getVol).sum();
-        volumenTotal.setText(format3Decimals(total) + "");
     }
 
     // Se establecen las columnas de la tabla.
@@ -155,7 +154,7 @@ public class MaderaEnRolloController implements Initializable {
         conexion.establecerConexion();
         var newRollo = Rollo.addRollo(conexion.getConection(), count, Double.parseDouble(txtD1.getText()), Double.parseDouble(txtD2.getText()));
         conexion.cerrarConexion();
-        System.out.println(newRollo == null);
+        //System.out.println(newRollo == null);
         if (newRollo != null) {
             list.add(newRollo);
         }

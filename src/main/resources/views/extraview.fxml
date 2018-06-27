@@ -5,103 +5,41 @@
 <?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TreeTableColumn?>
 <?import javafx.scene.control.TreeTableView?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox minHeight="-Infinity" prefHeight="510.0" prefWidth="1200.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.produccionextra">
+<VBox prefHeight="374.0" prefWidth="637.0" style="-fx-background-color: white;" stylesheets="@../estilos/dashboard.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ExtraController">
    <children>
       <Label stylesheets="@../estilos/dashboard.css" text="Control de produccion de madera aserrada.">
          <font>
             <Font name="Open Sans Condensed Bold" size="22.0" />
          </font>
          <VBox.margin>
-            <Insets left="20.0" top="10.0" />
+            <Insets bottom="30.0" left="20.0" top="10.0" />
          </VBox.margin>
          <styleClass>
             <String fx:value="labelResumen" />
             <String fx:value="labelTitle" />
          </styleClass>
       </Label>
-      <JFXTreeTableView>
+      <Label text="Subtotales.">
          <VBox.margin>
-            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+            <Insets bottom="10.0" left="20.0" />
          </VBox.margin>
-         <columns>
-            <TreeTableColumn prefWidth="75.0" text="Longitud">
-               <columns>
-                  <TreeTableColumn prefWidth="75.0" text="G x A" />
-               </columns>
-            </TreeTableColumn>
-            <TreeTableColumn minWidth="0.0" prefWidth="153.99996948242188" text="2">
-               <columns>
-                  <TreeTableColumn prefWidth="75.0" text="#Piezas" />
-                  <TreeTableColumn prefWidth="75.0" text="Cub" />
-                  <TreeTableColumn prefWidth="75.0" text="Pt" />
-               </columns>
-            </TreeTableColumn>
-            <TreeTableColumn prefWidth="75.0" text="3">
-               <columns>
-                  <TreeTableColumn prefWidth="75.0" text="#Piezas" />
-                  <TreeTableColumn prefWidth="75.0" text="Cub" />
-                  <TreeTableColumn prefWidth="75.0" text="Pt" />
-               </columns>
-            </TreeTableColumn>
-            <TreeTableColumn prefWidth="75.0" text="4">
-               <columns>
-                  <TreeTableColumn prefWidth="75.0" text="#Piezas" />
-                  <TreeTableColumn prefWidth="75.0" text="Cub" />
-                  <TreeTableColumn prefWidth="75.0" text="Pt" />
-               </columns>
-            </TreeTableColumn>
-            <TreeTableColumn prefWidth="75.0" text="5">
-               <columns>
-                  <TreeTableColumn prefWidth="75.0" text="#Piezas" />
-                  <TreeTableColumn prefWidth="75.0" text="Cub" />
-                  <TreeTableColumn prefWidth="75.0" text="Pt" />
-               </columns>
-            </TreeTableColumn>
-            <TreeTableColumn prefWidth="75.0" text="6">
-               <columns>
-                  <TreeTableColumn prefWidth="75.0" text="#Piezas" />
-                  <TreeTableColumn prefWidth="75.0" text="Cub" />
-                  <TreeTableColumn prefWidth="75.0" text="Pt" />
-               </columns>
-            </TreeTableColumn>
-            <TreeTableColumn prefWidth="75.0" text="7">
-               <columns>
-                  <TreeTableColumn prefWidth="75.0" text="#Piezas" />
-                  <TreeTableColumn prefWidth="75.0" text="Cub" />
-                  <TreeTableColumn prefWidth="75.0" text="Pt" />
-               </columns>
-            </TreeTableColumn>
-         </columns>
-         <columnResizePolicy>
-            <TreeTableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-         </columnResizePolicy>
-      </JFXTreeTableView>
-      <JFXTreeTableView prefHeight="227.0" prefWidth="1160.0">
+      </Label>
+      <JFXTreeTableView fx:id="tabla3">
          <VBox.margin>
             <Insets bottom="20.0" left="20.0" right="20.0" />
          </VBox.margin>
-         <columns>
-            <TreeTableColumn prefWidth="75.0" text="Subtotales" />
-            <TreeTableColumn prefWidth="75.0" text="2" />
-            <TreeTableColumn prefWidth="75.0" text="3" />
-            <TreeTableColumn prefWidth="75.0" text="4" />
-            <TreeTableColumn prefWidth="75.0" text="5" />
-            <TreeTableColumn prefWidth="75.0" text="6" />
-            <TreeTableColumn prefWidth="75.0" text="7" />
-         </columns>
          <columnResizePolicy>
             <TreeTableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </JFXTreeTableView>
-      <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0">
+      <HBox alignment="CENTER_RIGHT">
          <children>
-            <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" prefHeight="25.0" prefWidth="195.0" text="Total de pies-tabla:">
+            <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" prefHeight="30.0" prefWidth="208.0" text="Total de pies-tabla:">
                <HBox.margin>
                   <Insets bottom="10.0" left="20.0" right="20.0" />
                </HBox.margin>

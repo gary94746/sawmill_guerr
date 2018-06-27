@@ -125,7 +125,6 @@ public class Rollo extends RecursiveTreeObject<Rollo> {
     public static Rollo addRollo(Connection connection, int numero, double diametro1, double diametro2) {
         try {
             var roll_added = "SELECT * FROM add_rollos(" + numero + "," + diametro1 + "," + diametro2 + ");";
-            System.out.println(roll_added);
 
             var statementP = connection.createStatement();
             var resultSet1 = statementP.executeQuery(roll_added);
