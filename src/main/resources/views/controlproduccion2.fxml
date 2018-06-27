@@ -82,7 +82,7 @@
                   <Insets left="10.0" />
                </HBox.margin>
             </JFXButton>
-            <JFXButton contentDisplay="CENTER" style="-fx-background-color: #916b47;" text="." textFill="#916b47">
+            <JFXButton contentDisplay="CENTER" onAction="#eliminaTableta" style="-fx-background-color: #916b47;" text="." textFill="#916b47">
                <graphic>
                   <FontAwesomeIconView fill="WHITE" glyphName="TRASH" size="14" text="" />
                </graphic>
