@@ -3,6 +3,8 @@ package modelo.Control_madera;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import javafx.beans.property.*;
 
+import java.sql.Connection;
+
 public class madera_control extends RecursiveTreeObject<madera_control> {
 
     private IntegerProperty id;
@@ -126,4 +128,40 @@ public class madera_control extends RecursiveTreeObject<madera_control> {
     public StringProperty largoProperty() {return largo;}
 
     public void setLargo(String largo) {this.largo.set(largo);}
+
+    public static madera_control addControl(Connection connection, madera_control control) {
+        try {
+            var control_added = "SELECT * FROM add_control('" +
+                    control.getGrueso()+"'"+
+                    ",'"+control.getAncho() +"'"+
+                    ",'"+control.getClase() +""+
+                    "'," + control.getPieza() + "" +
+                    "," + control.getCubicacion() + "" +
+                    "," +control.getPt() +","+
+                    "'"+control.getLargo()+"'"+");";
+            System.out.println(control_added);
+
+            var statementP = connection.createStatement();
+            var resultSet1 = statementP.executeQuery(control_added);
+            if (resultSet1.next())
+                return new madera_control(
+                        resultSet1.getInt("id"),
+                        resultSet1.getString("grueso"),
+                        resultSet1.getString("ancho"),
+                        resultSet1.getString("clase"),
+                        resultSet1.getInt("piezas"),
+                        resultSet1.getDouble("cubicacion"),
+                        resultSet1.getDouble("pies_tabla"),
+                        resultSet1.getString("largo"));
+
+        }catch (Exception e){
+            e.printStackTrace();
+
+        }
+        return null;
+    }
+
+
+
+
 }
