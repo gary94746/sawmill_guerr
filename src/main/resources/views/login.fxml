@@ -11,10 +11,10 @@
    <children>
       <AnchorPane prefHeight="400.0" prefWidth="311.0">
          <children>
-            <JFXTextField layoutX="22.0" layoutY="149.0" prefHeight="36.0" prefWidth="260.0" promptText="Usuario" />
+            <JFXTextField fx:id="txtUser" layoutX="22.0" layoutY="149.0" prefHeight="36.0" prefWidth="260.0" promptText="Usuario" />
             <JFXButton layoutX="89.0" layoutY="297.0" onAction="#login" prefHeight="36.0" prefWidth="126.0" text="ENTRAR" />
             <Label layoutX="22.0" layoutY="61.0" prefHeight="43.0" prefWidth="140.0" styleClass="title" text="ASERRADERO" />
-            <JFXPasswordField layoutX="22.0" layoutY="209.0" prefHeight="36.0" prefWidth="260.0" promptText="Contraseña" />
+            <JFXPasswordField fx:id="txtPass" layoutX="22.0" layoutY="209.0" prefHeight="36.0" prefWidth="260.0" promptText="Contraseña" />
          </children></AnchorPane>
       <AnchorPane prefHeight="400.0" prefWidth="297.0" styleClass="imagePane" HBox.hgrow="ALWAYS" />
    </children>

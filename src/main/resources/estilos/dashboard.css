@@ -80,8 +80,12 @@
 /*Table*/
 
 .tree-table-cell {
-    -fx-border-color: gray;
+    -fx-border-color: black !important;
     -fx-border-width: 0.1px;
+}
+
+.tree-table-row-cell {
+    -fx-cell-size: 24px !important;
 }
 
 .tree-table-row-cell:selected {
@@ -94,6 +98,11 @@
 
 .tree-table-view .tree-table-cell {
     -fx-alignment: center;
+}
+
+.tree-table-view .column-header {
+   -fx-border-color: black !important;
+   -fx-border-width: 0.1px;
 }
 
 .tree-table-view .column-header .label {
