@@ -53,8 +53,8 @@ public class ControlController implements Initializable {
         comboClase.getItems().addAll("PRIMERA","SEGUNDA","TERCERA BUENA","TERCERA MALA","MADERA CRUZADA");
         comboClase.setValue("PRIMERA");
 
-        comboLargo.getItems().addAll("3/4\"","16 1/2\"");
-        comboLargo.setValue("3/4\"");
+        comboLargo.getItems().addAll("8 1/4\"","16 1/2\"");
+        comboLargo.setValue("8 1/4\"");
 
         valcub=(.75*4*8.25)/12;
         txtCubicacion.setText(String.valueOf(valcub));
@@ -189,21 +189,67 @@ public class ControlController implements Initializable {
 
     }
 
-    public void calCubicacion(){
-        if(comboAnc.getSelectionModel().getSelectedItem()=="4"){
-            valcub=(.75*4*8.25)/12;
+    double var;
+    public void calCubicacion() {
+        //comboLargo.getItems().addAll("3/4\"","16 1/2\"");
+        if(comboLargo.getSelectionModel().getSelectedItem()=="8 1/4\""){
+
+
+            /**if (comboGr.getSelectionModel().getSelectedItem() == "3/4\"") {
+                var = .75;
+            }*/
+
+            var=(comboGr.getSelectionModel().getSelectedItem() == "3/4\"")?.75 : 1.5;
+
+
+              if (comboGr.getSelectionModel().getSelectedItem() == "2\"") {var = 2;}
+
+            if (comboAnc.getSelectionModel().getSelectedItem() == "4") {
+                valcub = (var * 4 * 8.25) / 12;
+                txtCubicacion.setText(String.valueOf(valcub));
+            } else if (comboAnc.getSelectionModel().getSelectedItem() == "6") {
+                valcub = (var * 6 * 8.25) / 12;
+                txtCubicacion.setText(String.valueOf(valcub));
+            } else if (comboAnc.getSelectionModel().getSelectedItem() == "8") {
+                valcub = (var * 8 * 8.25) / 12;
+                txtCubicacion.setText(String.valueOf(valcub));
+            } else if (comboAnc.getSelectionModel().getSelectedItem() == "10") {
+                valcub = (var * 10 * 8.25) / 12;
+                txtCubicacion.setText(String.valueOf(valcub));
+            } else if (comboAnc.getSelectionModel().getSelectedItem() == "12") {
+                valcub = (var * 12 * 8.25) / 12;
+                txtCubicacion.setText(String.valueOf(valcub));
+            }
+
+     }else{
+            calCubicacion2();
+        }
+
+    }
+
+    public void calCubicacion2(){
+        if (comboGr.getSelectionModel().getSelectedItem() == "3/4\"") {
+            var=.75;
+        }else if(comboGr.getSelectionModel().getSelectedItem() == "1 1/2\""){
+            var=1.5;
+        }else if (comboGr.getSelectionModel().getSelectedItem() == "2\""){
+            var=2;
+        }
+
+        if (comboAnc.getSelectionModel().getSelectedItem() == "4") {
+            valcub = (var * 4 * 16.5) / 12;
             txtCubicacion.setText(String.valueOf(valcub));
-        }else if(comboAnc.getSelectionModel().getSelectedItem()=="6"){
-            valcub=(.75*6*8.25)/12;
+        } else if (comboAnc.getSelectionModel().getSelectedItem() == "6") {
+            valcub = (var * 6 * 16.5) / 12;
             txtCubicacion.setText(String.valueOf(valcub));
-        }else if(comboAnc.getSelectionModel().getSelectedItem()=="8"){
-            valcub=(.75*8*8.25)/12;
+        } else if (comboAnc.getSelectionModel().getSelectedItem() == "8") {
+            valcub = (var * 8 * 16.5) / 12;
             txtCubicacion.setText(String.valueOf(valcub));
-        }else if(comboAnc.getSelectionModel().getSelectedItem()=="10"){
-            valcub=(.75*10*8.25)/12;
+        } else if (comboAnc.getSelectionModel().getSelectedItem() == "10") {
+            valcub = (var * 10 * 16.5) / 12;
             txtCubicacion.setText(String.valueOf(valcub));
-        }else if(comboAnc.getSelectionModel().getSelectedItem()=="12"){
-            valcub=(.75*12*8.25)/12;
+        } else if (comboAnc.getSelectionModel().getSelectedItem() == "12") {
+            valcub = (var * 12 * 16.5) / 12;
             txtCubicacion.setText(String.valueOf(valcub));
         }
 
@@ -246,6 +292,7 @@ public class ControlController implements Initializable {
         if(txtPiezas.getText().equals("")){
             txtPT.setText("0");
         }else{
+            calCubicacion();
             CalPt();
         }
 
@@ -276,6 +323,18 @@ public class ControlController implements Initializable {
         conexion.cerrarConexion();
         list.removeIf(x -> x.getId() == row);
 
+    }
+
+    @FXML
+    void ActionComboGr(ActionEvent event) {
+        calCubicacion();
+        CalPt();
+    }
+
+    @FXML
+    void ActionComboLargo(ActionEvent event) {
+        calCubicacion();
+        CalPt();
     }
 
 }

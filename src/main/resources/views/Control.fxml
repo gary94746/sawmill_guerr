@@ -70,7 +70,7 @@
                   <Insets left="20.0" />
                </GridPane.margin>
             </Label>
-            <JFXComboBox fx:id="comboGr" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="26.0" prefWidth="119.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <JFXComboBox fx:id="comboGr" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#ActionComboGr" prefHeight="26.0" prefWidth="119.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <GridPane.margin>
                   <Insets bottom="5.0" />
                </GridPane.margin></JFXComboBox>
@@ -162,7 +162,7 @@
                   <Insets bottom="40.0" left="20.0" />
                </GridPane.margin>
             </Label>
-            <JFXComboBox fx:id="comboLargo" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="26.0" prefWidth="129.0" GridPane.columnIndex="1">
+            <JFXComboBox fx:id="comboLargo" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#ActionComboLargo" prefHeight="26.0" prefWidth="129.0" GridPane.columnIndex="1">
                <GridPane.margin>
                   <Insets bottom="40.0" />
                </GridPane.margin>
