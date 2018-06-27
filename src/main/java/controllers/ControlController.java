@@ -32,6 +32,7 @@ public class ControlController implements Initializable {
     @FXML private JFXComboBox<String> FiltrarClase;
     @FXML private JFXTextField txtTotalPieza;
     @FXML private JFXTextField txtTotalPt;
+    @FXML private JFXDatePicker fecha;
 
     double valcub;
     private Conexion conexion = Conexion.getInstance();
@@ -46,7 +47,7 @@ public class ControlController implements Initializable {
         FiltrarGrueso.setValue("3/4\"");
 
         FiltrarClase.getItems().addAll("TODOS","PRIMERA","SEGUNDA","TERCERA BUENA","TERCERA MALA","MADERA CRUZADA");
-        FiltrarClase.setValue("PRIMERA");
+        FiltrarClase.setValue("TODOS");
 
         comboGr.getItems().addAll("3/4\"", "1 1/2\"", "2\"");
         comboGr.setValue("3/4\"");
@@ -278,7 +279,7 @@ public class ControlController implements Initializable {
         if(FiltrarClase.getSelectionModel().getSelectedItem()=="TODOS"){
             list.removeIf(x->true);
             conexion.establecerConexion();
-            madera_control.obtenerDatosTodos(conexion.getConection(),list);
+            madera_control.obtenerDatosTodos(conexion.getConection(),list,FiltrarGrueso.getSelectionModel().getSelectedItem());
             conexion.cerrarConexion();
 
         }else{
@@ -288,6 +289,14 @@ public class ControlController implements Initializable {
         madera_control.obtenerDatos(conexion.getConection(), list, FiltrarGrueso.getSelectionModel().getSelectedItem(),FiltrarClase.getSelectionModel().getSelectedItem());
         conexion.cerrarConexion();
         }
+    }
+
+
+    private void cargarDatos(String datePicker) {
+        list.removeIf(x -> true);
+        conexion.establecerConexion();
+        madera_control.historial(conexion.getConection(), list, datePicker);
+        conexion.cerrarConexion();
     }
 
     private double format3Decimals(double numero) {
@@ -304,11 +313,25 @@ public class ControlController implements Initializable {
     }
 
     @FXML
+    void ActionHistorial(ActionEvent event) {
+        var datePicker1 = fecha.getValue().getYear() + "-" + fecha.getValue().getMonthValue()+ "-" + fecha.getValue().getDayOfMonth();
+
+        //lblTitulo.setText("Historia del: " +
+          //      fecha.getValue().getDayOfMonth() + "/" + fecha.getValue().getMonth()+ "/" + fecha.getValue().getYear()
+        //);
+        cargarDatos(datePicker1);
+        //txtD1.setDisable(true);
+        //txtD2.setDisable(true);
+    }
+
+    @FXML
     void addControl(ActionEvent event) {
             agregarRegistro(new madera_control(comboGr.getSelectionModel().getSelectedItem(),
                     comboAnc.getSelectionModel().getSelectedItem(),comboClase.getSelectionModel().getSelectedItem(),
                     Integer.parseInt(txtPiezas.getText()),Double.parseDouble(txtCubicacion.getText()),
                     Double.parseDouble(txtPT.getText()),comboLargo.getSelectionModel().getSelectedItem()));
+        llenarTabla();
+        Totales();
     }
 
 

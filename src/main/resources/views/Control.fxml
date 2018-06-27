@@ -200,7 +200,7 @@
                   <Insets left="50.0" />
                </GridPane.margin></Label>
             <JFXComboBox fx:id="FiltrarGrueso" maxHeight="-Infinity" maxWidth="-Infinity" onAction="#actionFiltroGrueso" prefHeight="26.0" prefWidth="126.0" GridPane.columnIndex="4" />
-            <JFXButton alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="36.0" style="-fx-background-color: #916b47;" text="." textFill="WHITE" GridPane.columnIndex="7">
+            <JFXButton fx:id="historial" alignment="CENTER" contentDisplay="CENTER" onAction="#ActionHistorial" prefHeight="30.0" prefWidth="36.0" style="-fx-background-color: #916b47;" text="." textFill="WHITE" GridPane.columnIndex="7">
                <GridPane.margin>
                   <Insets left="15.0" right="15.0" />
                </GridPane.margin>
@@ -224,7 +224,7 @@
             </Label>
             <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="6">
                <children>
-                  <JFXDatePicker />
+                  <JFXDatePicker fx:id="fecha" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="0.0" />
                </children>
             </HBox>
          </children>
