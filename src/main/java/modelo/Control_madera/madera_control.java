@@ -165,6 +165,7 @@ public class madera_control extends RecursiveTreeObject<madera_control> {
     }
 
     public static void obtenerDatos(Connection connection, ObservableList<madera_control> list,String grueso,String clase) {
+
         try {
             var datos = "select * from control_produccion where fecha= current_date and grueso like '" +grueso+ "' "+"and clase like '" + clase + "'";
 
@@ -187,6 +188,32 @@ public class madera_control extends RecursiveTreeObject<madera_control> {
         }catch (Exception e){
             e.printStackTrace();
         }
+    }
+
+    public static void obtenerDatosTodos(Connection connection, ObservableList<madera_control> list) {
+        try {
+            var datos = "select * from control_produccion where fecha= current_date";
+
+            System.out.println(datos);
+            var statementP = connection.createStatement();
+            var resultSet1 = statementP.executeQuery(datos);
+
+            while (resultSet1.next()) {
+                list.add(new madera_control(
+                        resultSet1.getInt("id"),
+                        resultSet1.getString("grueso"),
+                        resultSet1.getString("ancho"),
+                        resultSet1.getString("clase"),
+                        resultSet1.getInt("piezas"),
+                        resultSet1.getDouble("cubicacion"),
+                        resultSet1.getDouble("pies_tabla"),
+                        resultSet1.getString("largo")));
+            }
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
     }
 
     public static int eliminarOtros(Connection connection, int id) {
