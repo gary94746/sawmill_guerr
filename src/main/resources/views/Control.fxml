@@ -207,13 +207,37 @@
             <Insets top="35.0" />
          </VBox.margin>
       </GridPane>
-      <JFXTreeTableView fx:id="tablaControl" prefHeight="239.0" prefWidth="774.0" VBox.vgrow="ALWAYS">
+      <JFXTreeTableView fx:id="tablaControl" prefHeight="157.0" prefWidth="734.0" VBox.vgrow="ALWAYS">
          <columnResizePolicy>
             <TreeTableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
          <VBox.margin>
-            <Insets bottom="10.0" left="20.0" right="20.0" top="20.0" />
+            <Insets left="20.0" right="20.0" top="20.0" />
          </VBox.margin>
       </JFXTreeTableView>
+      <HBox alignment="CENTER_RIGHT" prefHeight="58.0" prefWidth="774.0">
+         <children>
+            <Label maxWidth="1.7976931348623157E308" text="Total Piezas:">
+               <HBox.margin>
+                  <Insets left="450.0" top="5.0" />
+               </HBox.margin>
+            </Label>
+            <JFXTextField maxWidth="1.7976931348623157E308" prefHeight="26.0" prefWidth="52.0">
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+            </JFXTextField>
+            <Label maxWidth="1.7976931348623157E308" text="Total PT:">
+               <HBox.margin>
+                  <Insets left="50.0" right="10.0" top="5.0" />
+               </HBox.margin>
+            </Label>
+            <JFXTextField maxWidth="1.7976931348623157E308" prefHeight="26.0" prefWidth="50.0">
+               <HBox.margin>
+                  <Insets left="10.0" right="20.0" />
+               </HBox.margin>
+            </JFXTextField>
+         </children>
+      </HBox>
    </children>
 </VBox>

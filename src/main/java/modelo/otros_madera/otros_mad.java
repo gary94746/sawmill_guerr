@@ -5,6 +5,7 @@ import javafx.beans.property.*;
 import javafx.collections.ObservableList;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class otros_mad extends RecursiveTreeObject<otros_mad> {
@@ -17,6 +18,14 @@ public class otros_mad extends RecursiveTreeObject<otros_mad> {
 
 
 
+
+    public otros_mad(int id,String selPieza, int pieza, double cubicacion, double pt) {
+        this.id    = new SimpleIntegerProperty(id);
+        this.selPieza = new SimpleStringProperty(selPieza);
+        this.pieza = new SimpleIntegerProperty(pieza);
+        this.cubicacion = new SimpleDoubleProperty(cubicacion);
+        this.pt = new SimpleDoubleProperty(pt);
+    }
 
     public otros_mad(String selPieza, int pieza, double cubicacion, double pt) {
         this.selPieza = new SimpleStringProperty(selPieza);
@@ -39,6 +48,7 @@ public class otros_mad extends RecursiveTreeObject<otros_mad> {
 
            if (resultSet1.next())
                return new otros_mad(
+                       resultSet1.getInt("id"),
                        resultSet1.getString("otros"),
                        resultSet1.getInt("piezas"),
                        resultSet1.getDouble("cubicacion"),
@@ -54,6 +64,66 @@ public class otros_mad extends RecursiveTreeObject<otros_mad> {
 
 
 
+    public static otros_mad updateOtros(Connection connection, otros_mad otros){
+        try {
+            var others_added = "SELECT * FROM update_otros(" +
+                    ""  + otros.getId()+
+                    ",'"+otros.getSelPieza()    +"'"+
+                    "',"+ otros.getPieza()      + "" +
+                    "," + otros.getCubicacion() + "," +
+                    otros.getPt() + ");";
+            System.out.println(others_added);
+
+            var statementP = connection.createStatement();
+            var resultSet1 = statementP.executeQuery(others_added);
+
+            if (resultSet1.next())
+                return new otros_mad(
+                        resultSet1.getInt("id"),
+                        resultSet1.getString("otros"),
+                        resultSet1.getInt("piezas"),
+                        resultSet1.getDouble("cubicacion"),
+                        resultSet1.getDouble("pies_tabla"));
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static void obtenerDatos(Connection connection, ObservableList<otros_mad> list) {
+        try {
+            var datos = "SELECT * FROM otras where fecha = current_date";
+            System.out.println(datos);
+
+            var statementP = connection.createStatement();
+            var resultSet1 = statementP.executeQuery(datos);
+
+            while (resultSet1.next()) {
+                list.add(new otros_mad(
+                        resultSet1.getInt("id"),
+                        resultSet1.getString("otros"),
+                        resultSet1.getInt("piezas"),
+                        resultSet1.getDouble("cubicacion"),
+                        resultSet1.getDouble("pies_tabla")));
+            }
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    public static int eliminarOtros(Connection connection, int id) {
+        try {
+            final String query = "DELETE FROM otras WHERE id = ?";
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setInt(1,id);
+            return statement.executeUpdate();
+        }catch (SQLException e){
+            e.printStackTrace();
+            return 0;
+        }
+    }
 
 
 

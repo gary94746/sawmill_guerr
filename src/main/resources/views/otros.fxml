@@ -99,7 +99,7 @@
                   <Insets top="20.0" />
                </GridPane.margin>
             </JFXButton>
-            <JFXButton contentDisplay="CENTER" prefHeight="14.0" prefWidth="0.0" style="-fx-background-color: #916b47;" text="." textFill="WHITE" GridPane.columnIndex="3" GridPane.rowIndex="1">
+            <JFXButton fx:id="btnEditar" contentDisplay="CENTER" onAction="#EditOtros" prefHeight="14.0" prefWidth="0.0" style="-fx-background-color: #916b47;" text="." textFill="WHITE" GridPane.columnIndex="3" GridPane.rowIndex="1">
                <graphic>
                   <FontAwesomeIconView fill="WHITE" glyphName="EDIT" />
                </graphic>
@@ -107,7 +107,7 @@
                   <Insets left="40.0" top="20.0" />
                </GridPane.margin>
             </JFXButton>
-            <JFXButton contentDisplay="CENTER" prefHeight="14.0" prefWidth="0.0" style="-fx-background-color: #916b47;" text="." textFill="WHITE" GridPane.columnIndex="3" GridPane.rowIndex="1">
+            <JFXButton fx:id="btnDelete" contentDisplay="CENTER" onAction="#deleteOtros" prefHeight="14.0" prefWidth="0.0" style="-fx-background-color: #916b47;" text="." textFill="WHITE" GridPane.columnIndex="3" GridPane.rowIndex="1">
                <graphic>
                   <FontAwesomeIconView fill="WHITE" glyphName="TRASH" />
                </graphic>
@@ -145,8 +145,44 @@
             <TreeTableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
          <VBox.margin>
-            <Insets top="20.0" />
+            <Insets bottom="20.0" left="10.0" right="10.0" top="20.0" />
          </VBox.margin>
       </JFXTreeTableView>
+      <GridPane>
+        <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <VBox.margin>
+            <Insets bottom="10.0" left="10.0" right="10.0" />
+         </VBox.margin>
+         <children>
+            <JFXTextField GridPane.columnIndex="1">
+               <GridPane.margin>
+                  <Insets bottom="25.0" left="40.0" right="40.0" />
+               </GridPane.margin>
+            </JFXTextField>
+            <JFXTextField GridPane.columnIndex="3">
+               <GridPane.margin>
+                  <Insets bottom="25.0" left="40.0" right="40.0" />
+               </GridPane.margin>
+            </JFXTextField>
+            <Label text="Total Pieza:">
+               <GridPane.margin>
+                  <Insets bottom="20.0" left="120.0" />
+               </GridPane.margin>
+            </Label>
+            <Label text="Total PT:" GridPane.columnIndex="2">
+               <GridPane.margin>
+                  <Insets bottom="20.0" left="130.0" />
+               </GridPane.margin>
+            </Label>
+         </children>
+      </GridPane>
    </children>
 </VBox>

@@ -52,15 +52,17 @@ public class otrosController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        ComboPz.getItems().addAll("POL 4X4","POL 3.5X3.5","POL 3X3","BAR 2X4","BAR 1.5X3.5","VIGA 4x4","VIGA 4x6","VIGA 4x8");
+        ComboPz.getItems().addAll("POL 4X4","POL 3.5X3.5","POL 3X3","CUAD 2X4","CUAD 1.5X3.5","VIGA 4x4","VIGA 4x6","VIGA 4x8");
         ComboPz.setValue("POL 4X4");
         txtPt.setText("0");
+        list = FXCollections.observableArrayList();
         txtCubicacion.setEditable(false);
         txtPt.setEditable(false);
         valcub=(4*4*8.25)/12;
+        conexion.establecerConexion();
+        otros_mad.obtenerDatos(conexion.getConection(), list);
+        conexion.cerrarConexion();
         txtCubicacion.setText(String.valueOf(valcub));
-        list = FXCollections.observableArrayList();
-        list.add(new otros_mad("12",1,2,3));
         columns();
 
     }
@@ -137,6 +139,25 @@ public class otrosController implements Initializable {
        }
     }
 
+    public void updateOtros(otros_mad x){
+        var actual = tablaOtros.getSelectionModel().getSelectedItem().getValue();
+
+
+        conexion.establecerConexion();
+        var success = otros_mad.updateOtros(conexion.getConection(),x);
+        if(success != null){
+            list.removeIf(l -> l.getId() == success.getId());
+            list.add(success);
+            tablaOtros.getSelectionModel().getSelectedIndex();
+
+        }
+
+
+
+    }
+
+
+
     public void CalPt(){
         try {
             double val1 = Double.parseDouble(txtCubicacion.getText());
@@ -159,10 +180,10 @@ public class otrosController implements Initializable {
         }else if(ComboPz.getSelectionModel().getSelectedItem()=="POL 3X3") {
             valcub = (3 * 3 * 8.25) / 12;
             txtCubicacion.setText(String.valueOf(valcub));
-        }else if(ComboPz.getSelectionModel().getSelectedItem()=="BAR 2X4"){
+        }else if(ComboPz.getSelectionModel().getSelectedItem()=="CUAD 2X4"){
             valcub=(2*4*8.25)/12;
             txtCubicacion.setText(String.valueOf(valcub));
-        }else if(ComboPz.getSelectionModel().getSelectedItem()=="BAR 1.5X3.5"){
+        }else if(ComboPz.getSelectionModel().getSelectedItem()=="CUAD 1.5X3.5"){
             valcub=(1.5*3.5*8.25)/12;
             txtCubicacion.setText(String.valueOf(valcub));
         }else if(ComboPz.getSelectionModel().getSelectedItem()=="VIGA 4x4"){
@@ -205,6 +226,31 @@ public class otrosController implements Initializable {
         agregarRegistro(new otros_mad(ComboPz.getSelectionModel().getSelectedItem(),
                 Integer.parseInt(txtPieza.getText()),Double.parseDouble(txtCubicacion.getText()),
                 Double.parseDouble(txtPt.getText())));
+    }
+
+    @FXML
+    void EditOtros(ActionEvent event) {
+        updateOtros(new otros_mad(ComboPz.getSelectionModel().getSelectedItem(),
+                Integer.parseInt(txtPieza.getText()),Double.parseDouble(txtCubicacion.getText()),
+                Double.parseDouble(txtPt.getText())));
+
+    }
+
+    public void camposEditar(otros_mad otros){
+
+        //otros.set
+
+
+    }
+
+    @FXML
+    void deleteOtros(ActionEvent event) {
+        int row = tablaOtros.getSelectionModel().getSelectedItem().getValue().getId();
+        conexion.establecerConexion();
+        otros_mad.eliminarOtros(conexion.getConection(), row);
+        conexion.cerrarConexion();
+        list.removeIf(x -> x.getId() == row);
+
     }
 
 
