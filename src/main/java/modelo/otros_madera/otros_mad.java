@@ -95,7 +95,6 @@ public class otros_mad extends RecursiveTreeObject<otros_mad> {
         try {
             var datos = "SELECT * FROM otras where fecha = current_date";
             System.out.println(datos);
-
             var statementP = connection.createStatement();
             var resultSet1 = statementP.executeQuery(datos);
 

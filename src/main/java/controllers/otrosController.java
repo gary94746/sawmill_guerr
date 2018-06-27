@@ -80,7 +80,6 @@ public class otrosController implements Initializable {
 
     private void columns() {
         final TreeItem<otros_mad> root = new RecursiveTreeItem<otros_mad>(list, RecursiveTreeObject::getChildren);
-        list.forEach(x -> System.out.println(x));
         tablaOtros.setRoot(root);
 
             //Columna1
