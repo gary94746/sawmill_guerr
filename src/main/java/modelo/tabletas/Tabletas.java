@@ -6,13 +6,27 @@ import javafx.collections.ObservableList;
 import modelo.rollo.Rollo;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
 public class Tabletas extends RecursiveTreeObject<Tabletas> {
+    private IntegerProperty id;
     private StringProperty gruesoxancho;
     private IntegerProperty piezas;
     private DoubleProperty cubicacion;
     private DoubleProperty piestabla;
     private DoubleProperty longitud;
+
+
+
+    public Tabletas(int id, String gruesoxancho, int piezas, double cubicacion, double piestabla, double longitud) {
+        this.id = new SimpleIntegerProperty(id);
+        this.gruesoxancho = new SimpleStringProperty(gruesoxancho);
+        this.piezas = new SimpleIntegerProperty(piezas);
+        this.cubicacion = new SimpleDoubleProperty(cubicacion);
+        this.piestabla = new SimpleDoubleProperty(piestabla);
+        this.longitud = new SimpleDoubleProperty(longitud);
+    }
 
     public Tabletas(String gruesoxancho, int piezas, double cubicacion, double piestabla, double longitud) {
         this.gruesoxancho = new SimpleStringProperty(gruesoxancho);
@@ -20,6 +34,18 @@ public class Tabletas extends RecursiveTreeObject<Tabletas> {
         this.cubicacion = new SimpleDoubleProperty(cubicacion);
         this.piestabla = new SimpleDoubleProperty(piestabla);
         this.longitud = new SimpleDoubleProperty(longitud);
+    }
+
+    public int getId() {
+        return id.get();
+    }
+
+    public IntegerProperty idProperty() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id.set(id);
     }
 
     public String getGruesoxancho() {
@@ -91,6 +117,7 @@ public class Tabletas extends RecursiveTreeObject<Tabletas> {
 
             if (resultSet1.next())
                 return new Tabletas(
+                        resultSet1.getInt("id"),
                         resultSet1.getString("gruesoporancho"),
                         resultSet1.getInt("piezas"),
                         resultSet1.getDouble("cubicacion"),
@@ -113,11 +140,23 @@ public class Tabletas extends RecursiveTreeObject<Tabletas> {
             var resultSet1 = statementP.executeQuery(datos);
 
             while (resultSet1.next()) {
-                list.add(new Tabletas(resultSet1.getString("gruesoporancho"), resultSet1.getInt("piezas"), resultSet1.getDouble("cubicacion"), resultSet1.getDouble("pies_tabla"), resultSet1.getDouble("longitud")));
+                list.add(new Tabletas(resultSet1.getInt("id"),resultSet1.getString("gruesoporancho"), resultSet1.getInt("piezas"), resultSet1.getDouble("cubicacion"), resultSet1.getDouble("pies_tabla"), resultSet1.getDouble("longitud")));
             }
 
         }catch (Exception e){
             e.printStackTrace();
+        }
+    }
+
+    public static int eliminarTableta(Connection connection, int id) {
+        try {
+            final String query = "DELETE FROM tabletas WHERE id = ?";
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setInt(1,id);
+            return statement.executeUpdate();
+        }catch (SQLException e){
+            e.printStackTrace();
+            return 0;
         }
     }
 }

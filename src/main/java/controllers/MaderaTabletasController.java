@@ -56,6 +56,16 @@ public class MaderaTabletasController implements Initializable {
         agregarRegistro(null);
     }
 
+
+    @FXML
+    void eliminaTableta(ActionEvent event) {
+        int row = tabla2.getSelectionModel().getSelectedItem().getValue().getId();
+        conexion.establecerConexion();
+        Tabletas.eliminarTableta(conexion.getConection(), row);
+        conexion.cerrarConexion();
+        list.removeIf(x -> x.getId() == row);
+    }
+
     // Abre un Stage con la vista extra de tabletas.
     @FXML
     void despegar(ActionEvent event) throws IOException {
@@ -68,6 +78,8 @@ public class MaderaTabletasController implements Initializable {
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.show();
     }
+
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {

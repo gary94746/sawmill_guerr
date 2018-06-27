@@ -10,14 +10,12 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TreeItem;
-import javafx.scene.control.TreeTableColumn;
-import javafx.scene.control.TreeTableRow;
+import javafx.scene.control.*;
 import modelo.Conexion;
 import modelo.rollo.Rollo;
 
 import java.net.URL;
+import java.sql.Connection;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.ResourceBundle;
@@ -34,6 +32,12 @@ public class MaderaEnRolloController implements Initializable {
     private JFXTextField volumenTotal;
 
     @FXML
+    private JFXDatePicker fecha;
+
+    @FXML
+    private Label lblTitulo;
+
+    @FXML
     private JFXTreeTableView<Rollo> tabla1;
     private ObservableList<Rollo> list;
 
@@ -48,10 +52,25 @@ public class MaderaEnRolloController implements Initializable {
         txtD1.setText("");
         txtD2.setText("");
         count++;
+
         var total = list.parallelStream().mapToDouble(Rollo::getVol).sum();
         volumenTotal.setText(format3Decimals(total) + "");
     }
 
+    @FXML
+    void returnFecha(ActionEvent event) {
+        list.removeIf(x -> true);
+
+        conexion.establecerConexion();
+        Rollo.obtenerDatos(conexion.getConection(), list);
+        conexion.cerrarConexion();
+
+        txtD1.setDisable(false);
+        txtD2.setDisable(false);
+
+        var total = list.parallelStream().mapToDouble(Rollo::getVol).sum();
+        volumenTotal.setText(format3Decimals(total) + "");
+    }
 
     @FXML
     void eliminaRollo(ActionEvent event) {
@@ -60,11 +79,31 @@ public class MaderaEnRolloController implements Initializable {
         Rollo.eliminarRollo(conexion.getConection(), row);
         conexion.cerrarConexion();
         list.removeIf(x -> x.getId() == row);
+
+        var total = list.parallelStream().mapToDouble(Rollo::getVol).sum();
+        volumenTotal.setText(format3Decimals(total) + "");
     }
 
     @FXML
     void buscarFecha(ActionEvent event) {
+        var datePicker1 = fecha.getValue().getYear() + "-" + fecha.getValue().getMonthValue()+ "-" + fecha.getValue().getDayOfMonth();
+         lblTitulo.setText("Historia del: " +
+                    fecha.getValue().getDayOfMonth() + "/" + fecha.getValue().getMonth()+ "/" + fecha.getValue().getYear()
+         );
+         cargarDatos(datePicker1);
 
+         txtD1.setDisable(true);
+         txtD2.setDisable(true);
+
+        var total = list.parallelStream().mapToDouble(Rollo::getVol).sum();
+        volumenTotal.setText(format3Decimals(total) + "");
+    }
+
+    private void cargarDatos(String datePicker) {
+        list.removeIf(x -> true);
+        conexion.establecerConexion();
+        Rollo.historial(conexion.getConection(), list, datePicker);
+        conexion.cerrarConexion();
     }
 
     private double format3Decimals(double numero) {
@@ -81,6 +120,10 @@ public class MaderaEnRolloController implements Initializable {
         conexion.establecerConexion();
         Rollo.obtenerDatos(conexion.getConection(), list);
         conexion.cerrarConexion();
+
+        var total = list.parallelStream().mapToDouble(Rollo::getVol).sum();
+        volumenTotal.setText(format3Decimals(total) + "");
+
     }
 
     // Se establecen las columnas de la tabla.
@@ -154,7 +197,6 @@ public class MaderaEnRolloController implements Initializable {
         conexion.establecerConexion();
         var newRollo = Rollo.addRollo(conexion.getConection(), count, Double.parseDouble(txtD1.getText()), Double.parseDouble(txtD2.getText()));
         conexion.cerrarConexion();
-        //System.out.println(newRollo == null);
         if (newRollo != null) {
             list.add(newRollo);
         }
