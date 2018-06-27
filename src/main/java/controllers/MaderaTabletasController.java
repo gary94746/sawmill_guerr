@@ -79,12 +79,14 @@ public class MaderaTabletasController implements Initializable {
         comboAncho.getItems().addAll("4", "6", "8", "10", "12");
         comboAncho.setValue("4");
 
+        conexion.establecerConexion();
+        Tabletas.obtenerDatos(conexion.getConection(), list);
+        conexion.cerrarConexion();
         columnas();
     }
 
     private void columnas() {
         final TreeItem<Tabletas> root = new RecursiveTreeItem<>(list, RecursiveTreeObject::getChildren);
-        list.forEach(x -> System.out.println(x));
         tabla2.setRoot(root);
 
         // Columna de grueso por ancho.
@@ -131,10 +133,21 @@ public class MaderaTabletasController implements Initializable {
                 return piestabla.getComputedValue(param);
         });
 
+        // Columna de grueso por ancho.
+        JFXTreeTableColumn<Tabletas, Double> longitud = new JFXTreeTableColumn<>("Longitud");
+        longitud.setEditable(false);
+
+        longitud.setCellValueFactory((TreeTableColumn.CellDataFeatures<Tabletas, Double> param) -> {
+            if (longitud.validateValue(param))
+                return param.getValue().getValue().longitudProperty().asObject();
+            else
+                return longitud.getComputedValue(param);
+        });
+
         //Operaciones con la tabla
         tabla2.setEditable(false);
         tabla2.setShowRoot(false);
-        tabla2.getColumns().setAll(gruesoporancho, piezas, cubicacion, piestabla);
+        tabla2.getColumns().setAll(gruesoporancho, piezas, cubicacion, piestabla, longitud);
     }
 
     public void asignarCubicacion(String grueso, double ancho, double longitud){
