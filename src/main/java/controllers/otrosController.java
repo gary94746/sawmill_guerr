@@ -53,6 +53,8 @@ public class otrosController implements Initializable {
         otros_mad.obtenerDatos(conexion.getConection(), list);
         conexion.cerrarConexion();
         txtCubicacion.setText(String.valueOf(valcub));
+        txtTotalPieza.setEditable(false);
+        txtTotalPt.setEditable(false);
         columns();
         Totales();
     }

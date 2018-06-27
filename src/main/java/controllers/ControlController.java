@@ -14,6 +14,8 @@ import modelo.Conexion;
 import modelo.Control_madera.madera_control;
 
 import java.net.URL;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.ResourceBundle;
 
 public class ControlController implements Initializable {
@@ -28,6 +30,8 @@ public class ControlController implements Initializable {
     @FXML private JFXComboBox<String> comboLargo;
     @FXML private JFXComboBox<String> FiltrarGrueso;
     @FXML private JFXComboBox<String> FiltrarClase;
+    @FXML private JFXTextField txtTotalPieza;
+    @FXML private JFXTextField txtTotalPt;
 
     double valcub;
     private Conexion conexion = Conexion.getInstance();
@@ -41,7 +45,7 @@ public class ControlController implements Initializable {
         FiltrarGrueso.getItems().addAll("3/4\"", "1 1/2\"", "2\"");
         FiltrarGrueso.setValue("3/4\"");
 
-        FiltrarClase.getItems().addAll("PRIMERA","SEGUNDA","TERCERA BUENA","TERCERA MALA","MADERA CRUZADA");
+        FiltrarClase.getItems().addAll("TODOS","PRIMERA","SEGUNDA","TERCERA BUENA","TERCERA MALA","MADERA CRUZADA");
         FiltrarClase.setValue("PRIMERA");
 
         comboGr.getItems().addAll("3/4\"", "1 1/2\"", "2\"");
@@ -57,14 +61,19 @@ public class ControlController implements Initializable {
         comboLargo.setValue("8 1/4\"");
 
         valcub=(.75*4*8.25)/12;
+        txtCubicacion.setEditable(false);
         txtCubicacion.setText(String.valueOf(valcub));
 
         txtPT.setText("0");
+        txtPT.setEditable(false);
         list = FXCollections.observableArrayList();
 
-        llenarTabla();
+        txtTotalPieza.setEditable(false);
+        txtTotalPt.setEditable(false);
 
+        llenarTabla();
         columns();
+        Totales();
 
     }
     //Declaracion de la tabla y columnas
@@ -266,10 +275,32 @@ public class ControlController implements Initializable {
     }
 
     public void llenarTabla(){
+        if(FiltrarClase.getSelectionModel().getSelectedItem()=="TODOS"){
+            list.removeIf(x->true);
+            conexion.establecerConexion();
+            madera_control.obtenerDatosTodos(conexion.getConection(),list);
+            conexion.cerrarConexion();
+
+        }else{
+
         list.removeIf(x->true);
         conexion.establecerConexion();
         madera_control.obtenerDatos(conexion.getConection(), list, FiltrarGrueso.getSelectionModel().getSelectedItem(),FiltrarClase.getSelectionModel().getSelectedItem());
         conexion.cerrarConexion();
+        }
+    }
+
+    private double format3Decimals(double numero) {
+        NumberFormat d = new DecimalFormat("#0.000");
+        var f = d.format(numero);
+        return Double.parseDouble(f);
+    }
+
+    void Totales(){
+        var tTotal  = format3Decimals(list.parallelStream().mapToDouble(madera_control::getPieza).sum());
+        var tTotalPt= format3Decimals(list.parallelStream().mapToDouble(madera_control::getPt).sum());
+        txtTotalPieza.setText((tTotal+""));
+        txtTotalPt.setText((tTotalPt+""));
     }
 
     @FXML
@@ -308,11 +339,13 @@ public class ControlController implements Initializable {
     @FXML
     void actionFiltroClase(ActionEvent event) {
         llenarTabla();
+        Totales();
     }
 
     @FXML
     void actionFiltroGrueso(ActionEvent event) {
         llenarTabla();
+        Totales();
     }
 
     @FXML
