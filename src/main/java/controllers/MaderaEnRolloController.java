@@ -2,6 +2,7 @@ package controllers;
 
 import com.jfoenix.controls.*;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
+import controllers.utils.Validators;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
@@ -11,9 +12,10 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyEvent;
 import modelo.Conexion;
 import modelo.rollo.Rollo;
-
+import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.sql.Connection;
 import java.text.DecimalFormat;
@@ -63,13 +65,13 @@ public class MaderaEnRolloController implements Initializable {
 
     @FXML
     void agregaRollo(ActionEvent event) {
-        agregarRegistro(null);
-        txtD1.setText("");
-        txtD2.setText("");
-        count++;
+            agregarRegistro(null);
+            txtD1.setText("");
+            txtD2.setText("");
+            count++;
 
-        var total = list.parallelStream().mapToDouble(Rollo::getVol).sum();
-        volumenTotal.setText(format3Decimals(total) + "");
+            var total = list.parallelStream().mapToDouble(Rollo::getVol).sum();
+            volumenTotal.setText(format3Decimals(total) + "");
     }
 
     @FXML
@@ -147,6 +149,8 @@ public class MaderaEnRolloController implements Initializable {
         var total = list.parallelStream().mapToDouble(Rollo::getVol).sum();
         volumenTotal.setText(format3Decimals(total) + "");
 
+        txtD1.addEventFilter(KeyEvent.ANY, Validators.onlyNumbers());
+
         botonAgregar.setTooltip(new Tooltip("Agregar"));
         botonBuscar.setTooltip(new Tooltip("Buscar"));
         botonEditar.setTooltip(new Tooltip("Editar"));
@@ -222,11 +226,11 @@ public class MaderaEnRolloController implements Initializable {
     }
 
     public void agregarRegistro(Rollo x){
-        conexion.establecerConexion();
-        var newRollo = Rollo.addRollo(conexion.getConection(), count, Double.parseDouble(txtD1.getText()), Double.parseDouble(txtD2.getText()));
-        conexion.cerrarConexion();
-        if (newRollo != null) {
-            list.add(newRollo);
-        }
+            conexion.establecerConexion();
+            var newRollo = Rollo.addRollo(conexion.getConection(), count, Double.parseDouble(txtD1.getText()), Double.parseDouble(txtD2.getText()));
+            conexion.cerrarConexion();
+            if (newRollo != null) {
+                list.add(newRollo);
+            }
     }
 }
