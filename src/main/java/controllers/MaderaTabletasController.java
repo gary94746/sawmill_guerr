@@ -10,6 +10,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.control.Tooltip;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeTableColumn;
 import javafx.scene.image.Image;
@@ -37,6 +39,27 @@ public class MaderaTabletasController implements Initializable {
     private JFXComboBox<String> comboLongitud;
 
     @FXML
+    private JFXButton btnAgregar;
+
+    @FXML
+    private JFXButton btnEditar;
+
+    @FXML
+    private JFXButton btnEliminar;
+
+    @FXML
+    private JFXButton btnSubtotales;
+
+    @FXML
+    private JFXButton btnBuscar;
+
+    @FXML
+    private JFXButton btnRegreso;
+
+    @FXML
+    private JFXDatePicker fechaTableta;
+
+    @FXML
     private JFXComboBox<String> comboGrueso;
 
     @FXML
@@ -44,6 +67,9 @@ public class MaderaTabletasController implements Initializable {
 
     @FXML
     private JFXTextField txtPiezas;
+
+    @FXML
+    private Label lblTitulo;
 
     private Conexion conexion = Conexion.getInstance();
 
@@ -56,6 +82,33 @@ public class MaderaTabletasController implements Initializable {
         agregarRegistro(null);
     }
 
+    @FXML
+    void buscarFechaTableta(ActionEvent event) {
+        var datePicker1 = fechaTableta.getValue().getYear() + "-" + fechaTableta.getValue().getMonthValue()+ "-" + fechaTableta.getValue().getDayOfMonth();
+        lblTitulo.setText("Historia del: " +
+                fechaTableta.getValue().getDayOfMonth() + "/" + fechaTableta.getValue().getMonth()+ "/" + fechaTableta.getValue().getYear()
+        );
+
+        cargarDatos(datePicker1);
+    }
+
+    @FXML
+    void returnFechaTableta(ActionEvent event) {
+        list.removeIf(x -> true);
+
+        conexion.establecerConexion();
+        Tabletas.obtenerDatos(conexion.getConection(), list);
+        conexion.cerrarConexion();
+
+        lblTitulo.setText("Control de produccion de madera aserrada");
+    }
+
+    private void cargarDatos(String datePicker) {
+        list.removeIf(x -> true);
+        conexion.establecerConexion();
+        Tabletas.historial(conexion.getConection(), list, datePicker);
+        conexion.cerrarConexion();
+    }
 
     @FXML
     void eliminaTableta(ActionEvent event) {
@@ -73,7 +126,7 @@ public class MaderaTabletasController implements Initializable {
         Stage stage = new Stage();
         Scene scene = new Scene(parent);
         stage.setScene(scene);
-        stage.getIcons().add(new Image(getClass().getResourceAsStream("/images/chainsaw.png")));
+        stage.getIcons().add(new Image(getClass().getResourceAsStream("/images/servicio02.png")));
         stage.setTitle("Menu principal");
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.show();
@@ -95,6 +148,13 @@ public class MaderaTabletasController implements Initializable {
         Tabletas.obtenerDatos(conexion.getConection(), list);
         conexion.cerrarConexion();
         columnas();
+
+        btnAgregar.setTooltip(new Tooltip("Agregar"));
+        btnBuscar.setTooltip(new Tooltip("Buscar"));
+        btnEditar.setTooltip(new Tooltip("Editar"));
+        btnEliminar.setTooltip(new Tooltip("Eliminar"));
+        btnRegreso.setTooltip(new Tooltip("Regrese al dia actual"));
+        btnSubtotales.setTooltip(new Tooltip("Despliega los subtotales"));
     }
 
     private void columnas() {
