@@ -35,6 +35,21 @@ public class MaderaEnRolloController implements Initializable {
     private JFXDatePicker fecha;
 
     @FXML
+    private JFXButton botonAgregar;
+
+    @FXML
+    private JFXButton botonEditar;
+
+    @FXML
+    private JFXButton botonEliminar;
+
+    @FXML
+    private JFXButton botonBuscar;
+
+    @FXML
+    private JFXButton botonFechaActual;
+
+    @FXML
     private Label lblTitulo;
 
     @FXML
@@ -70,6 +85,8 @@ public class MaderaEnRolloController implements Initializable {
 
         var total = list.parallelStream().mapToDouble(Rollo::getVol).sum();
         volumenTotal.setText(format3Decimals(total) + "");
+
+        lblTitulo.setText("Control de transformacion de madera en rollo.");
     }
 
     @FXML
@@ -123,6 +140,11 @@ public class MaderaEnRolloController implements Initializable {
         var total = list.parallelStream().mapToDouble(Rollo::getVol).sum();
         volumenTotal.setText(format3Decimals(total) + "");
 
+        botonAgregar.setTooltip(new Tooltip("Agregar"));
+        botonBuscar.setTooltip(new Tooltip("Buscar"));
+        botonEditar.setTooltip(new Tooltip("Editar"));
+        botonEliminar.setTooltip(new Tooltip("Eliminar"));
+        botonFechaActual.setTooltip(new Tooltip("Regrese al dia actual"));
     }
 
     // Se establecen las columnas de la tabla.
