@@ -63,9 +63,9 @@ public class EmpleadoController implements Initializable {
         final TreeItem<Empleado> root = new RecursiveTreeItem<>(lista, RecursiveTreeObject::getChildren);
         tblEmpleado.setRoot(root);
 
-        JFXTreeTableColumn<Empleado, String> clmNombre = new JFXTreeTableColumn<>("Nombre");
-        JFXTreeTableColumn<Empleado, String> clmApellido = new JFXTreeTableColumn<>("Apellidos");
-        JFXTreeTableColumn<Empleado, String> clmCargo = new JFXTreeTableColumn<>("Cargo");
+        JFXTreeTableColumn<Empleado, String> clmNombre = new JFXTreeTableColumn<>("Nombre".toUpperCase());
+        JFXTreeTableColumn<Empleado, String> clmApellido = new JFXTreeTableColumn<>("Apellidos".toUpperCase());
+        JFXTreeTableColumn<Empleado, String> clmCargo = new JFXTreeTableColumn<>("Cargo".toUpperCase());
 
         clmNombre.setCellValueFactory((TreeTableColumn.CellDataFeatures<Empleado, String> param) -> {
             if (clmNombre.validateValue(param))

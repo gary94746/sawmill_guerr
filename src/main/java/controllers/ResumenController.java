@@ -15,6 +15,7 @@ import javafx.scene.layout.VBox;
 import modelo.Conexion;
 import modelo.resumen.Resumen;
 import modelo.rollo.Rollo;
+import tray.notification.NotificationType;
 
 import java.net.URL;
 import java.text.DecimalFormat;
@@ -68,6 +69,7 @@ public class ResumenController implements Initializable {
         var dateFormat1 = new SimpleDateFormat("yyyy-MM-dd");
         lblResumen.setText("Resumen del: " + dateFormat.format(new Date()));
         loadData(dateFormat1.format(new Date()),dateFormat1.format(new Date()));
+        Messages.setMessage("Resumen actual", "Se muestra el resumen actual", NotificationType.SUCCESS);
     }
 
 
@@ -82,6 +84,9 @@ public class ResumenController implements Initializable {
         );
 
         loadData(datePicker1, datePicker2);
+
+        Messages.setMessage("Resumen", "De:" + datePicker1 + " al " + datePicker2, NotificationType.SUCCESS);
+
     }
 
     @FXML
