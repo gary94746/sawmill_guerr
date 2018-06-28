@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXPasswordField?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="346.0" stylesheets="@../estilos/dashboard.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.VentanaEmpleadoController">
+  <columnConstraints>
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="145.0" minWidth="10.0" prefWidth="90.0" />
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="236.0" minWidth="10.0" prefWidth="236.0" />
+  </columnConstraints>
+  <rowConstraints>
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+  </rowConstraints>
+   <padding>
+      <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+   </padding>
+   <children>
+      <Label text="NOMBRE:" />
+      <Label text="APELLIDOS:" GridPane.rowIndex="1" />
+      <Label text="CARGO:" GridPane.rowIndex="2" />
+      <Label text="USUARIO:" GridPane.rowIndex="3" />
+      <Label text="CONTRASEÑA:" GridPane.rowIndex="4" />
+      <JFXTextField fx:id="txtNombre" GridPane.columnIndex="1" />
+      <JFXTextField fx:id="txtApellidos" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+      <JFXTextField fx:id="txtUsuario" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+      <JFXPasswordField fx:id="txtPass" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+      <JFXComboBox fx:id="cmbCargo" prefHeight="26.0" prefWidth="259.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+      <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
+         <children>
+            <JFXButton onAction="#agregar" text="ACEPTAR" />
+         </children>
+      </HBox>
+   </children>
+</GridPane>
