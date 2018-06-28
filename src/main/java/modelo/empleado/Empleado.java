@@ -1,11 +1,13 @@
 package modelo.empleado;
 
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
+import controllers.utils.Messages;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.ObservableList;
+import tray.notification.NotificationType;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -20,6 +22,14 @@ public class Empleado extends RecursiveTreeObject<Empleado> {
 
     public Empleado(int id, String nombre, String apellido, String cargo, String usuario, String pass) {
         this.id = new SimpleIntegerProperty(id);
+        this.nombre = new SimpleStringProperty(nombre);
+        this.apellido = new SimpleStringProperty(apellido);
+        this.cargo = new SimpleStringProperty(cargo);
+        this.usuario = new SimpleStringProperty(usuario);
+        this.pass =  new SimpleStringProperty(pass);
+    }
+
+    public Empleado(String nombre, String apellido, String cargo, String usuario, String pass) {
         this.nombre = new SimpleStringProperty(nombre);
         this.apellido = new SimpleStringProperty(apellido);
         this.cargo = new SimpleStringProperty(cargo);
@@ -118,5 +128,68 @@ public class Empleado extends RecursiveTreeObject<Empleado> {
         }catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public static Empleado addEmpleado(Connection connection, Empleado e) {
+        try {
+            var query = "SELECT * FROM add_empleado('"+e.getNombre()+"', '"+e.getApellido()+"', '"+e.getCargo()+"', '"+e.getUsuario()+"', '"+e.getPass()+"')";
+
+            var stm = connection.createStatement();
+            var rs = stm.executeQuery(query);
+
+            if (rs.next())
+                return new Empleado(
+                    rs.getInt("id"),
+                    rs.getString("nombre"),
+                    rs.getString("apellidos"),
+                    rs.getString("puesto"),
+                    rs.getString("usuario"),
+                    rs.getString("pass")
+                );
+        }catch(SQLException exception) {
+            if (exception.getMessage().contains("duplicate key value"))
+                Messages.setMessage("Usuario incorrecto","Ese usuario ya esta registrado", NotificationType.INFORMATION);
+        }
+
+        return null;
+    }
+
+    public static int eliminarEmpleado(Connection connection, int id) {
+        try {
+            var query = "DELETE FROM empleado WHERE id = ?";
+            var stm = connection.prepareStatement(query);
+            stm.setInt(1, id);
+
+            return stm.executeUpdate();
+        }catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return 0;
+    }
+
+    public static int updateEmpleado(Connection connection, Empleado e) {
+        try {
+            var query = "UPDATE aserradero_warrior.empleado\n" +
+                    "\tSET nombre=?, apellidos=?, puesto=?, usuario=?, pass=?\n" +
+                    "\tWHERE id = ?;";
+            var stm = connection.prepareStatement(query);
+
+            stm.setString(1, e.getNombre());
+            stm.setString(2, e.getApellido());
+            stm.setString(3,e.getCargo());
+            stm.setString(4, e.getUsuario());
+            stm.setString(5, e.getPass());
+            stm.setInt(6, e.getId());
+
+            return stm.executeUpdate();
+
+        }catch (SQLException exception) {
+            System.out.println(exception.getMessage());
+            if (exception.getMessage().contains("duplicate key value"))
+                Messages.setMessage("Usuario incorrecto","Ese usuario ya esta registrado", NotificationType.INFORMATION);
+        }
+
+        return 0;
     }
 }

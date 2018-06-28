@@ -65,6 +65,9 @@ public class ResumenController implements Initializable {
     @FXML
     void currentDate(ActionEvent event) {
         //actual data
+        date1.getEditor().clear();
+        date2.getEditor().clear();
+
         var dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         var dateFormat1 = new SimpleDateFormat("yyyy-MM-dd");
         lblResumen.setText("Resumen del: " + dateFormat.format(new Date()));
