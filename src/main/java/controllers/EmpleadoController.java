@@ -7,12 +7,19 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeTableColumn;
+import javafx.scene.image.Image;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import modelo.Conexion;
 import modelo.empleado.Empleado;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -24,16 +31,9 @@ public class EmpleadoController implements Initializable {
     @FXML private JFXTextField txtUsuario;
     @FXML private JFXPasswordField txtPass;
     @FXML private JFXTextField txtCargo;
-
-    @FXML
-    private JFXButton bntAdd;
-
-    @FXML
-    private JFXButton btnEdit;
-
-    @FXML
-    private JFXButton btnDelete;
-
+    @FXML private JFXButton bntAdd;
+    @FXML private JFXButton btnEdit;
+    @FXML private JFXButton btnDelete;
 
 
     private ObservableList<Empleado> lista;
@@ -107,8 +107,14 @@ public class EmpleadoController implements Initializable {
     }
 
     @FXML
-    void add(ActionEvent event) {
-
+    void add(ActionEvent event) throws IOException {
+        Parent parent = FXMLLoader.load(getClass().getResource("/views/ventana_empleado.fxml"));
+        Stage stage = new Stage();
+        Scene scene = new Scene(parent);
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.setScene(scene);
+        stage.setTitle("Agregar empleado");
+        stage.show();
     }
 
     @FXML
