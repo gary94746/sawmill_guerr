@@ -25,8 +25,8 @@ public class LoginController {
 
     @FXML
     void login(ActionEvent event) throws IOException {
-        txtUser.setText("martin09");
-        txtPass.setText("48551qw");
+//        txtUser.setText("martin09");
+//        txtPass.setText("48551qw");
         //Close login stage
         var loginStage = (Stage)((Node) event.getSource()).getScene().getWindow();
 
@@ -44,7 +44,7 @@ public class LoginController {
 
             Messages.setMessage("Bienvenido","Usuario: "+ txtUser.getText(), NotificationType.SUCCESS);
         }else {
-            Messages.setMessage("Verifique","Ingrese datos validos", NotificationType.ERROR);
+            Messages.setMessage("Verifique","Ingrese datos validos", NotificationType.INFORMATION);
         }
     }
 

@@ -434,10 +434,7 @@ public class ControlController implements Initializable {
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.show();
 
-        }catch (Exception e){
-            e.printStackTrace();
-
-        }
+        }catch (Exception e){}
 
     }
 

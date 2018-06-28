@@ -49,7 +49,7 @@
          <children>
             <JFXButton fx:id="bntAdd" contentDisplay="CENTER" onAction="#add" prefHeight="25.0" prefWidth="14.0" style="-fx-background-color: #916b47;" text="." textAlignment="JUSTIFY" textFill="WHITE">
                <graphic>
-                  <FontAwesomeIconView fill="WHITE" glyphName="PLUS" size="18" />
+                  <FontAwesomeIconView fill="WHITE" glyphName="PLUS" size="16" />
                </graphic>
                <HBox.margin>
                   <Insets right="10.0" />
@@ -57,7 +57,7 @@
             </JFXButton>
             <JFXButton fx:id="btnEdit" contentDisplay="CENTER" onAction="#editar" prefHeight="25.0" prefWidth="14.0" style="-fx-background-color: #916b47;" text="." textAlignment="JUSTIFY" textFill="WHITE">
                <graphic>
-                  <FontAwesomeIconView fill="WHITE" glyphName="EDIT" size="18" />
+                  <FontAwesomeIconView fill="WHITE" glyphName="EDIT" size="16" />
                </graphic>
                <HBox.margin>
                   <Insets right="10.0" />
@@ -65,7 +65,7 @@
             </JFXButton>
             <JFXButton fx:id="btnDelete" contentDisplay="CENTER" onAction="#eliminar" prefHeight="25.0" prefWidth="14.0" style="-fx-background-color: #916b47;" text="." textAlignment="JUSTIFY" textFill="WHITE">
                <graphic>
-                  <FontAwesomeIconView fill="WHITE" glyphName="TRASH" size="18" />
+                  <FontAwesomeIconView fill="WHITE" glyphName="TRASH" size="16" />
                </graphic>
             </JFXButton>
          </children>
