@@ -148,6 +148,25 @@ public class Tabletas extends RecursiveTreeObject<Tabletas> {
         }
     }
 
+    public static void historial(Connection connection, ObservableList<Tabletas> list, String date) {
+        try {
+
+            System.out.println(date);
+            var query = "SELECT * FROM tabletas where fecha = '" + date + "'::date order by longitud";
+
+            var statementP = connection.createStatement();
+            var resultSet1 = statementP.executeQuery(query);
+
+            while (resultSet1.next()) {
+                list.add(new Tabletas(resultSet1.getInt("id"),resultSet1.getString("gruesoporancho"), resultSet1.getInt("piezas"), resultSet1.getDouble("cubicacion"), resultSet1.getDouble("pies_tabla"), resultSet1.getDouble("longitud")));
+
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     public static int eliminarTableta(Connection connection, int id) {
         try {
             final String query = "DELETE FROM tabletas WHERE id = ?";

@@ -10,6 +10,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.control.Tooltip;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeTableColumn;
 import javafx.scene.image.Image;
@@ -21,6 +23,7 @@ import modelo.tabletas.Tabletas;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 public class MaderaTabletasController implements Initializable {
@@ -37,6 +40,27 @@ public class MaderaTabletasController implements Initializable {
     private JFXComboBox<String> comboLongitud;
 
     @FXML
+    private JFXButton btnAgregar;
+
+    @FXML
+    private JFXButton btnEditar;
+
+    @FXML
+    private JFXButton btnEliminar;
+
+    @FXML
+    private JFXButton btnSubtotales;
+
+    @FXML
+    private JFXButton btnBuscar;
+
+    @FXML
+    private JFXButton btnRegreso;
+
+    @FXML
+    private JFXDatePicker fechaTableta;
+
+    @FXML
     private JFXComboBox<String> comboGrueso;
 
     @FXML
@@ -44,6 +68,9 @@ public class MaderaTabletasController implements Initializable {
 
     @FXML
     private JFXTextField txtPiezas;
+
+    @FXML
+    private Label lblTitulo;
 
     private Conexion conexion = Conexion.getInstance();
 
@@ -56,6 +83,51 @@ public class MaderaTabletasController implements Initializable {
         agregarRegistro(null);
     }
 
+    @FXML
+    void buscarFechaTableta(ActionEvent event) {
+        var datePicker1 = fechaTableta.getValue().getYear() + "-" + fechaTableta.getValue().getMonthValue()+ "-" + fechaTableta.getValue().getDayOfMonth();
+        lblTitulo.setText("Historia del: " +
+                fechaTableta.getValue().getDayOfMonth() + "/" + fechaTableta.getValue().getMonth()+ "/" + fechaTableta.getValue().getYear()
+        );
+
+        cargarDatos(datePicker1);
+
+        comboGrueso.setDisable(true);
+        comboAncho.setDisable(true);
+        comboLongitud.setDisable(true);
+        txtPiezas.setDisable(true);
+        btnAgregar.setDisable(true);
+        btnEditar.setDisable(true);
+        btnEliminar.setDisable(true);
+        btnSubtotales.setDisable(true);
+    }
+
+    @FXML
+    void returnFechaTableta(ActionEvent event) {
+        list.removeIf(x -> true);
+
+        conexion.establecerConexion();
+        Tabletas.obtenerDatos(conexion.getConection(), list);
+        conexion.cerrarConexion();
+
+        lblTitulo.setText("Control de produccion de madera aserrada");
+
+        comboGrueso.setDisable(false);
+        comboAncho.setDisable(false);
+        comboLongitud.setDisable(false);
+        txtPiezas.setDisable(false);
+        btnAgregar.setDisable(false);
+        btnEditar.setDisable(false);
+        btnEliminar.setDisable(false);
+        btnSubtotales.setDisable(false);
+    }
+
+    private void cargarDatos(String datePicker) {
+        list.removeIf(x -> true);
+        conexion.establecerConexion();
+        Tabletas.historial(conexion.getConection(), list, datePicker);
+        conexion.cerrarConexion();
+    }
 
     @FXML
     void eliminaTableta(ActionEvent event) {
@@ -66,20 +138,17 @@ public class MaderaTabletasController implements Initializable {
         list.removeIf(x -> x.getId() == row);
     }
 
-    // Abre un Stage con la vista extra de tabletas.
     @FXML
     void despegar(ActionEvent event) throws IOException {
         Parent parent = FXMLLoader.load(getClass().getResource("/views/extraview.fxml"));
         Stage stage = new Stage();
         Scene scene = new Scene(parent);
         stage.setScene(scene);
-        stage.getIcons().add(new Image(getClass().getResourceAsStream("/images/chainsaw.png")));
+        stage.getIcons().add(new Image(getClass().getResourceAsStream("/images/servicio02.png")));
         stage.setTitle("Menu principal");
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.show();
     }
-
-
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -95,6 +164,13 @@ public class MaderaTabletasController implements Initializable {
         Tabletas.obtenerDatos(conexion.getConection(), list);
         conexion.cerrarConexion();
         columnas();
+
+        btnAgregar.setTooltip(new Tooltip("Agregar"));
+        btnBuscar.setTooltip(new Tooltip("Buscar"));
+        btnEditar.setTooltip(new Tooltip("Editar"));
+        btnEliminar.setTooltip(new Tooltip("Eliminar"));
+        btnRegreso.setTooltip(new Tooltip("Regrese al dia actual"));
+        btnSubtotales.setTooltip(new Tooltip("Despliega los subtotales"));
     }
 
     private void columnas() {
@@ -175,6 +251,7 @@ public class MaderaTabletasController implements Initializable {
     }
 
     public double calcularPt(double cubicacion, int piezas) {
+        System.out.println(piezas);
         return cubicacion * piezas;
     }
 
