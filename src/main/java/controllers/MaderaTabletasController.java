@@ -2,6 +2,7 @@ package controllers;
 
 import com.jfoenix.controls.*;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
+import controllers.utils.Messages;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -20,8 +21,10 @@ import javafx.stage.Stage;
 import modelo.Conexion;
 import modelo.rollo.Rollo;
 import modelo.tabletas.Tabletas;
+import tray.notification.NotificationType;
 
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
@@ -77,10 +80,15 @@ public class MaderaTabletasController implements Initializable {
 
     @FXML
     void agregaTableta(ActionEvent event) {
-        asignarCubicacion(comboGrueso.getSelectionModel().getSelectedItem(), Double.parseDouble(comboAncho.getSelectionModel().getSelectedItem()), Double.parseDouble(comboLongitud.getSelectionModel().getSelectedItem()));
-        calcularPt(cubos, Integer.parseInt(txtPiezas.getText()));
-        gruesoAncho(comboGrueso.getSelectionModel().getSelectedItem(), comboAncho.getSelectionModel().getSelectedItem());
-        agregarRegistro(null);
+        try {
+            asignarCubicacion(comboGrueso.getSelectionModel().getSelectedItem(), Double.parseDouble(comboAncho.getSelectionModel().getSelectedItem()), Double.parseDouble(comboLongitud.getSelectionModel().getSelectedItem()));
+            calcularPt(cubos, Integer.parseInt(txtPiezas.getText()));
+            gruesoAncho(comboGrueso.getSelectionModel().getSelectedItem(), comboAncho.getSelectionModel().getSelectedItem());
+            agregarRegistro(null);
+        } catch (NumberFormatException e) {
+            //e.printStackTrace();
+            Messages.setMessage("Error.", "No se agrego numero de piezas.", NotificationType.ERROR);
+        }
     }
 
     @FXML
@@ -131,11 +139,14 @@ public class MaderaTabletasController implements Initializable {
 
     @FXML
     void eliminaTableta(ActionEvent event) {
-        int row = tabla2.getSelectionModel().getSelectedItem().getValue().getId();
-        conexion.establecerConexion();
-        Tabletas.eliminarTableta(conexion.getConection(), row);
-        conexion.cerrarConexion();
-        list.removeIf(x -> x.getId() == row);
+
+            int row = tabla2.getSelectionModel().getSelectedItem().getValue().getId();
+            conexion.establecerConexion();
+            Tabletas.eliminarTableta(conexion.getConection(), row);
+            conexion.cerrarConexion();
+            list.removeIf(x -> x.getId() == row);
+
+            //Messages.setMessage("Error.", "Seleccione una fila primero.", NotificationType.ERROR);
     }
 
     @FXML
@@ -171,6 +182,9 @@ public class MaderaTabletasController implements Initializable {
         btnEliminar.setTooltip(new Tooltip("Eliminar"));
         btnRegreso.setTooltip(new Tooltip("Regrese al dia actual"));
         btnSubtotales.setTooltip(new Tooltip("Despliega los subtotales"));
+
+        var x = list.parallelStream().mapToDouble(Tabletas::getPiestabla).sum();
+        System.out.println(x);
     }
 
     private void columnas() {
@@ -251,8 +265,7 @@ public class MaderaTabletasController implements Initializable {
     }
 
     public double calcularPt(double cubicacion, int piezas) {
-        System.out.println(piezas);
-        return cubicacion * piezas;
+            return cubicacion * piezas;
     }
 
     public void gruesoAncho(String grueso, String ancho) {

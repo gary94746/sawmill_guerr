@@ -11,6 +11,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeTableColumn;
 import modelo.extra.Extra;
+import modelo.tabletas.Tabletas;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -102,6 +103,9 @@ public class ExtraController implements Initializable {
         tabla3.setEditable(false);
         tabla3.setShowRoot(false);
         tabla3.getColumns().setAll(longitud2, longitud3, longitud4, longitud5, longitud6, longitud7);
+    }
+
+    private void calcular() {
     }
 
 

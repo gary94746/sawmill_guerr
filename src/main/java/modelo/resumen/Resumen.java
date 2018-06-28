@@ -389,7 +389,7 @@ public class Resumen extends RecursiveTreeObject<Resumen> {
 
             lista.addAll(r1,r2,r8,r3,r4,r5,r6,r7);
 
-        }catch (SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }

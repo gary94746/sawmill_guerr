@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXDatePicker?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import com.jfoenix.controls.JFXTreeTableView?>
-<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
@@ -27,28 +24,6 @@
             <String fx:value="labelTitle" />
          </styleClass>
       </Label>
-      <HBox alignment="CENTER_RIGHT" prefHeight="45.0" prefWidth="637.0">
-         <children>
-            <Label text="Fecha: " />
-            <JFXDatePicker />
-            <JFXButton fx:id="botonBuscar" contentDisplay="CENTER" onAction="#buscarFecha" prefHeight="25.0" prefWidth="14.0" style="-fx-background-color: #916b47;" text="." textAlignment="JUSTIFY" textFill="WHITE">
-               <graphic>
-                  <FontAwesomeIconView fill="WHITE" glyphName="SEARCH" size="14" />
-               </graphic>
-            </JFXButton>
-            <JFXButton fx:id="botonFechaActual" contentDisplay="CENTER" onAction="#returnFecha" prefHeight="25.0" prefWidth="14.0" style="-fx-background-color: #916b47;" text="." textAlignment="JUSTIFY" textFill="WHITE">
-               <graphic>
-                  <FontAwesomeIconView fill="WHITE" glyphName="ARROW_DOWN" size="14" />
-               </graphic>
-               <HBox.margin>
-                  <Insets left="10.0" />
-               </HBox.margin>
-            </JFXButton>
-         </children>
-         <VBox.margin>
-            <Insets bottom="10.0" left="20.0" right="20.0" />
-         </VBox.margin>
-      </HBox>
       <Label text="Subtotales.">
          <VBox.margin>
             <Insets bottom="10.0" left="20.0" />
