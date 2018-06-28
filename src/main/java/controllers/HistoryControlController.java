@@ -5,17 +5,19 @@ import com.jfoenix.controls.JFXTreeTableColumn;
 import com.jfoenix.controls.JFXTreeTableView;
 import com.jfoenix.controls.RecursiveTreeItem;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeTableColumn;
+import modelo.Conexion;
 import modelo.Control_madera.madera_control;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class HistoryControlController  {
+public class HistoryControlController implements Initializable{
 
     @FXML private JFXButton buscar;
 
@@ -26,45 +28,65 @@ public class HistoryControlController  {
     private JFXTreeTableView<?> tablaHistorial2;
 
     private ObservableList<madera_control> list;
+    private Conexion conexion = Conexion.getInstance();
 
 
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        list = FXCollections.observableArrayList();
+        columns();
+        llenarTabla();
 
-    JFXTreeTableColumn<madera_control, String> Columna1 = new JFXTreeTableColumn<>("PRIMERA");
-    //subcolumnas
-    JFXTreeTableColumn<madera_control, Integer> subcolumna1 = new JFXTreeTableColumn<>("PIEZAS");
-    JFXTreeTableColumn<madera_control, Double> subcolumna2 = new JFXTreeTableColumn<>("CUB");
-    JFXTreeTableColumn<madera_control, Double> subcolumna3 = new JFXTreeTableColumn<>("PT");
-    //Columna2
-    JFXTreeTableColumn<madera_control, String> Columna2 = new JFXTreeTableColumn<>("SEGUNDA");
-    //subcolumnas
-    JFXTreeTableColumn<madera_control, Integer> subcolumna4 = new JFXTreeTableColumn<>("PIEZAS");
-    JFXTreeTableColumn<madera_control, Double> subcolumna5 = new JFXTreeTableColumn<>("CUB");
-    JFXTreeTableColumn<madera_control, Double> subcolumna6 = new JFXTreeTableColumn<>("PT");
-    //Columna3
-    JFXTreeTableColumn<madera_control, String> Columna3 = new JFXTreeTableColumn<>("TERCERA BUENA");
-    //subcolumnas
-    JFXTreeTableColumn<madera_control, Integer> subcolumna7 = new JFXTreeTableColumn<>("PIEZAS");
-    JFXTreeTableColumn<madera_control, Double> subcolumna8 = new JFXTreeTableColumn<>("CUB");
-    JFXTreeTableColumn<madera_control, Double> subcolumna9 = new JFXTreeTableColumn<>("PT");
-    //Columna4
-    JFXTreeTableColumn<madera_control, String> Columna4 = new JFXTreeTableColumn<>("TERCERA MALA");
-    //subColumnas
-    JFXTreeTableColumn<madera_control, Integer> subcolumna10 = new JFXTreeTableColumn<>("PIEZAS");
-    JFXTreeTableColumn<madera_control, Double> subcolumna11 = new JFXTreeTableColumn<>("CUB");
-    JFXTreeTableColumn<madera_control, Double> subcolumna12 = new JFXTreeTableColumn<>("PT");
-    //Columna5
-    JFXTreeTableColumn<madera_control, String> Columna5 = new JFXTreeTableColumn<>("MADERA CRUZADA");
-    //subColumnas
-    JFXTreeTableColumn<madera_control, Integer> subcolumna13 = new JFXTreeTableColumn<>("PIEZAS");
-    JFXTreeTableColumn<madera_control, Double> subcolumna14 = new JFXTreeTableColumn<>("CUB");
-    JFXTreeTableColumn<madera_control, Double> subcolumna15 = new JFXTreeTableColumn<>("PT");
+    }
+
+    public void llenarTabla(){
+            list.removeIf(x->true);
+            conexion.establecerConexion();
+            madera_control.obtenerDatosHistorial(conexion.getConection(),list);
+            conexion.cerrarConexion();
+
+        }
 
 
 
     private void columns() {
+
+
         final TreeItem<madera_control> root = new RecursiveTreeItem<>(list, RecursiveTreeObject::getChildren);
+
         list.forEach(x -> System.out.println(x));
         tablaHistorial.setRoot(root);
+
+        JFXTreeTableColumn<madera_control, String> Columna1 = new JFXTreeTableColumn<>("PRIMERA");
+        //subcolumnas
+        JFXTreeTableColumn<madera_control, Integer> subcolumna1 = new JFXTreeTableColumn<>("PIEZAS");
+        JFXTreeTableColumn<madera_control, Double> subcolumna2 = new JFXTreeTableColumn<>("CUB");
+        JFXTreeTableColumn<madera_control, Double> subcolumna3 = new JFXTreeTableColumn<>("PT");
+        //Columna2
+        JFXTreeTableColumn<madera_control, String> Columna2 = new JFXTreeTableColumn<>("SEGUNDA");
+        //subcolumnas
+        JFXTreeTableColumn<madera_control, Integer> subcolumna4 = new JFXTreeTableColumn<>("PIEZAS");
+        JFXTreeTableColumn<madera_control, Double> subcolumna5 = new JFXTreeTableColumn<>("CUB");
+        JFXTreeTableColumn<madera_control, Double> subcolumna6 = new JFXTreeTableColumn<>("PT");
+        //Columna3
+        JFXTreeTableColumn<madera_control, String> Columna3 = new JFXTreeTableColumn<>("TERCERA BUENA");
+        //subcolumnas
+        JFXTreeTableColumn<madera_control, Integer> subcolumna7 = new JFXTreeTableColumn<>("PIEZAS");
+        JFXTreeTableColumn<madera_control, Double> subcolumna8 = new JFXTreeTableColumn<>("CUB");
+        JFXTreeTableColumn<madera_control, Double> subcolumna9 = new JFXTreeTableColumn<>("PT");
+        //Columna4
+        JFXTreeTableColumn<madera_control, String> Columna4 = new JFXTreeTableColumn<>("TERCERA MALA");
+        //subColumnas
+        JFXTreeTableColumn<madera_control, Integer> subcolumna10 = new JFXTreeTableColumn<>("PIEZAS");
+        JFXTreeTableColumn<madera_control, Double> subcolumna11 = new JFXTreeTableColumn<>("CUB");
+        JFXTreeTableColumn<madera_control, Double> subcolumna12 = new JFXTreeTableColumn<>("PT");
+        //Columna5
+        JFXTreeTableColumn<madera_control, String> Columna5 = new JFXTreeTableColumn<>("MADERA CRUZADA");
+        //subColumnas
+        JFXTreeTableColumn<madera_control, Integer> subcolumna13 = new JFXTreeTableColumn<>("PIEZAS");
+        JFXTreeTableColumn<madera_control, Double> subcolumna14 = new JFXTreeTableColumn<>("CUB");
+        JFXTreeTableColumn<madera_control, Double> subcolumna15 = new JFXTreeTableColumn<>("PT");
+
 
 
         //INICIO COLUMNA 1
