@@ -23,6 +23,7 @@ import modelo.tabletas.Tabletas;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 public class MaderaTabletasController implements Initializable {
@@ -90,6 +91,15 @@ public class MaderaTabletasController implements Initializable {
         );
 
         cargarDatos(datePicker1);
+
+        comboGrueso.setDisable(true);
+        comboAncho.setDisable(true);
+        comboLongitud.setDisable(true);
+        txtPiezas.setDisable(true);
+        btnAgregar.setDisable(true);
+        btnEditar.setDisable(true);
+        btnEliminar.setDisable(true);
+        btnSubtotales.setDisable(true);
     }
 
     @FXML
@@ -101,6 +111,15 @@ public class MaderaTabletasController implements Initializable {
         conexion.cerrarConexion();
 
         lblTitulo.setText("Control de produccion de madera aserrada");
+
+        comboGrueso.setDisable(false);
+        comboAncho.setDisable(false);
+        comboLongitud.setDisable(false);
+        txtPiezas.setDisable(false);
+        btnAgregar.setDisable(false);
+        btnEditar.setDisable(false);
+        btnEliminar.setDisable(false);
+        btnSubtotales.setDisable(false);
     }
 
     private void cargarDatos(String datePicker) {
@@ -119,7 +138,6 @@ public class MaderaTabletasController implements Initializable {
         list.removeIf(x -> x.getId() == row);
     }
 
-    // Abre un Stage con la vista extra de tabletas.
     @FXML
     void despegar(ActionEvent event) throws IOException {
         Parent parent = FXMLLoader.load(getClass().getResource("/views/extraview.fxml"));
@@ -131,8 +149,6 @@ public class MaderaTabletasController implements Initializable {
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.show();
     }
-
-
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -235,6 +251,7 @@ public class MaderaTabletasController implements Initializable {
     }
 
     public double calcularPt(double cubicacion, int piezas) {
+        System.out.println(piezas);
         return cubicacion * piezas;
     }
 

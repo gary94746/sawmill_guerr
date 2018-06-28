@@ -82,6 +82,9 @@ public class MaderaEnRolloController implements Initializable {
 
         txtD1.setDisable(false);
         txtD2.setDisable(false);
+        botonAgregar.setDisable(false);
+        botonEditar.setDisable(false);
+        botonEliminar.setDisable(false);
 
         var total = list.parallelStream().mapToDouble(Rollo::getVol).sum();
         volumenTotal.setText(format3Decimals(total) + "");
@@ -104,12 +107,16 @@ public class MaderaEnRolloController implements Initializable {
     @FXML
     void buscarFecha(ActionEvent event) {
         var datePicker1 = fecha.getValue().getYear() + "-" + fecha.getValue().getMonthValue()+ "-" + fecha.getValue().getDayOfMonth();
-         lblTitulo.setText("Historia del: " +
-                    fecha.getValue().getDayOfMonth() + "/" + fecha.getValue().getMonth()+ "/" + fecha.getValue().getYear()
-         );
-         cargarDatos(datePicker1);
-         txtD1.setDisable(true);
-         txtD2.setDisable(true);
+        lblTitulo.setText("Historia del: " + fecha.getValue().getDayOfMonth() + "/" + fecha.getValue().getMonth() + "/" + fecha.getValue().getYear()
+        );
+
+        cargarDatos(datePicker1);
+
+        txtD2.setDisable(true);
+        txtD1.setDisable(true);
+        botonAgregar.setDisable(true);
+        botonEditar.setDisable(true);
+        botonEliminar.setDisable(true);
 
         var total = list.parallelStream().mapToDouble(Rollo::getVol).sum();
         volumenTotal.setText(format3Decimals(total) + "");
