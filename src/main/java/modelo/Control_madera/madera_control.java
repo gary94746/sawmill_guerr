@@ -164,10 +164,10 @@ public class madera_control extends RecursiveTreeObject<madera_control> {
         return null;
     }
 
-    public static void obtenerDatos(Connection connection, ObservableList<madera_control> list,String grueso,String clase) {
+    public static void obtenerDatos(Connection connection, ObservableList<madera_control> list,String grueso,String clase,String largo) {
 
         try {
-            var datos = "select * from control_produccion where fecha= current_date and grueso like '" +grueso+ "' "+"and clase like '" + clase + "'";
+            var datos = "select * from control_produccion where fecha= current_date and grueso like '" +grueso+ "' "+"and clase like '" + clase + "'" +"and largo like '" +largo+ "' ";
 
             System.out.println(datos);
             var statementP = connection.createStatement();
@@ -190,9 +190,9 @@ public class madera_control extends RecursiveTreeObject<madera_control> {
         }
     }
 
-    public static void obtenerDatosTodos(Connection connection, ObservableList<madera_control> list, String grueso) {
+    public static void obtenerDatosTodos(Connection connection, ObservableList<madera_control> list, String grueso,String largo) {
         try {
-            var datos = "select * from control_produccion where fecha= current_date and grueso like '" +grueso+ "' ";
+            var datos = "select * from control_produccion where fecha= current_date and grueso like '" +grueso+ "' "+"and largo like '" +largo+ "' ";
 
             System.out.println(datos);
             var statementP = connection.createStatement();
@@ -228,11 +228,11 @@ public class madera_control extends RecursiveTreeObject<madera_control> {
         }
     }
 
-    public static void historial(Connection connection, ObservableList<madera_control> list, String date) {
+    public static void historial(Connection connection, ObservableList<madera_control> list, String date, String grueso) {
         try {
 
             System.out.println(date);
-            var query = "SELECT * FROM control_produccion where fecha = '" + date + "'::date";
+            var query = "SELECT * FROM control_produccion where fecha = '" + date + "'::date"+" and grueso like '" +grueso+ "'";
             System.out.println(query);
             var statementP = connection.createStatement();
             var resultSet1 = statementP.executeQuery(query);

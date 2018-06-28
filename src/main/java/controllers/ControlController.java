@@ -7,6 +7,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeTableColumn;
 import javafx.scene.input.KeyEvent;
@@ -33,6 +34,8 @@ public class ControlController implements Initializable {
     @FXML private JFXTextField txtTotalPieza;
     @FXML private JFXTextField txtTotalPt;
     @FXML private JFXDatePicker fecha;
+    @FXML private Label tituloRegistro;
+    @FXML private JFXComboBox<String> FiltrarLargo;
 
     double valcub;
     private Conexion conexion = Conexion.getInstance();
@@ -60,6 +63,9 @@ public class ControlController implements Initializable {
 
         comboLargo.getItems().addAll("8 1/4\"","16 1/2\"");
         comboLargo.setValue("8 1/4\"");
+
+        FiltrarLargo.getItems().addAll("8 1/4\"","16 1/2\"");
+        FiltrarLargo.setValue("8 1/4\"");
 
         valcub=(.75*4*8.25)/12;
         txtCubicacion.setEditable(false);
@@ -279,14 +285,15 @@ public class ControlController implements Initializable {
         if(FiltrarClase.getSelectionModel().getSelectedItem()=="TODOS"){
             list.removeIf(x->true);
             conexion.establecerConexion();
-            madera_control.obtenerDatosTodos(conexion.getConection(),list,FiltrarGrueso.getSelectionModel().getSelectedItem());
+            madera_control.obtenerDatosTodos(conexion.getConection(),list,FiltrarGrueso.getSelectionModel().getSelectedItem(),FiltrarLargo.getSelectionModel().getSelectedItem());
             conexion.cerrarConexion();
 
         }else{
 
         list.removeIf(x->true);
         conexion.establecerConexion();
-        madera_control.obtenerDatos(conexion.getConection(), list, FiltrarGrueso.getSelectionModel().getSelectedItem(),FiltrarClase.getSelectionModel().getSelectedItem());
+        madera_control.obtenerDatos(conexion.getConection(), list, FiltrarGrueso.getSelectionModel().getSelectedItem(),
+                FiltrarClase.getSelectionModel().getSelectedItem(),FiltrarLargo.getSelectionModel().getSelectedItem());
         conexion.cerrarConexion();
         }
     }
@@ -295,7 +302,7 @@ public class ControlController implements Initializable {
     private void cargarDatos(String datePicker) {
         list.removeIf(x -> true);
         conexion.establecerConexion();
-        madera_control.historial(conexion.getConection(), list, datePicker);
+        madera_control.historial(conexion.getConection(), list, datePicker,FiltrarGrueso.getSelectionModel().getSelectedItem());
         conexion.cerrarConexion();
     }
 
@@ -314,14 +321,15 @@ public class ControlController implements Initializable {
 
     @FXML
     void ActionHistorial(ActionEvent event) {
+        txtPiezas.setEditable(false);
         var datePicker1 = fecha.getValue().getYear() + "-" + fecha.getValue().getMonthValue()+ "-" + fecha.getValue().getDayOfMonth();
+        tituloRegistro.setText("Historial del: " +
+               fecha.getValue().getDayOfMonth() + "/" +
+                fecha.getValue().getMonth()+ "/" + fecha.getValue().getYear()
+        );
 
-        //lblTitulo.setText("Historia del: " +
-          //      fecha.getValue().getDayOfMonth() + "/" + fecha.getValue().getMonth()+ "/" + fecha.getValue().getYear()
-        //);
         cargarDatos(datePicker1);
-        //txtD1.setDisable(true);
-        //txtD2.setDisable(true);
+
     }
 
     @FXML
@@ -332,6 +340,7 @@ public class ControlController implements Initializable {
                     Double.parseDouble(txtPT.getText()),comboLargo.getSelectionModel().getSelectedItem()));
         llenarTabla();
         Totales();
+        txtPiezas.setText("");
     }
 
 
@@ -391,6 +400,20 @@ public class ControlController implements Initializable {
     void ActionComboLargo(ActionEvent event) {
         calCubicacion();
         CalPt();
+    }
+
+    @FXML
+    void ActionRestablecer(ActionEvent event) {
+        tituloRegistro.setText("TABLA DE REGISTROS DEL DIA ACTUAL");
+        txtPiezas.setEditable(true);
+        llenarTabla();
+        Totales();
+    }
+
+    @FXML
+    void actionFiltroLargo(ActionEvent event) {
+        llenarTabla();
+        Totales();
     }
 
 }

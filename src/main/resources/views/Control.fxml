@@ -46,7 +46,40 @@
                   <Font size="64.0" />
                </font>
             </Label>
-            <HBox prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="1" />
+            <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="1">
+               <children>
+                  <Label text="Fecha:">
+                     <HBox.margin>
+                        <Insets right="10.0" />
+                     </HBox.margin>
+                  </Label>
+                  <JFXDatePicker fx:id="fecha" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="0.0">
+                     <HBox.margin>
+                        <Insets right="10.0" />
+                     </HBox.margin></JFXDatePicker>
+                  <JFXButton fx:id="historial" alignment="CENTER" contentDisplay="CENTER" onAction="#ActionHistorial" prefHeight="30.0" prefWidth="36.0" style="-fx-background-color: #916b47;" text="." textFill="WHITE">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                     <graphic>
+                        <FontAwesomeIconView fill="WHITE" glyphName="SEARCH" size="14" />
+                     </graphic>
+                     <HBox.margin>
+                        <Insets right="10.0" />
+                     </HBox.margin>
+                  </JFXButton>
+                  <JFXButton fx:id="restablecer" alignment="CENTER" contentDisplay="CENTER" layoutX="482.0" layoutY="10.0" onAction="#ActionRestablecer" prefHeight="30.0" prefWidth="36.0" style="-fx-background-color: #916b47;" text="." textFill="WHITE">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                     <graphic>
+                        <FontAwesomeIconView fill="WHITE" glyphName="ARROW_DOWN" size="14" />
+                     </graphic>
+                     <HBox.margin>
+                        <Insets right="20.0" />
+                     </HBox.margin>
+                  </JFXButton>
+               </children></HBox>
          </children>
       </GridPane>
       <GridPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
@@ -119,48 +152,10 @@
                   <Insets left="10.0" right="20.0" />
                </GridPane.margin>
             </JFXTextField>
-            <JFXButton fx:id="agregar" contentDisplay="CENTER" onAction="#addControl" prefHeight="14.0" prefWidth="0.0" style="-fx-background-color: #916b47;" text="." textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="5" GridPane.rowIndex="4">
-               <GridPane.margin>
-                  <Insets />
-               </GridPane.margin>
-               <font>
-                  <Font name="Century Gothic" size="14.0" />
-               </font>
-               <graphic>
-                  <FontAwesomeIconView fill="WHITE" glyphName="PLUS" size="14" text="" wrappingWidth="10.199980735778809" />
-               </graphic>
-            </JFXButton>
             <JFXTextField fx:id="txtPiezas" onKeyReleased="#ActionPieza" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <GridPane.margin>
                   <Insets right="40.0" />
                </GridPane.margin></JFXTextField>
-            <JFXButton contentDisplay="CENTER" layoutX="30.0" layoutY="77.0" prefHeight="28.0" prefWidth="2.0" style="-fx-background-color: #916b47;" text="." textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="5" GridPane.rowIndex="4">
-               <font>
-                  <Font name="Century Gothic" size="14.0" />
-               </font>
-               <GridPane.margin>
-                  <Insets left="40.0" right="200.0" />
-               </GridPane.margin>
-               <graphic>
-                  <FontAwesomeIconView fill="WHITE" glyphName="EDIT" size="15">
-                     <font>
-                        <Font size="1.0" />
-                     </font>
-                  </FontAwesomeIconView>
-               </graphic>
-            </JFXButton>
-            <JFXButton fx:id="btnDelete" onAction="#deleteControlP" prefHeight="35.0" prefWidth="35.0" style="-fx-background-color: #916b47;" text="." textFill="WHITE" GridPane.columnIndex="5" GridPane.rowIndex="4">
-               <GridPane.margin>
-                  <Insets left="85.0" />
-               </GridPane.margin>
-               <graphic>
-                  <FontAwesomeIconView fill="WHITE" glyphName="TRASH" size="15" wrappingWidth="1.600006103515625">
-                     <font>
-                        <Font size="1.0" />
-                     </font>
-                  </FontAwesomeIconView>
-               </graphic>
-            </JFXButton>
             <Label text="LARGO:">
                <GridPane.margin>
                   <Insets bottom="40.0" left="20.0" />
@@ -175,6 +170,63 @@
          <VBox.margin>
             <Insets top="20.0" />
          </VBox.margin>
+      </GridPane>
+      <GridPane>
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1">
+               <children>
+                  <JFXButton fx:id="agregar" contentDisplay="CENTER" onAction="#addControl" prefHeight="14.0" prefWidth="0.0" style="-fx-background-color: #916b47;" text="." textAlignment="CENTER" textFill="WHITE">
+                     <font>
+                        <Font name="Century Gothic" size="14.0" />
+                     </font>
+                     <graphic>
+                        <FontAwesomeIconView fill="WHITE" glyphName="PLUS" size="14" text="" wrappingWidth="10.199980735778809" />
+                     </graphic>
+                     <HBox.margin>
+                        <Insets bottom="20.0" right="10.0" />
+                     </HBox.margin>
+                  </JFXButton>
+                  <JFXButton contentDisplay="CENTER" prefHeight="28.0" prefWidth="2.0" style="-fx-background-color: #916b47;" text="." textAlignment="CENTER" textFill="WHITE">
+                     <font>
+                        <Font name="Century Gothic" size="14.0" />
+                     </font>
+                     <graphic>
+                        <FontAwesomeIconView fill="WHITE" glyphName="EDIT" size="15">
+                           <font>
+                              <Font size="1.0" />
+                           </font>
+                        </FontAwesomeIconView>
+                     </graphic>
+                     <HBox.margin>
+                        <Insets bottom="20.0" right="10.0" />
+                     </HBox.margin>
+                  </JFXButton>
+                  <JFXButton fx:id="btnDelete" onAction="#deleteControlP" prefHeight="35.0" prefWidth="35.0" style="-fx-background-color: #916b47;" text="." textFill="WHITE">
+                     <graphic>
+                        <FontAwesomeIconView fill="WHITE" glyphName="TRASH" size="15" wrappingWidth="1.600006103515625">
+                           <font>
+                              <Font size="1.0" />
+                           </font>
+                        </FontAwesomeIconView>
+                     </graphic>
+                     <HBox.margin>
+                        <Insets bottom="20.0" right="20.0" />
+                     </HBox.margin>
+                  </JFXButton>
+               </children>
+            </HBox>
+            <Label fx:id="tituloRegistro" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="22.0" prefWidth="110.0" text="TABLA DE REGISTROS DEL DIA ACTUAL">
+               <GridPane.margin>
+                  <Insets left="20.0" />
+               </GridPane.margin></Label>
+         </children>
       </GridPane>
       <GridPane layoutX="10.0" layoutY="91.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
          <columnConstraints>
@@ -191,45 +243,35 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <Label maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="22.0" prefWidth="93.0" text="Registros">
-               <GridPane.margin>
-                  <Insets left="20.0" />
-               </GridPane.margin></Label>
-            <Label maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="18.0" prefWidth="119.0" text="Grueso:" GridPane.columnIndex="3">
+            <Label maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="18.0" prefWidth="119.0" text="Grueso:" GridPane.columnIndex="5">
                <GridPane.margin>
                   <Insets left="50.0" />
                </GridPane.margin></Label>
-            <JFXComboBox fx:id="FiltrarGrueso" maxHeight="-Infinity" maxWidth="-Infinity" onAction="#actionFiltroGrueso" prefHeight="26.0" prefWidth="126.0" GridPane.columnIndex="4" />
-            <JFXButton fx:id="historial" alignment="CENTER" contentDisplay="CENTER" onAction="#ActionHistorial" prefHeight="30.0" prefWidth="36.0" style="-fx-background-color: #916b47;" text="." textFill="WHITE" GridPane.columnIndex="7">
-               <GridPane.margin>
-                  <Insets left="15.0" right="15.0" />
-               </GridPane.margin>
-               <font>
-                  <Font size="14.0" />
-               </font>
-               <graphic>
-                  <FontAwesomeIconView fill="WHITE" glyphName="HISTORY" size="14" />
-               </graphic>
-            </JFXButton>
             <Label text="Clase:" GridPane.columnIndex="1">
                <GridPane.margin>
                   <Insets left="60.0" />
                </GridPane.margin>
             </Label>
             <JFXComboBox fx:id="FiltrarClase" onAction="#actionFiltroClase" prefHeight="26.0" prefWidth="140.0" GridPane.columnIndex="2" />
-            <Label text="Fecha:" GridPane.columnIndex="5">
-               <GridPane.margin>
-                  <Insets left="60.0" />
-               </GridPane.margin>
-            </Label>
             <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="6">
                <children>
-                  <JFXDatePicker fx:id="fecha" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="0.0" />
+                  <JFXComboBox fx:id="FiltrarGrueso" maxHeight="-Infinity" maxWidth="-Infinity" onAction="#actionFiltroGrueso" prefHeight="26.0" prefWidth="126.0" />
                </children>
             </HBox>
+            <Label text="Largo:" GridPane.columnIndex="3">
+               <GridPane.margin>
+                  <Insets left="50.0" />
+               </GridPane.margin>
+            </Label>
+            <JFXComboBox fx:id="FiltrarLargo" onAction="#actionFiltroLargo" prefHeight="26.0" prefWidth="159.0" GridPane.columnIndex="4" />
+            <Label text="Mostrar por:">
+               <GridPane.margin>
+                  <Insets left="20.0" />
+               </GridPane.margin>
+            </Label>
          </children>
          <VBox.margin>
-            <Insets top="35.0" />
+            <Insets top="10.0" />
          </VBox.margin>
       </GridPane>
       <JFXTreeTableView fx:id="tablaControl" prefHeight="157.0" prefWidth="734.0" VBox.vgrow="ALWAYS">
@@ -237,7 +279,7 @@
             <TreeTableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
          <VBox.margin>
-            <Insets left="20.0" right="20.0" top="20.0" />
+            <Insets left="20.0" right="20.0" top="15.0" />
          </VBox.margin>
       </JFXTreeTableView>
       <HBox alignment="CENTER_RIGHT" prefHeight="58.0" prefWidth="774.0">
