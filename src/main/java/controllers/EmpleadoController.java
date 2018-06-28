@@ -2,15 +2,16 @@ package controllers;
 
 import com.jfoenix.controls.*;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
+import controllers.utils.Messages;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeTableColumn;
 import modelo.Conexion;
 import modelo.empleado.Empleado;
-import modelo.resumen.Resumen;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -18,11 +19,21 @@ import java.util.ResourceBundle;
 public class EmpleadoController implements Initializable {
 
     @FXML private JFXTreeTableView<Empleado> tblEmpleado;
-    @FXML private JFXComboBox<String> cmbCargo;
     @FXML private JFXTextField txtNombre;
     @FXML private JFXTextField txtApellido;
     @FXML private JFXTextField txtUsuario;
     @FXML private JFXPasswordField txtPass;
+    @FXML private JFXTextField txtCargo;
+
+    @FXML
+    private JFXButton bntAdd;
+
+    @FXML
+    private JFXButton btnEdit;
+
+    @FXML
+    private JFXButton btnDelete;
+
 
 
     private ObservableList<Empleado> lista;
@@ -32,15 +43,17 @@ public class EmpleadoController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         lista = FXCollections.observableArrayList();
 
-        //datos combo
-        cmbCargo.getItems().addAll("REPRESENTANTE LEGAL","JEFE DE PRODUCCION","AUXILIAR ADMINISTRATIVO");
-
         //conexion
         conexion.establecerConexion();
         Empleado.loadEmployees(conexion.getConection(), lista);
         conexion.cerrarConexion();
 
         columns();
+
+        //Tooltips
+        btnDelete.setTooltip(Messages.setTooltipMessage("Eliminar empleado"));
+        bntAdd.setTooltip(Messages.setTooltipMessage("Agregar empleado"));
+        btnEdit.setTooltip(Messages.setTooltipMessage("Editar empleado"));
 
         //
         setFields();
@@ -88,9 +101,25 @@ public class EmpleadoController implements Initializable {
                 txtApellido.setText(newValue.getValue().getApellido());
                 txtUsuario.setText(newValue.getValue().getUsuario());
                 txtPass.setText(newValue.getValue().getPass());
-                cmbCargo.setValue(newValue.getValue().getCargo());
+                txtCargo.setText(newValue.getValue().getCargo());
             }
         });
     }
+
+    @FXML
+    void add(ActionEvent event) {
+
+    }
+
+    @FXML
+    void editar(ActionEvent event) {
+
+    }
+
+    @FXML
+    void eliminar(ActionEvent event) {
+
+    }
+
 
 }

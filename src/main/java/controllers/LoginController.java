@@ -2,6 +2,7 @@ package controllers;
 
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
+import controllers.utils.Messages;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,6 +12,7 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import modelo.Conexion;
+import tray.notification.NotificationType;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -31,15 +33,18 @@ public class LoginController {
         //Open the dashboard window
         if (isCorrect()) {
             loginStage.close();
+
             Parent parent = FXMLLoader.load(getClass().getResource("/views/dashboard.fxml"));
             Stage stage = new Stage();
             Scene scene = new Scene(parent);
             stage.setScene(scene);
-            stage.getIcons().add(new Image(getClass().getResourceAsStream("/images/60c83449-dd46-44df-9384-0713810ea1c3.jpeg")));
+            stage.getIcons().add(new Image(getClass().getResourceAsStream("/images/servicio02.png")));
             stage.setTitle("Menu principal");
             stage.show();
+
+            Messages.setMessage("Bienvenido","Usuario: "+ txtUser.getText(), NotificationType.SUCCESS);
         }else {
-            System.out.println("none");
+            Messages.setMessage("Verifique","Ingrese datos validos", NotificationType.ERROR);
         }
     }
 

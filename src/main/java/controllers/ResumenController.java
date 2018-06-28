@@ -2,6 +2,7 @@ package controllers;
 
 import com.jfoenix.controls.*;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
+import controllers.utils.Messages;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
@@ -27,6 +28,7 @@ public class ResumenController implements Initializable {
 
     @FXML private JFXButton btnImprimir;
     @FXML private JFXButton btnBuscar;
+    @FXML private JFXButton btnFechaActual;
     @FXML private JFXTreeTableView<Resumen> treTable;
     @FXML private JFXDatePicker date1;
     @FXML private JFXDatePicker date2;
@@ -42,8 +44,9 @@ public class ResumenController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         //Tooltips
-        btnImprimir.setTooltip(new Tooltip("Imprimir en pdf"));
-        btnBuscar.setTooltip(new Tooltip("Buscar"));
+        btnImprimir.setTooltip(Messages.setTooltipMessage("Imprimir en pdf"));
+        btnBuscar.setTooltip(Messages.setTooltipMessage("Buscar"));
+        btnFechaActual.setTooltip(Messages.setTooltipMessage("Resumen actual"));
 
         //Fecha actual
         var dateFormat = new SimpleDateFormat("dd/MM/yyyy");
@@ -57,6 +60,16 @@ public class ResumenController implements Initializable {
         loadData(dateFormat1.format(new Date()),dateFormat1.format(new Date()));
 
     }
+
+    @FXML
+    void currentDate(ActionEvent event) {
+        //actual data
+        var dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        var dateFormat1 = new SimpleDateFormat("yyyy-MM-dd");
+        lblResumen.setText("Resumen del: " + dateFormat.format(new Date()));
+        loadData(dateFormat1.format(new Date()),dateFormat1.format(new Date()));
+    }
+
 
     @FXML
     void buscar(ActionEvent event) {
