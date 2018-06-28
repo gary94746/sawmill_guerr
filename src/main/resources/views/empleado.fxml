@@ -30,11 +30,11 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label text="Nombre:" />
-            <Label text="Apellidos:" GridPane.rowIndex="1" />
-            <Label text="Usuario:" GridPane.columnIndex="2" />
-            <Label text="Contraseña:" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-            <Label text="Cargo:" GridPane.rowIndex="2" />
+            <Label text="NOMBRE:" />
+            <Label text="APELLIDOS:" GridPane.rowIndex="1" />
+            <Label text="USUARIO:" GridPane.columnIndex="2" />
+            <Label text="CONTRASEÑA:" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+            <Label text="CARGO:" GridPane.rowIndex="2" />
             <JFXTextField fx:id="txtNombre" editable="false" GridPane.columnIndex="1" />
             <JFXTextField fx:id="txtApellido" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <JFXTextField fx:id="txtUsuario" editable="false" GridPane.columnIndex="3" />
@@ -49,7 +49,7 @@
          <children>
             <JFXButton fx:id="bntAdd" contentDisplay="CENTER" onAction="#add" prefHeight="25.0" prefWidth="14.0" style="-fx-background-color: #916b47;" text="." textAlignment="JUSTIFY" textFill="WHITE">
                <graphic>
-                  <FontAwesomeIconView fill="WHITE" glyphName="PLUS" size="14" />
+                  <FontAwesomeIconView fill="WHITE" glyphName="PLUS" size="18" />
                </graphic>
                <HBox.margin>
                   <Insets right="10.0" />
@@ -57,7 +57,7 @@
             </JFXButton>
             <JFXButton fx:id="btnEdit" contentDisplay="CENTER" onAction="#editar" prefHeight="25.0" prefWidth="14.0" style="-fx-background-color: #916b47;" text="." textAlignment="JUSTIFY" textFill="WHITE">
                <graphic>
-                  <FontAwesomeIconView fill="WHITE" glyphName="EDIT" size="14" />
+                  <FontAwesomeIconView fill="WHITE" glyphName="EDIT" size="18" />
                </graphic>
                <HBox.margin>
                   <Insets right="10.0" />
@@ -65,7 +65,7 @@
             </JFXButton>
             <JFXButton fx:id="btnDelete" contentDisplay="CENTER" onAction="#eliminar" prefHeight="25.0" prefWidth="14.0" style="-fx-background-color: #916b47;" text="." textAlignment="JUSTIFY" textFill="WHITE">
                <graphic>
-                  <FontAwesomeIconView fill="WHITE" glyphName="TRASH" size="14" />
+                  <FontAwesomeIconView fill="WHITE" glyphName="TRASH" size="18" />
                </graphic>
             </JFXButton>
          </children>
