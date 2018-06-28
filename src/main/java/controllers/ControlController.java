@@ -6,11 +6,17 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeTableColumn;
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import modelo.Conexion;
 import modelo.Control_madera.madera_control;
 
@@ -414,6 +420,22 @@ public class ControlController implements Initializable {
     void actionFiltroLargo(ActionEvent event) {
         llenarTabla();
         Totales();
+    }
+
+    @FXML
+    void ventanaHistorial(ActionEvent event) {
+        try {
+            Parent parent = FXMLLoader.load(getClass().getResource("/views/HistorialControl.fxml"));
+            Stage stage = new Stage();
+            Scene scene = new Scene(parent);
+            stage.setScene(scene);
+            //stage.getIcons().add(new Image(getClass().getResourceAsStream("/images/chainsaw.png")));
+            stage.setTitle("Control de produccion");
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.show();
+
+        }catch (Exception e){}
+
     }
 
 }
