@@ -164,10 +164,10 @@ public class madera_control extends RecursiveTreeObject<madera_control> {
         return null;
     }
 
-    public static void obtenerDatos(Connection connection, ObservableList<madera_control> list,String grueso,String clase) {
+    public static void obtenerDatos(Connection connection, ObservableList<madera_control> list,String grueso,String clase,String largo) {
 
         try {
-            var datos = "select * from control_produccion where fecha= current_date and grueso like '" +grueso+ "' "+"and clase like '" + clase + "'";
+            var datos = "select * from control_produccion where fecha= current_date and grueso like '" +grueso+ "' "+"and clase like '" + clase + "'" +"and largo like '" +largo+ "' ";
 
             System.out.println(datos);
             var statementP = connection.createStatement();
@@ -190,9 +190,9 @@ public class madera_control extends RecursiveTreeObject<madera_control> {
         }
     }
 
-    public static void obtenerDatosTodos(Connection connection, ObservableList<madera_control> list) {
+    public static void obtenerDatosTodos(Connection connection, ObservableList<madera_control> list, String grueso,String largo) {
         try {
-            var datos = "select * from control_produccion where fecha= current_date";
+            var datos = "select * from control_produccion where fecha= current_date and grueso like '" +grueso+ "' "+"and largo like '" +largo+ "' ";
 
             System.out.println(datos);
             var statementP = connection.createStatement();
@@ -225,6 +225,32 @@ public class madera_control extends RecursiveTreeObject<madera_control> {
         }catch (SQLException e){
             e.printStackTrace();
             return 0;
+        }
+    }
+
+    public static void historial(Connection connection, ObservableList<madera_control> list, String date, String grueso) {
+        try {
+
+            System.out.println(date);
+            var query = "SELECT * FROM control_produccion where fecha = '" + date + "'::date"+" and grueso like '" +grueso+ "'";
+            System.out.println(query);
+            var statementP = connection.createStatement();
+            var resultSet1 = statementP.executeQuery(query);
+
+            while (resultSet1.next()) {
+                list.add((new madera_control(
+                        resultSet1.getInt("id"),
+                        resultSet1.getString("grueso"),
+                        resultSet1.getString("ancho"),
+                        resultSet1.getString("clase"),
+                        resultSet1.getInt("piezas"),
+                        resultSet1.getDouble("cubicacion"),
+                        resultSet1.getDouble("pies_tabla"),
+                        resultSet1.getString("largo"))));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 

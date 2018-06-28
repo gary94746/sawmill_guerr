@@ -108,7 +108,6 @@ public class MaderaEnRolloController implements Initializable {
                     fecha.getValue().getDayOfMonth() + "/" + fecha.getValue().getMonth()+ "/" + fecha.getValue().getYear()
          );
          cargarDatos(datePicker1);
-
          txtD1.setDisable(true);
          txtD2.setDisable(true);
 
