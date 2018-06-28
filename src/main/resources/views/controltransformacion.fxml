@@ -47,7 +47,7 @@
                <HBox.margin>
                   <Insets left="2.0" />
                </HBox.margin></JFXTextField>
-            <JFXButton contentDisplay="CENTER" onAction="#agregaRollo" prefHeight="25.0" prefWidth="14.0" style="-fx-background-color: #916b47;" text="." textAlignment="JUSTIFY" textFill="WHITE">
+            <JFXButton fx:id="botonAgregar" contentDisplay="CENTER" onAction="#agregaRollo" prefHeight="25.0" prefWidth="14.0" style="-fx-background-color: #916b47;" text="." textAlignment="JUSTIFY" textFill="WHITE">
                <HBox.margin>
                   <Insets left="30.0" />
                </HBox.margin>
@@ -55,7 +55,7 @@
                   <FontAwesomeIconView fill="WHITE" glyphName="PLUS" size="14" />
                </graphic>
             </JFXButton>
-            <JFXButton contentDisplay="CENTER" style="-fx-background-color: #916b47;" text="." textFill="WHITE">
+            <JFXButton fx:id="botonEditar" contentDisplay="CENTER" style="-fx-background-color: #916b47;" text="." textFill="WHITE">
                <graphic>
                   <FontAwesomeIconView fill="WHITE" glyphName="EDIT" size="14" />
                </graphic>
@@ -63,7 +63,7 @@
                   <Insets left="10.0" />
                </HBox.margin>
             </JFXButton>
-            <JFXButton contentDisplay="CENTER" layoutX="473.0" layoutY="18.0" onAction="#eliminaRollo" style="-fx-background-color: #916b47;" text="." textFill="#916b47">
+            <JFXButton fx:id="botonEliminar" contentDisplay="CENTER" layoutX="473.0" layoutY="18.0" onAction="#eliminaRollo" style="-fx-background-color: #916b47;" text="." textFill="#916b47">
                <graphic>
                   <FontAwesomeIconView fill="WHITE" glyphName="TRASH" size="14" text="" />
                </graphic>
@@ -84,12 +84,12 @@
                   <Insets left="10.0" />
                </HBox.margin>
             </JFXDatePicker>
-            <JFXButton contentDisplay="CENTER" onAction="#buscarFecha" prefHeight="25.0" prefWidth="14.0" style="-fx-background-color: #916b47;" text="." textAlignment="JUSTIFY" textFill="WHITE">
+            <JFXButton fx:id="botonBuscar" contentDisplay="CENTER" onAction="#buscarFecha" prefHeight="25.0" prefWidth="14.0" style="-fx-background-color: #916b47;" text="." textAlignment="JUSTIFY" textFill="WHITE">
                <graphic>
                   <FontAwesomeIconView fill="WHITE" glyphName="SEARCH" size="14" />
                </graphic>
             </JFXButton>
-            <JFXButton contentDisplay="CENTER" layoutX="706.0" layoutY="18.0" onAction="#returnFecha" prefHeight="25.0" prefWidth="14.0" style="-fx-background-color: #916b47;" text="." textAlignment="JUSTIFY" textFill="WHITE">
+            <JFXButton fx:id="botonFechaActual" contentDisplay="CENTER" layoutX="706.0" layoutY="18.0" onAction="#returnFecha" prefHeight="25.0" prefWidth="14.0" style="-fx-background-color: #916b47;" text="." textAlignment="JUSTIFY" textFill="WHITE">
                <graphic>
                   <FontAwesomeIconView fill="WHITE" glyphName="ARROW_DOWN" size="14" />
                </graphic>
