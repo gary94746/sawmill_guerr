@@ -3,6 +3,7 @@ package controllers;
 import com.jfoenix.controls.*;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import controllers.utils.Messages;
+import controllers.utils.Validators;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -36,6 +37,8 @@ public class otrosController implements Initializable {
     @FXML private JFXButton btnDelete;
     @FXML private JFXButton historial;
     @FXML private JFXButton restablecer;
+    private Validators handler = new Validators();
+
 
 
 
@@ -69,6 +72,7 @@ public class otrosController implements Initializable {
         btnDelete.setTooltip(new Tooltip("Eliminar"));
         historial.setTooltip(new Tooltip("Buscar"));
         restablecer.setTooltip(new Tooltip("Regrese al dia actual"));
+        txtPieza.addEventFilter(KeyEvent.ANY, handler.onlyNumbers());
 
         columns();
         Totales();

@@ -3,6 +3,7 @@ package controllers;
 import com.jfoenix.controls.*;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import controllers.utils.Messages;
+import controllers.utils.Validators;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -55,6 +56,9 @@ public class ControlController implements Initializable {
     @FXML private JFXButton historial;
     @FXML private JFXButton restablecer;
 
+    private Validators handler = new Validators();
+
+
     double valcub;
     private Conexion conexion = Conexion.getInstance();
 
@@ -84,6 +88,9 @@ public class ControlController implements Initializable {
 
         FiltrarLargo.getItems().addAll("8 1/4\"","16 1/2\"");
         FiltrarLargo.setValue("8 1/4\"");
+
+        txtPiezas.addEventFilter(KeyEvent.ANY, handler.onlyNumbers());
+
 
         valcub=(.75*4*8.25)/12;
         txtCubicacion.setEditable(false);
@@ -367,19 +374,26 @@ public class ControlController implements Initializable {
     @FXML
     void ActionHistorial(ActionEvent event) {
         buscarporFecha ();
+        Totales();
 
     }
 
     public void buscarporFecha (){
-        txtPiezas.setEditable(false);
-        var datePicker1 = fecha.getValue().getYear() + "-" + fecha.getValue().getMonthValue()+ "-" + fecha.getValue().getDayOfMonth();
-        tituloRegistro.setText("Historial del: " +
-                fecha.getValue().getDayOfMonth() + "/" +
-                fecha.getValue().getMonth()+ "/" + fecha.getValue().getYear()
-        );
+        try {
+            txtPiezas.setEditable(false);
+            agregar.setDisable(false);
+            btnDelete.setDisable(false);
 
-        cargarDatos(datePicker1);
+            var datePicker1 = fecha.getValue().getYear() + "-" + fecha.getValue().getMonthValue() + "-" + fecha.getValue().getDayOfMonth();
+            tituloRegistro.setText("Historial del: " +
+                    fecha.getValue().getDayOfMonth() + "/" +
+                    fecha.getValue().getMonth() + "/" + fecha.getValue().getYear()
+            );
 
+            cargarDatos(datePicker1);
+        }catch (java.lang.NullPointerException e){
+            Messages.setMessage("Error.", "Seleccione una fecha", NotificationType.ERROR);
+        }
     }
 
     @FXML
@@ -454,12 +468,15 @@ public class ControlController implements Initializable {
 
     @FXML
     void deleteControlP(ActionEvent event) {
-        int row = tablaControl.getSelectionModel().getSelectedItem().getValue().getId();
-        conexion.establecerConexion();
-        madera_control.eliminarOtros(conexion.getConection(), row);
-        conexion.cerrarConexion();
-        list.removeIf(x -> x.getId() == row);
-
+        try {
+            int row = tablaControl.getSelectionModel().getSelectedItem().getValue().getId();
+            conexion.establecerConexion();
+            madera_control.eliminarOtros(conexion.getConection(), row);
+            conexion.cerrarConexion();
+            list.removeIf(x -> x.getId() == row);
+        }catch (java.lang.NullPointerException e){
+            Messages.setMessage("Error.", "Seleccione un registro para eliminar", NotificationType.ERROR);
+        }
     }
 
     @FXML
@@ -478,6 +495,8 @@ public class ControlController implements Initializable {
     void ActionRestablecer(ActionEvent event) {
         tituloRegistro.setText("TABLA DE REGISTROS DEL DIA ACTUAL");
         txtPiezas.setEditable(true);
+        agregar.setDisable(true);
+        btnDelete.setDisable(true);
         fecha.getEditor().clear();
         llenarTabla();
         Totales();
