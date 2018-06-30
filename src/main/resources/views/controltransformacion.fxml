@@ -116,7 +116,7 @@
             </JFXTextField>
             <Label contentDisplay="RIGHT" text="m">
                <HBox.margin>
-                  <Insets left="2.0" right="10.0" top="3.0" />
+                  <Insets left="2.0" right="20.0" top="3.0" />
                </HBox.margin>
             </Label>
          </children>
