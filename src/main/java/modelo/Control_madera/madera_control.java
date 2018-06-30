@@ -2,6 +2,7 @@ package modelo.Control_madera;
 
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import javafx.beans.property.*;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.sql.Connection;
@@ -92,6 +93,8 @@ public class madera_control extends RecursiveTreeObject<madera_control> {
 
      ){
 
+
+
         this.grueso= new SimpleStringProperty(grueso);
         this.ancho = new SimpleStringProperty(ancho);
         this.clase = new SimpleStringProperty(clase);
@@ -131,6 +134,50 @@ public class madera_control extends RecursiveTreeObject<madera_control> {
         this.cubicacion_cruzada = new SimpleDoubleProperty(cubicacion_cruzada);
         this.pt_cruzada    = new SimpleDoubleProperty(pt_cruzada);
         this.largo_cruzada = new SimpleStringProperty(largo_cruzada);
+
+    }
+
+
+    public madera_control(){
+        this.grueso= new SimpleStringProperty("");
+        this.ancho = new SimpleStringProperty("");
+        this.clase = new SimpleStringProperty("");
+        this.pieza = new SimpleIntegerProperty(0);
+        this.cubicacion = new SimpleDoubleProperty(0.000);
+        this.pt    = new SimpleDoubleProperty(0.000);
+        this.largo = new SimpleStringProperty("");
+
+        this.grueso_segunda= new SimpleStringProperty("");
+        this.ancho_segunda = new SimpleStringProperty("");
+        this.clase_segunda = new SimpleStringProperty("");
+        this.pieza_segunda = new SimpleIntegerProperty(0);
+        this.cubicacion_segunda = new SimpleDoubleProperty(0.000);
+        this.pt_segunda    = new SimpleDoubleProperty(0.000);
+        this.largo_segunda = new SimpleStringProperty("");
+
+        this.grueso_terceraB= new SimpleStringProperty("");
+        this.ancho_terceraB = new SimpleStringProperty("");
+        this.clase_terceraB = new SimpleStringProperty("");
+        this.pieza_terceraB = new SimpleIntegerProperty(0);
+        this.cubicacion_terceraB = new SimpleDoubleProperty(0.000);
+        this.pt_terceraB    = new SimpleDoubleProperty(0.000);
+        this.largo_terceraB = new SimpleStringProperty("");
+
+        this.grueso_terceraM= new SimpleStringProperty("");
+        this.ancho_terceraM = new SimpleStringProperty("");
+        this.clase_terceraM = new SimpleStringProperty("");
+        this.pieza_terceraM = new SimpleIntegerProperty(0);
+        this.cubicacion_terceraM = new SimpleDoubleProperty(0.000);
+        this.pt_terceraM    = new SimpleDoubleProperty(0.000);
+        this.largo_terceraM = new SimpleStringProperty("");
+
+        this.grueso_cruzada= new SimpleStringProperty("");
+        this.ancho_cruzada = new SimpleStringProperty("");
+        this.clase_cruzada = new SimpleStringProperty("");
+        this.pieza_cruzada = new SimpleIntegerProperty(0);
+        this.cubicacion_cruzada = new SimpleDoubleProperty(0.000);
+        this.pt_cruzada    = new SimpleDoubleProperty(0.000);
+        this.largo_cruzada = new SimpleStringProperty("");
 
     }
 
@@ -648,14 +695,29 @@ public class madera_control extends RecursiveTreeObject<madera_control> {
 
     public static void obtenerDatosHistorial(Connection connection, ObservableList<madera_control> list) {
         try {
+             ObservableList<madera_control> listaHis = FXCollections.observableArrayList();
+
+             //VALORES
+             //var c1 = new madera_control();
+               //  c1.setClase("PRIMERA");
+            /**var c2 = new madera_control();
+                c2.setClase("SEGUNDA");
+            var c3 = new madera_control();
+                c3.setClase("TERCERA BUENA");
+            var c4 = new madera_control();
+                c4.setClase("TERCERA MALA");
+            var c5 = new madera_control();
+                c5.setClase("MADERA CRUZADA");*/
+
             var datos = "select * from control_produccion";
 
             System.out.println(datos);
             var statementP = connection.createStatement();
             var resultSet1 = statementP.executeQuery(datos);
 
+
             while (resultSet1.next()) {
-                list.add(new madera_control(
+                listaHis.add(new madera_control(
                         resultSet1.getInt("id"),
                         resultSet1.getString("grueso"),
                         resultSet1.getString("ancho"),
@@ -664,12 +726,83 @@ public class madera_control extends RecursiveTreeObject<madera_control> {
                         resultSet1.getDouble("cubicacion"),
                         resultSet1.getDouble("pies_tabla"),
                         resultSet1.getString("largo")));
-            }
+                    }
+
+                       var c1 = new madera_control();
+                //listaHis.stream().filter(c->c.getGrueso().equals("3/4\"")).forEach(x-> System.out.println(x.getGrueso() +":"+x.getAncho()+":"+ x.getPieza()));
+                listaHis.forEach(System.out::println);
+                listaHis.forEach(x->{
+                    switch (x.getClase()) {
+                        case "PRIMERA":
+                            if (c1.getGrueso() == "")
+                                c1.setGrueso((x.getClase().equals("PRIMERA"))? x.getGrueso():"");
+
+                            if(c1.getAncho() == "")
+                                c1.setAncho((x.getClase().equals("PRIMERA"))? x.getAncho():"");
+
+                            if(c1.getPieza()==0)
+                                c1.setPieza((x.getClase().equals("PRIMERA"))? x.getPieza():0);
+
+                            if(c1.getCubicacion()==0.000)
+                                c1.setCubicacion((x.getClase().equals("PRIMERA"))? x.getCubicacion():0.00);
+
+                            if(c1.getPt()==0.000)
+                                c1.setPt((x.getClase().equals("PRIMERA"))? x.getPt():0.00);
+
+                            list.add(c1);
+                            break;
+
+                        case "SEGUNDA":
+                            var c2 = new madera_control();
+                            if (c2.getGrueso() == "")
+                                c2.setGrueso((x.getClase().equals("SEGUNDA"))? x.getGrueso():"");
+
+                            if(c2.getAncho() == "")
+                                c2.setAncho((x.getClase().equals("SEGUNDA"))? x.getAncho():"");
+
+                            if(c2.getPieza()==0)
+                                c2.setPieza_segunda((x.getClase().equals("SEGUNDA"))? x.getPieza():0);
+
+                            if(c2.getCubicacion()==0.000)
+                                c2.setCubicacion_segunda((x.getClase().equals("SEGUNDA"))? x.getCubicacion():0.00);
+
+                            if(c2.getPt()==0.000)
+                                c2.setPt_segunda((x.getClase().equals("SEGUNDA"))? x.getPt():0.00);
+
+                            list.add(c2);
+
+
+                            break;
+
+
+                    }
+
+                });
+
+
+
+
+
+            //list.addAll(c1);
 
         }catch (Exception e){
             e.printStackTrace();
         }
 
+    }
+
+    @Override
+    public String toString() {
+        return "madera_control{" +
+                "id=" + id +
+                ", largo=" + largo +
+                ", grueso=" + grueso +
+                ", ancho=" + ancho +
+                ", clase=" + clase +
+                ", pieza=" + pieza +
+                ", cubicacion=" + cubicacion +
+                ", pt=" + pt +
+                '}';
     }
 
     public static int eliminarOtros(Connection connection, int id) {
