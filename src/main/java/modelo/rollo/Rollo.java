@@ -120,15 +120,16 @@ public class Rollo extends RecursiveTreeObject<Rollo> {
         return -1.0;
     }
 
-    public static Rollo addRollo(Connection connection, int numero, double diametro1, double diametro2) {
+    public static Rollo addRollo(Connection connection, double diametro1, double diametro2) {
         try {
-            var roll_added = "SELECT * FROM add_rollos(" + numero + "," + diametro1 + "," + diametro2 + ");";
+            var roll_added = "SELECT * FROM add_rollos("+ diametro1 + "," + diametro2 + ")";
 
             var statementP = connection.createStatement();
             var resultSet1 = statementP.executeQuery(roll_added);
 
             if (resultSet1.next())
                 return new Rollo(
+                        resultSet1.getInt("id"),
                         resultSet1.getInt("numero"),
                         resultSet1.getInt("diametro1"),
                         resultSet1.getDouble("diametro2"),

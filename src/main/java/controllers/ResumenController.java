@@ -235,6 +235,7 @@ public class ResumenController implements Initializable {
         treTable.setEditable(false);
         treTable.setShowRoot(false);
         treTable.getColumns().setAll(clmMedida, clmPrimera, clmSegunda, clmTerceraBuena, clmTerceraMala, clmMaderaCruzada, clmCuadrado, clmViga, clmPolin, clmTotal);
+        treTable.getColumns().forEach(c -> c.setSortable(false));
     }
 
 }
