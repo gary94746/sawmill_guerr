@@ -373,6 +373,10 @@ public class ControlController implements Initializable {
 
     @FXML
     void ActionHistorial(ActionEvent event) {
+        txtPiezas.setEditable(true);
+        agregar.setDisable(true);
+        btnDelete.setDisable(true);
+
         buscarporFecha ();
         Totales();
 
@@ -380,9 +384,7 @@ public class ControlController implements Initializable {
 
     public void buscarporFecha (){
         try {
-            txtPiezas.setEditable(false);
-            agregar.setDisable(false);
-            btnDelete.setDisable(false);
+
 
             var datePicker1 = fecha.getValue().getYear() + "-" + fecha.getValue().getMonthValue() + "-" + fecha.getValue().getDayOfMonth();
             tituloRegistro.setText("Historial del: " +
@@ -494,9 +496,9 @@ public class ControlController implements Initializable {
     @FXML
     void ActionRestablecer(ActionEvent event) {
         tituloRegistro.setText("TABLA DE REGISTROS DEL DIA ACTUAL");
-        txtPiezas.setEditable(true);
-        agregar.setDisable(true);
-        btnDelete.setDisable(true);
+        txtPiezas.setEditable(false);
+        agregar.setDisable(false);
+        btnDelete.setDisable(false);
         fecha.getEditor().clear();
         llenarTabla();
         Totales();
