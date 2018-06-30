@@ -2,6 +2,7 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXDatePicker?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import com.jfoenix.controls.JFXTreeTableView?>
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
@@ -11,6 +12,7 @@
 <?import javafx.scene.control.TreeTableView?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
@@ -118,23 +120,53 @@
       </GridPane>
       <GridPane>
         <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="435.2000396728516" minWidth="10.0" prefWidth="380.8000152587891" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="380.40000000000003" minWidth="10.0" prefWidth="125.59998474121096" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="243.60003662109375" minWidth="0.0" prefWidth="103.9999877929688" />
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="185.199951171875" minWidth="10.0" prefWidth="164.80001220703127" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
         </columnConstraints>
         <rowConstraints>
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
-         <VBox.margin>
-            <Insets top="30.0" />
-         </VBox.margin>
          <children>
-            <Label text="Tabla de registros:">
+            <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1">
+               <children>
+                  <JFXDatePicker fx:id="fechaOtros">
+                     <HBox.margin>
+                        <Insets right="10.0" />
+                     </HBox.margin>
+                  </JFXDatePicker>
+                  <JFXButton fx:id="historial" alignment="CENTER" contentDisplay="CENTER" onAction="#ActionHistorialOtros" prefHeight="30.0" prefWidth="36.0" style="-fx-background-color: #916b47;" text="." textFill="WHITE">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                     <graphic>
+                        <FontAwesomeIconView fill="WHITE" glyphName="SEARCH" size="14" />
+                     </graphic>
+                     <HBox.margin>
+                        <Insets right="10.0" />
+                     </HBox.margin>
+                  </JFXButton>
+                  <JFXButton fx:id="restablecer" alignment="CENTER" contentDisplay="CENTER" onAction="#ActionRestablecerOtros" prefHeight="30.0" prefWidth="36.0" style="-fx-background-color: #916b47;" text="." textFill="WHITE">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                     <graphic>
+                        <FontAwesomeIconView fill="WHITE" glyphName="ARROW_DOWN" size="14" text="" />
+                     </graphic>
+                     <HBox.margin>
+                        <Insets right="20.0" />
+                     </HBox.margin>
+                  </JFXButton>
+               </children>
+            </HBox>
+            <Label fx:id="TituloRegistroOtros" text="Tabla de Registros">
                <GridPane.margin>
                   <Insets left="20.0" />
-               </GridPane.margin></Label>
+               </GridPane.margin>
+            </Label>
          </children>
+         <VBox.margin>
+            <Insets top="20.0" />
+         </VBox.margin>
       </GridPane>
       <JFXTreeTableView fx:id="tablaOtros" prefHeight="239.0" prefWidth="774.0" VBox.vgrow="ALWAYS">
          <columnResizePolicy>

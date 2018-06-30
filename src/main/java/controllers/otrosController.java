@@ -7,6 +7,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeTableColumn;
@@ -30,6 +31,10 @@ public class otrosController implements Initializable {
     @FXML private JFXTextField txtPt;
     @FXML private JFXTextField txtTotalPieza;
     @FXML private JFXTextField txtTotalPt;
+    @FXML private JFXDatePicker fechaOtros;
+    @FXML private Label TituloRegistroOtros;
+
+
 
 
 
@@ -181,13 +186,13 @@ public class otrosController implements Initializable {
             valcub=(1.5*3.5*8.25)/12;
             txtCubicacion.setText(String.valueOf(valcub));
         }else if(ComboPz.getSelectionModel().getSelectedItem()=="VIGA 4x4"){
-            valcub=(4*4*8.25)/12;
+            valcub=(4*4*16.5)/12;
             txtCubicacion.setText(String.valueOf(valcub));
         }else if(ComboPz.getSelectionModel().getSelectedItem()=="VIGA 4x6"){
-            valcub=(4*6*8.25)/12;
+            valcub=(4*6*16.5)/12;
             txtCubicacion.setText(String.valueOf(valcub));
         }else if(ComboPz.getSelectionModel().getSelectedItem()=="VIGA 4x8"){
-            valcub=(4*8*8.25)/12;
+            valcub=(4*8*16.5)/12;
             txtCubicacion.setText(String.valueOf(valcub));
         }
 
@@ -198,6 +203,27 @@ public class otrosController implements Initializable {
         NumberFormat d = new DecimalFormat("#0.000");
         var f = d.format(numero);
         return Double.parseDouble(f);
+    }
+
+    private void cargarDatos(String datePicker) {
+        list.removeIf(x -> true);
+        conexion.establecerConexion();
+        otros_mad.historial(conexion.getConection(), list, datePicker);
+        conexion.cerrarConexion();
+    }
+
+
+    @FXML
+    void ActionHistorialOtros(ActionEvent event) {
+        txtPieza.setEditable(false);
+        var datePicker1 = fechaOtros.getValue().getYear() + "-" + fechaOtros.getValue().getMonthValue()+ "-" + fechaOtros.getValue().getDayOfMonth();
+        TituloRegistroOtros.setText("Historial del: " +
+                fechaOtros.getValue().getDayOfMonth() + "/" +
+                fechaOtros.getValue().getMonth()+ "/" + fechaOtros.getValue().getYear()
+        );
+
+        cargarDatos(datePicker1);
+
     }
 
 
@@ -252,6 +278,13 @@ public class otrosController implements Initializable {
     }
 
 
-
-
+    @FXML
+    public void ActionRestablecerOtros(ActionEvent actionEvent) {
+        TituloRegistroOtros.setText("TABLA DE REGISTROS DEL DIA ACTUAL");
+        txtPieza.setEditable(true);
+        conexion.establecerConexion();
+        otros_mad.obtenerDatos(conexion.getConection(), list);
+        conexion.cerrarConexion();
+        Totales();
+    }
 }

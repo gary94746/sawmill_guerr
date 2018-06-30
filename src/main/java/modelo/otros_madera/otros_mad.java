@@ -124,6 +124,29 @@ public class otros_mad extends RecursiveTreeObject<otros_mad> {
         }
     }
 
+    public static void historial(Connection connection, ObservableList<otros_mad> list, String date) {
+        try {
+
+            System.out.println(date);
+            var query = "SELECT * FROM otras where fecha = '" + date + "'::date";
+            System.out.println(query);
+            var statementP = connection.createStatement();
+            var resultSet1 = statementP.executeQuery(query);
+
+            while (resultSet1.next()) {
+                list.add((new otros_mad(
+                        resultSet1.getInt("id"),
+                        resultSet1.getString("otros"),
+                        resultSet1.getInt("piezas"),
+                        resultSet1.getDouble("cubicacion"),
+                        resultSet1.getDouble("pies_tabla"))));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
 
 
     public int getId() {
