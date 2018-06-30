@@ -27,40 +27,19 @@ import java.util.ResourceBundle;
 
 public class MaderaEnRolloController implements Initializable {
 
-    @FXML
-    private JFXTextField txtD1;
+    @FXML private JFXTextField txtD1;
+    @FXML private JFXTextField txtD2;
+    @FXML private JFXTextField volumenTotal;
+    @FXML private JFXDatePicker fecha;
+    @FXML private JFXButton botonAgregar;
+    @FXML private JFXButton botonEliminar;
+    @FXML private JFXButton botonBuscar;
+    @FXML private JFXButton botonFechaActual;
+    @FXML private Label lblTitulo;
+    @FXML private JFXTreeTableView<Rollo> tabla1;
 
-    @FXML
-    private JFXTextField txtD2;
-
-    @FXML
-    private JFXTextField volumenTotal;
-
-    @FXML
-    private JFXDatePicker fecha;
-
-    @FXML
-    private JFXButton botonAgregar;
-
-    @FXML
-    private JFXButton botonEliminar;
-
-    @FXML
-    private JFXButton botonBuscar;
-
-    @FXML
-    private JFXButton botonFechaActual;
-
-    @FXML
-    private Label lblTitulo;
-
-    @FXML
-    private JFXTreeTableView<Rollo> tabla1;
     private ObservableList<Rollo> list;
-
-
     private Conexion conexion = Conexion.getInstance();
-
 
     @FXML
     void agregaRollo(ActionEvent event) {
@@ -95,17 +74,22 @@ public class MaderaEnRolloController implements Initializable {
 
     @FXML
     void eliminaRollo(ActionEvent event) {
-        int row = tabla1.getSelectionModel().getSelectedItem().getValue().getId();
-        conexion.establecerConexion();
-        Rollo.eliminarRollo(conexion.getConection(), row);
-        list.removeIf(x -> true);
-        Rollo.obtenerDatos(conexion.getConection(), list);
-        conexion.cerrarConexion();
+        try {
+            int row = tabla1.getSelectionModel().getSelectedItem().getValue().getId();
+            conexion.establecerConexion();
+            Rollo.eliminarRollo(conexion.getConection(), row);
+            list.removeIf(x -> true);
+            Rollo.obtenerDatos(conexion.getConection(), list);
+            conexion.cerrarConexion();
 
-        var total = list.parallelStream().mapToDouble(Rollo::getVol).sum();
-        volumenTotal.setText(format3Decimals(total) + "");
+            var total = list.parallelStream().mapToDouble(Rollo::getVol).sum();
+            volumenTotal.setText(format3Decimals(total) + "");
 
-        Messages.setMessage("Se elimino","El rollo se elimino satisfactoriamente", NotificationType.SUCCESS);
+            Messages.setMessage("Se elimino", "El rollo se elimino satisfactoriamente", NotificationType.SUCCESS);
+        } catch (Exception e) {
+            Messages.setMessage("Error", "No se selecciono una fila", NotificationType.ERROR);
+        }
+
     }
 
     @FXML
@@ -138,7 +122,6 @@ public class MaderaEnRolloController implements Initializable {
         return Double.parseDouble(f);
     }
 
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         list = FXCollections.observableArrayList();
@@ -157,7 +140,6 @@ public class MaderaEnRolloController implements Initializable {
         botonFechaActual.setTooltip(new Tooltip("Regrese al dia actual"));
     }
 
-    // Se establecen las columnas de la tabla.
     private void columnas() {
         final TreeItem<Rollo> root = new RecursiveTreeItem<>(list, RecursiveTreeObject::getChildren);
         list.forEach(x -> System.out.println(x));
