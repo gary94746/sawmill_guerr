@@ -65,6 +65,8 @@ public class madera_control extends RecursiveTreeObject<madera_control> {
     }
 
     public madera_control(int id,String grueso, String ancho, String clase, int pieza, double cubicacion, double pt,String largo) {
+
+
         this.id = new SimpleIntegerProperty(id);
         this.grueso = new SimpleStringProperty(grueso);
         this.ancho = new SimpleStringProperty(ancho);
@@ -619,7 +621,7 @@ public class madera_control extends RecursiveTreeObject<madera_control> {
                     "," + control.getCubicacion() + "" +
                     "," +control.getPt() +","+
                     "'"+control.getLargo()+"'"+");";
-            System.out.println(control_added);
+            //System.out.println(control_added);
 
             var statementP = connection.createStatement();
             var resultSet1 = statementP.executeQuery(control_added);
@@ -697,17 +699,57 @@ public class madera_control extends RecursiveTreeObject<madera_control> {
         try {
              ObservableList<madera_control> listaHis = FXCollections.observableArrayList();
 
-             //VALORES
-             //var c1 = new madera_control();
-               //  c1.setClase("PRIMERA");
-            /**var c2 = new madera_control();
-                c2.setClase("SEGUNDA");
+             //VALORES UNO
+             var c1 = new madera_control();
+                c1.setAncho("4");
+                c1.setGrueso("3/4\"");
+            var c2 = new madera_control();
+                c2.setAncho("6");
+                c2.setGrueso("3/4\"");
             var c3 = new madera_control();
-                c3.setClase("TERCERA BUENA");
+                c3.setAncho("8");
+                c3.setGrueso("3/4\"");
             var c4 = new madera_control();
-                c4.setClase("TERCERA MALA");
+                c4.setAncho("10");
+                c4.setGrueso("3/4\"");
             var c5 = new madera_control();
-                c5.setClase("MADERA CRUZADA");*/
+                c5.setAncho("12");
+                c5.setGrueso("3/4\"");
+            //VALORES DOS
+            var c6 = new madera_control();
+            c6.setAncho("4");
+            c6.setGrueso("1 1/2\"");
+            var c7 = new madera_control();
+            c7.setAncho("6");
+            c7.setGrueso("1 1/2\"");
+            var c8 = new madera_control();
+            c8.setAncho("8");
+            c8.setGrueso("1 1/2\"");
+            var c9 = new madera_control();
+            c9.setAncho("10");
+            c9.setGrueso("1 1/2\"");
+            var c10 = new madera_control();
+            c10.setAncho("12");
+            c10.setGrueso("1 1/2\"");
+            //VALORES TRES
+            var c11 = new madera_control();
+            c11.setAncho("4");
+            c11.setGrueso("2\"");
+            var c12 = new madera_control();
+            c12.setAncho("6");
+            c12.setGrueso("2\"");
+            var c13 = new madera_control();
+            c13.setAncho("8");
+            c13.setGrueso("2\"");
+            var c14 = new madera_control();
+            c14.setAncho("10");
+            c14.setGrueso("2\"");
+            var c15 = new madera_control();
+            c15.setAncho("12");
+            c15.setGrueso("2\"");
+
+
+
 
             var datos = "select * from control_produccion";
 
@@ -728,12 +770,13 @@ public class madera_control extends RecursiveTreeObject<madera_control> {
                         resultSet1.getString("largo")));
                     }
 
-                       var c1 = new madera_control();
                 //listaHis.stream().filter(c->c.getGrueso().equals("3/4\"")).forEach(x-> System.out.println(x.getGrueso() +":"+x.getAncho()+":"+ x.getPieza()));
-                listaHis.forEach(System.out::println);
+                //listaHis.forEach(System.out::println);
                 listaHis.forEach(x->{
-                    switch (x.getClase()) {
-                        case "PRIMERA":
+                    switch (x.getAncho()+","+x.getGrueso()) {
+
+                        case "4,3/4\"" :
+
                             if (c1.getGrueso() == "")
                                 c1.setGrueso((x.getClase().equals("PRIMERA"))? x.getGrueso():"");
 
@@ -749,11 +792,88 @@ public class madera_control extends RecursiveTreeObject<madera_control> {
                             if(c1.getPt()==0.000)
                                 c1.setPt((x.getClase().equals("PRIMERA"))? x.getPt():0.00);
 
-                            list.add(c1);
+                            if (c1.getGrueso() == "")
+                                c1.setGrueso((x.getClase().equals("SEGUNDA"))? x.getGrueso():"");
+
+                            if(c1.getAncho() == "")
+                                c1.setAncho((x.getClase().equals("SEGUNDA"))? x.getAncho():"");
+
+                            if(c1.getPieza()==0)
+                                c1.setPieza_segunda((x.getClase().equals("SEGUNDA"))? x.getPieza():0);
+
+                            if(c1.getCubicacion()==0.000)
+                                c1.setCubicacion_segunda((x.getClase().equals("SEGUNDA"))? x.getCubicacion():0.00);
+
+                            if(c1.getPt()==0.000)
+                                c1.setPt_segunda((x.getClase().equals("SEGUNDA"))? x.getPt():0.00);
+
+                            //SEGUNDA PARTE-----------------------------------------
+
+                            if (c1.getGrueso() == "")
+                                c1.setGrueso((x.getClase().equals("TERCERA BUENA"))? x.getGrueso():"");
+
+                            if(c1.getAncho() == "")
+                                c1.setAncho((x.getClase().equals("TERCERA BUENA"))? x.getAncho():"");
+
+                            if(c1.getPieza()==0)
+                                c1.setPieza_terceraB((x.getClase().equals("TERCERA BUENA"))? x.getPieza():0);
+
+                            if(c1.getCubicacion()==0.000)
+                                c1.setCubicacion_terceraB((x.getClase().equals("TERCERA BUENA"))? x.getCubicacion():0.00);
+
+                            if(c1.getPt()==0.000)
+                                c1.setPt_terceraB((x.getClase().equals("TERCERA BUENA"))? x.getPt():0.00);
+
+                            if (c1.getGrueso() == "")
+                                c1.setGrueso((x.getClase().equals("TERCERA MALA"))? x.getGrueso():"");
+
+                            if(c1.getAncho() == "")
+                                c1.setAncho((x.getClase().equals("TERCERA MALA"))? x.getAncho():"");
+
+                            if(c1.getPieza()==0)
+                                c1.setPieza_terceraM((x.getClase().equals("TERCERA MALA"))? x.getPieza():0);
+
+                            if(c1.getCubicacion()==0.000)
+                                c1.setCubicacion_terceraM((x.getClase().equals("TERCERA MALA"))? x.getCubicacion():0.00);
+
+                            if(c1.getPt()==0.000)
+                                c1.setPt_terceraM((x.getClase().equals("TERCERA MALA"))? x.getPt():0.00);
+
+                            //TERCERA PARTE
+                            if (c1.getGrueso() == "")
+                                c1.setGrueso((x.getClase().equals("MADERA CRUZADA"))? x.getGrueso():"");
+
+                            if(c1.getAncho() == "")
+                                c1.setAncho((x.getClase().equals("MADERA CRUZADA"))? x.getAncho():"");
+
+                            if(c1.getPieza()==0)
+                                c1.setPieza_cruzada((x.getClase().equals("MADERA CRUZADA"))? x.getPieza():0);
+
+                            if(c1.getCubicacion()==0.000)
+                                c1.setCubicacion_cruzada((x.getClase().equals("MADERA CRUZADA"))? x.getCubicacion():0.00);
+
+                            if(c1.getPt()==0.000)
+                                c1.setPt_cruzada((x.getClase().equals("MADERA CRUZADA"))? x.getPt():0.00);
+
+
                             break;
 
-                        case "SEGUNDA":
-                            var c2 = new madera_control();
+                        case "6,3/4\"":
+                            if (c2.getGrueso() == "")
+                                c2.setGrueso((x.getClase().equals("PRIMERA"))? x.getGrueso():"");
+
+                            if(c2.getAncho() == "")
+                                c2.setAncho((x.getClase().equals("PRIMERA"))? x.getAncho():"");
+
+                            if(c2.getPieza()==0)
+                                c2.setPieza((x.getClase().equals("PRIMERA"))? x.getPieza():0);
+
+                            if(c2.getCubicacion()==0.000)
+                                c2.setCubicacion((x.getClase().equals("PRIMERA"))? x.getCubicacion():0.00);
+
+                            if(c2.getPt()==0.000)
+                                c2.setPt((x.getClase().equals("PRIMERA"))? x.getPt():0.00);
+
                             if (c2.getGrueso() == "")
                                 c2.setGrueso((x.getClase().equals("SEGUNDA"))? x.getGrueso():"");
 
@@ -768,11 +888,17 @@ public class madera_control extends RecursiveTreeObject<madera_control> {
 
                             if(c2.getPt()==0.000)
                                 c2.setPt_segunda((x.getClase().equals("SEGUNDA"))? x.getPt():0.00);
-
-                            list.add(c2);
-
-
                             break;
+
+
+
+
+
+
+
+
+
+
 
 
                     }
@@ -783,7 +909,7 @@ public class madera_control extends RecursiveTreeObject<madera_control> {
 
 
 
-            //list.addAll(c1);
+            list.addAll(c1,c2);
 
         }catch (Exception e){
             e.printStackTrace();

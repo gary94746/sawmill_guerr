@@ -54,7 +54,7 @@ public class HistoryControlController implements Initializable{
 
         final TreeItem<madera_control> root = new RecursiveTreeItem<>(list, RecursiveTreeObject::getChildren);
 
-        list.forEach(x -> System.out.println(x));
+        //list.forEach(x -> System.out.println(x));
         tablaHistorial.setRoot(root);
 
         JFXTreeTableColumn<madera_control, String> Columna1 = new JFXTreeTableColumn<>("PRIMERA");

@@ -10,9 +10,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="348.0" prefWidth="637.0" style="-fx-background-color: white;" stylesheets="@../estilos/dashboard.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ExtraController">
+<VBox prefHeight="220.0" prefWidth="637.0" style="-fx-background-color: white;" stylesheets="@../estilos/dashboard.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ExtraController">
    <children>
-      <Label stylesheets="@../estilos/dashboard.css" text="Control de produccion de madera aserrada.">
+      <Label stylesheets="@../estilos/dashboard.css" text="Control de produccion de madera aserrada. [Tabletas]">
          <font>
             <Font name="Open Sans Condensed Bold" size="22.0" />
          </font>
@@ -39,12 +39,12 @@
       </JFXTreeTableView>
       <HBox alignment="CENTER_RIGHT">
          <children>
-            <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" prefHeight="30.0" prefWidth="208.0" text="Total de pies-tabla:">
+            <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" prefHeight="30.0" prefWidth="208.0" text="Total:">
                <HBox.margin>
                   <Insets bottom="10.0" left="20.0" right="20.0" />
                </HBox.margin>
                <graphic>
-                  <JFXTextField prefHeight="25.0" prefWidth="86.0" />
+                  <JFXTextField fx:id="lblTotal" prefHeight="25.0" prefWidth="86.0" />
                </graphic>
             </Label>
          </children>

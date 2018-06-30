@@ -19,6 +19,7 @@ import javafx.scene.image.Image;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import modelo.Conexion;
+import modelo.extra.Extra;
 import modelo.rollo.Rollo;
 import modelo.tabletas.Tabletas;
 import tray.notification.NotificationType;
@@ -35,6 +36,8 @@ public class MaderaTabletasController implements Initializable {
     private double cubos;
     private double pt;
     private String concatena;
+    public static Extra subtotales;
+    public static Double totalFinal;
 
     @FXML private JFXTreeTableView<Tabletas> tabla2;
     @FXML private JFXComboBox<String> comboLongitud;
@@ -67,9 +70,9 @@ public class MaderaTabletasController implements Initializable {
 
     @FXML
     void buscarFechaTableta(ActionEvent event) {
-        var datePicker1 = fechaTableta.getValue().getYear() + "-" + fechaTableta.getValue().getMonthValue()+ "-" + fechaTableta.getValue().getDayOfMonth();
+        var datePicker1 = fechaTableta.getValue().getYear() + "-" + fechaTableta.getValue().getMonthValue() + "-" + fechaTableta.getValue().getDayOfMonth();
         lblTitulo.setText("Registro del: " +
-                fechaTableta.getValue().getDayOfMonth() + "/" + fechaTableta.getValue().getMonth()+ "/" + fechaTableta.getValue().getYear()
+                fechaTableta.getValue().getDayOfMonth() + "/" + fechaTableta.getValue().getMonth() + "/" + fechaTableta.getValue().getYear()
         );
 
         cargarDatos(datePicker1);
@@ -80,9 +83,10 @@ public class MaderaTabletasController implements Initializable {
         txtPiezas.setDisable(true);
         btnAgregar.setDisable(true);
         btnEliminar.setDisable(true);
-        btnSubtotales.setDisable(true);
+        //btnSubtotales.setDisable(true);
 
         comboFiltro.setValue("Todos");
+        subTotales();
     }
 
     @FXML
@@ -100,24 +104,25 @@ public class MaderaTabletasController implements Initializable {
         comboLongitud.setDisable(false);
         txtPiezas.setDisable(false);
         btnAgregar.setDisable(false);
-        btnSubtotales.setDisable(false);
+        //btnSubtotales.setDisable(false);
         btnEliminar.setDisable(false);
 
         fechaTableta.getEditor().clear();
         fechaTableta.setValue(null);
         comboFiltro.setValue("Todos");
+        subTotales();
     }
 
     @FXML
     void eliminaTableta(ActionEvent event) {
 
-            int row = tabla2.getSelectionModel().getSelectedItem().getValue().getId();
-            conexion.establecerConexion();
-            Tabletas.eliminarTableta(conexion.getConection(), row);
-            conexion.cerrarConexion();
-            list.removeIf(x -> x.getId() == row);
+        int row = tabla2.getSelectionModel().getSelectedItem().getValue().getId();
+        conexion.establecerConexion();
+        Tabletas.eliminarTableta(conexion.getConection(), row);
+        conexion.cerrarConexion();
+        list.removeIf(x -> x.getId() == row);
 
-            //Messages.setMessage("Error.", "Seleccione una fila primero.", NotificationType.ERROR);
+        //Messages.setMessage("Error.", "Seleccione una fila primero.", NotificationType.ERROR);
     }
 
     @FXML
@@ -130,6 +135,7 @@ public class MaderaTabletasController implements Initializable {
         stage.setTitle("Menu principal");
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.show();
+        stage.setResizable(false);
     }
 
     @FXML
@@ -161,7 +167,7 @@ public class MaderaTabletasController implements Initializable {
         btnRegreso.setTooltip(new Tooltip("Regrese al dia actual"));
         btnSubtotales.setTooltip(new Tooltip("Despliega los subtotales"));
 
-        var x = list.parallelStream().mapToDouble(Tabletas::getPiestabla).sum();
+        subTotales();
     }
 
     private void cargarDatos(String datePicker) {
@@ -186,14 +192,14 @@ public class MaderaTabletasController implements Initializable {
             }
         } else {
             if (comboFiltro.getSelectionModel().getSelectedItem() == "Todos") {
-                var datePicker1 = fechaTableta.getValue().getYear() + "-" + fechaTableta.getValue().getMonthValue()+ "-" + fechaTableta.getValue().getDayOfMonth();
+                var datePicker1 = fechaTableta.getValue().getYear() + "-" + fechaTableta.getValue().getMonthValue() + "-" + fechaTableta.getValue().getDayOfMonth();
 
                 list.removeIf(x -> true);
                 conexion.establecerConexion();
                 Tabletas.obtenerDatosFecha(conexion.getConection(), list, datePicker1);
                 conexion.cerrarConexion();
             } else {
-                var datePicker1 = fechaTableta.getValue().getYear() + "-" + fechaTableta.getValue().getMonthValue()+ "-" + fechaTableta.getValue().getDayOfMonth();
+                var datePicker1 = fechaTableta.getValue().getYear() + "-" + fechaTableta.getValue().getMonthValue() + "-" + fechaTableta.getValue().getDayOfMonth();
 
                 list.removeIf(x -> true);
                 conexion.establecerConexion();
@@ -268,7 +274,7 @@ public class MaderaTabletasController implements Initializable {
         tabla2.getColumns().setAll(gruesoporancho, piezas, cubicacion, piestabla, longitud);
     }
 
-    public void asignarCubicacion(String grueso, double ancho, double longitud){
+    public void asignarCubicacion(String grueso, double ancho, double longitud) {
         double valorGrueso = 0;
 
         if (grueso == "3/4") {
@@ -277,23 +283,42 @@ public class MaderaTabletasController implements Initializable {
             valorGrueso = 1.5;
         }
 
-        cubos = (valorGrueso * ancho * longitud)/12;
+        cubos = (valorGrueso * ancho * longitud) / 12;
     }
 
     public double calcularPt(double cubicacion, int piezas) {
-            return cubicacion * piezas;
+        return cubicacion * piezas;
     }
 
     public void gruesoAncho(String grueso, String ancho) {
         concatena = grueso + " x " + ancho;
     }
 
-    public void agregarRegistro(Rollo x){
+    public void agregarRegistro(Rollo x) {
         conexion.establecerConexion();
         var newTableta = Tabletas.addTableta(conexion.getConection(), concatena, Integer.parseInt(txtPiezas.getText()), cubos, calcularPt(cubos, Integer.parseInt(txtPiezas.getText())), Integer.parseInt(comboLongitud.getSelectionModel().getSelectedItem()));
         conexion.cerrarConexion();
         if (newTableta != null) {
             list.add(newTableta);
         }
+    }
+
+    public void subTotales() {
+        var sub2 = list.stream().filter(q -> q.getLongitud() == 2.0).mapToDouble(Tabletas::getPiestabla).sum();
+
+        var sub3 = list.stream().filter(q -> q.getLongitud() == 3.0).mapToDouble(Tabletas::getPiestabla).sum();
+
+        var sub4 = list.stream().filter(q -> q.getLongitud() == 4.0).mapToDouble(Tabletas::getPiestabla).sum();
+
+        var sub5 = list.stream().filter(q -> q.getLongitud() == 5.0).mapToDouble(Tabletas::getPiestabla).sum();
+
+        var sub6 = list.stream().filter(q -> q.getLongitud() == 6.0).mapToDouble(Tabletas::getPiestabla).sum();
+
+        var sub7 = list.stream().filter(q -> q.getLongitud() == 7.0).mapToDouble(Tabletas::getPiestabla).sum();
+
+        var x = list.parallelStream().mapToDouble(Tabletas::getPiestabla).sum();
+
+        subtotales = new Extra(sub2, sub3, sub4, sub5, sub6, sub7);
+        totalFinal = x;
     }
 }
