@@ -2,10 +2,7 @@ package modelo.resumen;
 
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import javafx.beans.binding.DoubleExpression;
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.SimpleDoubleProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
+import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -28,6 +25,7 @@ public class Resumen extends RecursiveTreeObject<Resumen> {
     private DoubleProperty viga;
     private DoubleProperty polin;
     private DoubleProperty total;
+    private IntegerProperty piezas;
 
     public Resumen(String medida, Double primera, Double segunda, Double tercera_buena, Double tercera_mala, Double madera_cruzada, Double cuadrado, Double viga, Double polin,Double total) {
         this.medida = new SimpleStringProperty(medida);
@@ -79,6 +77,11 @@ public class Resumen extends RecursiveTreeObject<Resumen> {
         this.medida = new SimpleStringProperty(grueso);
         this.clase = new SimpleStringProperty(clase);
         this.total = new SimpleDoubleProperty(total);
+    }
+
+    public Resumen(String clase, int piezas) {
+        this.clase = new SimpleStringProperty(clase);
+        this.piezas = new SimpleIntegerProperty(piezas);
     }
 
     public String getMedida() {
@@ -223,6 +226,18 @@ public class Resumen extends RecursiveTreeObject<Resumen> {
 
     public void setLargo(String largo) {
         this.largo.set(largo);
+    }
+
+    public int getPiezas() {
+        return piezas.get();
+    }
+
+    public IntegerProperty piezasProperty() {
+        return piezas;
+    }
+
+    public void setPiezas(int piezas) {
+        this.piezas.set(piezas);
     }
 
     public double getTotalSum() {
@@ -465,6 +480,78 @@ public class Resumen extends RecursiveTreeObject<Resumen> {
             });
 
             lista.addAll(r1,r2,r8,r3,r4,r5,r6,r7);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void get_piezas(Connection connection, ObservableList<Resumen> lista, String date1, String date2) {
+        try{
+            ObservableList<Resumen> fxlis = FXCollections.observableArrayList();
+
+            //TEMPORAL VALUES
+            var r1 = new Resumen();
+            r1.setMedida("PIEZAS");
+
+            var query = "SELECT clase, SUM(piezas) FROM control_produccion WHERE FECHA BETWEEN '"+date1+"'::date AND '"+date2+"'::date  GROUP BY clase;";
+            var statement = connection.createStatement();
+            var rs = statement.executeQuery(query);
+
+            while (rs.next())
+                fxlis.add(new Resumen(rs.getString(1), rs.getInt(2)));
+
+            fxlis.forEach(x -> {
+                switch (x.getClase()) {
+                    case "PRIMERA":
+                        if (r1.getPrimera() == 0)
+                            r1.setPrimera(x.getPiezas());
+                        break;
+                    case "SEGUNDA":
+                        if (r1.getSegunda() == 0)
+                            r1.setSegunda(x.getPiezas());
+                        break;
+                    case "TERCERA BUENA":
+                        if (r1.getTercera_buena() == 0)
+                            r1.setTercera_buena(x.getPiezas());
+                        break;
+                    case "TERCERA MALA":
+                        if (r1.getTercera_mala() == 0)
+                            r1.setTercera_mala(x.getPiezas());
+                        break;
+                    case "MADERA CRUZADA":
+                        if (r1.getMadera_cruzada() == 0)
+                            r1.setMadera_cruzada(x.getPiezas());
+                        break;
+                }
+            });
+
+            fxlis.removeIf(x -> true);
+
+            var query1 = "SELECT otros, SUM(piezas) FROM otras WHERE FECHA BETWEEN '"+date1+"'::date AND '"+date2+"'::date  GROUP BY otros;";
+            var statement1 = connection.createStatement();
+            var rs1 = statement1.executeQuery(query1);
+
+            while (rs1.next())
+                fxlis.add(new Resumen(rs1.getString(1), rs1.getInt(2)));
+
+            fxlis.forEach(x -> {
+                switch (x.getClase().substring(0,2)) {
+                    case "PO":
+                        r1.setPolin(r1.getPolin() + x.getPiezas());
+                        break;
+                    case "VI":
+                        r1.setViga(r1.getViga() + x.getPiezas());
+                        break;
+                    case "BA":
+                        r1.setCuadrado(r1.getCuadrado() + x.getPiezas());
+                        break;
+                }
+            });
+
+            r1.setTotal(r1.getTotalSum());
+
+            lista.addAll(r1);
 
         } catch (SQLException e) {
             e.printStackTrace();
