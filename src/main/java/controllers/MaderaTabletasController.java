@@ -46,9 +46,6 @@ public class MaderaTabletasController implements Initializable {
     private JFXButton btnAgregar;
 
     @FXML
-    private JFXButton btnEditar;
-
-    @FXML
     private JFXButton btnEliminar;
 
     @FXML
@@ -105,7 +102,6 @@ public class MaderaTabletasController implements Initializable {
         comboLongitud.setDisable(true);
         txtPiezas.setDisable(true);
         btnAgregar.setDisable(true);
-        btnEditar.setDisable(true);
         btnEliminar.setDisable(true);
         btnSubtotales.setDisable(true);
     }
@@ -125,9 +121,9 @@ public class MaderaTabletasController implements Initializable {
         comboLongitud.setDisable(false);
         txtPiezas.setDisable(false);
         btnAgregar.setDisable(false);
-        btnEditar.setDisable(false);
-        btnEliminar.setDisable(false);
         btnSubtotales.setDisable(false);
+
+        fechaTableta.getEditor().clear();
     }
 
     private void cargarDatos(String datePicker) {
@@ -178,7 +174,6 @@ public class MaderaTabletasController implements Initializable {
 
         btnAgregar.setTooltip(new Tooltip("Agregar"));
         btnBuscar.setTooltip(new Tooltip("Buscar"));
-        btnEditar.setTooltip(new Tooltip("Editar"));
         btnEliminar.setTooltip(new Tooltip("Eliminar"));
         btnRegreso.setTooltip(new Tooltip("Regrese al dia actual"));
         btnSubtotales.setTooltip(new Tooltip("Despliega los subtotales"));
