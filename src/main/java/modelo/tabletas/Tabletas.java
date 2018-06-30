@@ -3,8 +3,6 @@ package modelo.tabletas;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import javafx.beans.property.*;
 import javafx.collections.ObservableList;
-import modelo.rollo.Rollo;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -16,8 +14,6 @@ public class Tabletas extends RecursiveTreeObject<Tabletas> {
     private DoubleProperty cubicacion;
     private DoubleProperty piestabla;
     private DoubleProperty longitud;
-
-
 
     public Tabletas(int id, String gruesoxancho, int piezas, double cubicacion, double piestabla, double longitud) {
         this.id = new SimpleIntegerProperty(id);
@@ -135,6 +131,54 @@ public class Tabletas extends RecursiveTreeObject<Tabletas> {
     public static void obtenerDatos(Connection connection, ObservableList<Tabletas> list) {
         try {
             var datos = "SELECT * FROM tabletas where fecha = current_date order by longitud asc";
+
+            var statementP = connection.createStatement();
+            var resultSet1 = statementP.executeQuery(datos);
+
+            while (resultSet1.next()) {
+                list.add(new Tabletas(resultSet1.getInt("id"),resultSet1.getString("gruesoporancho"), resultSet1.getInt("piezas"), resultSet1.getDouble("cubicacion"), resultSet1.getDouble("pies_tabla"), resultSet1.getDouble("longitud")));
+            }
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    public static void obtenerDatosFecha(Connection connection, ObservableList<Tabletas> list, String fecha) {
+        try {
+            var datos = "SELECT * FROM tabletas where fecha = '" + fecha +"' order by longitud asc";
+
+            var statementP = connection.createStatement();
+            var resultSet1 = statementP.executeQuery(datos);
+
+            while (resultSet1.next()) {
+                list.add(new Tabletas(resultSet1.getInt("id"),resultSet1.getString("gruesoporancho"), resultSet1.getInt("piezas"), resultSet1.getDouble("cubicacion"), resultSet1.getDouble("pies_tabla"), resultSet1.getDouble("longitud")));
+            }
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    public static void obtenerDatosFiltrados(Connection connection, ObservableList<Tabletas> list, String combo) {
+        try {
+            var datos = "SELECT * FROM tabletas where fecha = current_date and longitud = " + Integer.parseInt(combo);
+
+            var statementP = connection.createStatement();
+            var resultSet1 = statementP.executeQuery(datos);
+
+            while (resultSet1.next()) {
+                list.add(new Tabletas(resultSet1.getInt("id"),resultSet1.getString("gruesoporancho"), resultSet1.getInt("piezas"), resultSet1.getDouble("cubicacion"), resultSet1.getDouble("pies_tabla"), resultSet1.getDouble("longitud")));
+            }
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    public static void obtenerDatosFiltradosFecha(Connection connection, ObservableList<Tabletas> list, String combo, String fecha) {
+        try {
+            var datos = "SELECT * FROM tabletas where fecha = '" + fecha + "' and longitud = " + Integer.parseInt(combo);
 
             var statementP = connection.createStatement();
             var resultSet1 = statementP.executeQuery(datos);

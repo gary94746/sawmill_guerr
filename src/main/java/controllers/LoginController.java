@@ -44,7 +44,7 @@ public class LoginController {
 
             Messages.setMessage("Bienvenido","Usuario: "+ txtUser.getText(), NotificationType.SUCCESS);
         }else {
-            Messages.setMessage("Verifique","Ingrese datos validos", NotificationType.ERROR);
+            Messages.setMessage("Verifique","Ingrese datos validos", NotificationType.INFORMATION);
         }
     }
 

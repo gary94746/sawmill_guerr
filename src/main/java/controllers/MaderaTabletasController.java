@@ -31,49 +31,26 @@ import java.util.ResourceBundle;
 
 public class MaderaTabletasController implements Initializable {
 
-    @FXML
-    private JFXTreeTableView<Tabletas> tabla2;
-
     private ObservableList<Tabletas> list;
     private double cubos;
     private double pt;
     private String concatena;
 
-    @FXML
-    private JFXComboBox<String> comboLongitud;
-
-    @FXML
-    private JFXButton btnAgregar;
-
-    @FXML
-    private JFXButton btnEliminar;
-
-    @FXML
-    private JFXButton btnSubtotales;
-
-    @FXML
-    private JFXButton btnBuscar;
-
-    @FXML
-    private JFXButton btnRegreso;
-
-    @FXML
-    private JFXDatePicker fechaTableta;
-
-    @FXML
-    private JFXComboBox<String> comboGrueso;
-
-    @FXML
-    private JFXComboBox<String> comboAncho;
-
-    @FXML
-    private JFXTextField txtPiezas;
-
-    @FXML
-    private Label lblTitulo;
+    @FXML private JFXTreeTableView<Tabletas> tabla2;
+    @FXML private JFXComboBox<String> comboLongitud;
+    @FXML private JFXComboBox<String> comboFiltro;
+    @FXML private JFXButton btnAgregar;
+    @FXML private JFXButton btnEliminar;
+    @FXML private JFXButton btnSubtotales;
+    @FXML private JFXButton btnBuscar;
+    @FXML private JFXButton btnRegreso;
+    @FXML private JFXDatePicker fechaTableta;
+    @FXML private JFXComboBox<String> comboGrueso;
+    @FXML private JFXComboBox<String> comboAncho;
+    @FXML private JFXTextField txtPiezas;
+    @FXML private Label lblTitulo;
 
     private Conexion conexion = Conexion.getInstance();
-
 
     @FXML
     void agregaTableta(ActionEvent event) {
@@ -91,7 +68,7 @@ public class MaderaTabletasController implements Initializable {
     @FXML
     void buscarFechaTableta(ActionEvent event) {
         var datePicker1 = fechaTableta.getValue().getYear() + "-" + fechaTableta.getValue().getMonthValue()+ "-" + fechaTableta.getValue().getDayOfMonth();
-        lblTitulo.setText("Historia del: " +
+        lblTitulo.setText("Registro del: " +
                 fechaTableta.getValue().getDayOfMonth() + "/" + fechaTableta.getValue().getMonth()+ "/" + fechaTableta.getValue().getYear()
         );
 
@@ -104,6 +81,8 @@ public class MaderaTabletasController implements Initializable {
         btnAgregar.setDisable(true);
         btnEliminar.setDisable(true);
         btnSubtotales.setDisable(true);
+
+        comboFiltro.setValue("Todos");
     }
 
     @FXML
@@ -114,7 +93,7 @@ public class MaderaTabletasController implements Initializable {
         Tabletas.obtenerDatos(conexion.getConection(), list);
         conexion.cerrarConexion();
 
-        lblTitulo.setText("Control de produccion de madera aserrada");
+        lblTitulo.setText("Control de produccion de madera aserrada. [Tabletas]");
 
         comboGrueso.setDisable(false);
         comboAncho.setDisable(false);
@@ -122,15 +101,11 @@ public class MaderaTabletasController implements Initializable {
         txtPiezas.setDisable(false);
         btnAgregar.setDisable(false);
         btnSubtotales.setDisable(false);
+        btnEliminar.setDisable(false);
 
         fechaTableta.getEditor().clear();
-    }
-
-    private void cargarDatos(String datePicker) {
-        list.removeIf(x -> true);
-        conexion.establecerConexion();
-        Tabletas.historial(conexion.getConection(), list, datePicker);
-        conexion.cerrarConexion();
+        fechaTableta.setValue(null);
+        comboFiltro.setValue("Todos");
     }
 
     @FXML
@@ -157,6 +132,11 @@ public class MaderaTabletasController implements Initializable {
         stage.show();
     }
 
+    @FXML
+    void filtrados(ActionEvent event) {
+        llenarTabla();
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         list = FXCollections.observableArrayList();
@@ -166,10 +146,13 @@ public class MaderaTabletasController implements Initializable {
         comboGrueso.setValue("3/4");
         comboAncho.getItems().addAll("4", "6", "8", "10", "12");
         comboAncho.setValue("4");
+        comboFiltro.getItems().addAll("Todos", "2", "3", "4", "5", "6", "7");
+        comboFiltro.setValue("Todos");
 
-        conexion.establecerConexion();
-        Tabletas.obtenerDatos(conexion.getConection(), list);
-        conexion.cerrarConexion();
+        //conexion.establecerConexion();
+        //Tabletas.obtenerDatos(conexion.getConection(), list);
+        //conexion.cerrarConexion();
+        llenarTabla();
         columnas();
 
         btnAgregar.setTooltip(new Tooltip("Agregar"));
@@ -179,7 +162,45 @@ public class MaderaTabletasController implements Initializable {
         btnSubtotales.setTooltip(new Tooltip("Despliega los subtotales"));
 
         var x = list.parallelStream().mapToDouble(Tabletas::getPiestabla).sum();
-        System.out.println(x);
+    }
+
+    private void cargarDatos(String datePicker) {
+        list.removeIf(x -> true);
+        conexion.establecerConexion();
+        Tabletas.historial(conexion.getConection(), list, datePicker);
+        conexion.cerrarConexion();
+    }
+
+    private void llenarTabla() {
+        if (fechaTableta.getValue() == null) {
+            if (comboFiltro.getSelectionModel().getSelectedItem() == "Todos") {
+                list.removeIf(x -> true);
+                conexion.establecerConexion();
+                Tabletas.obtenerDatos(conexion.getConection(), list);
+                conexion.cerrarConexion();
+            } else {
+                list.removeIf(x -> true);
+                conexion.establecerConexion();
+                Tabletas.obtenerDatosFiltrados(conexion.getConection(), list, comboFiltro.getSelectionModel().getSelectedItem());
+                conexion.cerrarConexion();
+            }
+        } else {
+            if (comboFiltro.getSelectionModel().getSelectedItem() == "Todos") {
+                var datePicker1 = fechaTableta.getValue().getYear() + "-" + fechaTableta.getValue().getMonthValue()+ "-" + fechaTableta.getValue().getDayOfMonth();
+
+                list.removeIf(x -> true);
+                conexion.establecerConexion();
+                Tabletas.obtenerDatosFecha(conexion.getConection(), list, datePicker1);
+                conexion.cerrarConexion();
+            } else {
+                var datePicker1 = fechaTableta.getValue().getYear() + "-" + fechaTableta.getValue().getMonthValue()+ "-" + fechaTableta.getValue().getDayOfMonth();
+
+                list.removeIf(x -> true);
+                conexion.establecerConexion();
+                Tabletas.obtenerDatosFiltradosFecha(conexion.getConection(), list, comboFiltro.getSelectionModel().getSelectedItem(), datePicker1);
+                conexion.cerrarConexion();
+            }
+        }
     }
 
     private void columnas() {
