@@ -2,6 +2,7 @@ package controllers;
 
 import com.jfoenix.controls.*;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
+import controllers.utils.Messages;
 import controllers.utils.Validators;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -15,6 +16,8 @@ import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
 import modelo.Conexion;
 import modelo.rollo.Rollo;
+import tray.notification.NotificationType;
+
 import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.sql.Connection;
@@ -55,17 +58,15 @@ public class MaderaEnRolloController implements Initializable {
     private JFXTreeTableView<Rollo> tabla1;
     private ObservableList<Rollo> list;
 
-    private int count = 1;
 
     private Conexion conexion = Conexion.getInstance();
 
 
     @FXML
     void agregaRollo(ActionEvent event) {
-            agregarRegistro(null);
+            agregarRegistro();
             txtD1.setText("");
             txtD2.setText("");
-            count++;
 
             var total = list.parallelStream().mapToDouble(Rollo::getVol).sum();
             volumenTotal.setText(format3Decimals(total) + "");
@@ -97,11 +98,14 @@ public class MaderaEnRolloController implements Initializable {
         int row = tabla1.getSelectionModel().getSelectedItem().getValue().getId();
         conexion.establecerConexion();
         Rollo.eliminarRollo(conexion.getConection(), row);
+        list.removeIf(x -> true);
+        Rollo.obtenerDatos(conexion.getConection(), list);
         conexion.cerrarConexion();
-        list.removeIf(x -> x.getId() == row);
 
         var total = list.parallelStream().mapToDouble(Rollo::getVol).sum();
         volumenTotal.setText(format3Decimals(total) + "");
+
+        Messages.setMessage("Se elimino","El rollo se elimino satisfactoriamente", NotificationType.SUCCESS);
     }
 
     @FXML
@@ -221,12 +225,13 @@ public class MaderaEnRolloController implements Initializable {
         tabla1.getColumns().setAll(numero, diametro1, diametro2, diametropromedio, volumen);
     }
 
-    public void agregarRegistro(Rollo x){
+    public void agregarRegistro(){
             conexion.establecerConexion();
-            var newRollo = Rollo.addRollo(conexion.getConection(), count, Double.parseDouble(txtD1.getText()), Double.parseDouble(txtD2.getText()));
+            var newRollo = Rollo.addRollo(conexion.getConection(), Double.parseDouble(txtD1.getText()), Double.parseDouble(txtD2.getText()));
             conexion.cerrarConexion();
             if (newRollo != null) {
                 list.add(newRollo);
+                Messages.setMessage("Agregado", "Se agrego el rollo", NotificationType.SUCCESS);
             }
     }
 }
