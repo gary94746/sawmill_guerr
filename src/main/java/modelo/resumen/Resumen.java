@@ -2,10 +2,7 @@ package modelo.resumen;
 
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import javafx.beans.binding.DoubleExpression;
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.SimpleDoubleProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
+import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -18,6 +15,7 @@ import java.util.Collections;
 public class Resumen extends RecursiveTreeObject<Resumen> {
     private StringProperty medida;
     private StringProperty clase;
+    private StringProperty largo;
     private DoubleProperty primera;
     private DoubleProperty segunda;
     private DoubleProperty tercera_buena;
@@ -27,6 +25,7 @@ public class Resumen extends RecursiveTreeObject<Resumen> {
     private DoubleProperty viga;
     private DoubleProperty polin;
     private DoubleProperty total;
+    private IntegerProperty piezas;
 
     public Resumen(String medida, Double primera, Double segunda, Double tercera_buena, Double tercera_mala, Double madera_cruzada, Double cuadrado, Double viga, Double polin,Double total) {
         this.medida = new SimpleStringProperty(medida);
@@ -67,10 +66,22 @@ public class Resumen extends RecursiveTreeObject<Resumen> {
         this.total = new SimpleDoubleProperty(0.000);
     }
 
+    public Resumen(String grueso, String clase, Double total, String largo) {
+        this.medida = new SimpleStringProperty(grueso);
+        this.clase = new SimpleStringProperty(clase);
+        this.total = new SimpleDoubleProperty(total);
+        this.largo = new SimpleStringProperty(largo);
+    }
+
     public Resumen(String grueso, String clase, Double total) {
         this.medida = new SimpleStringProperty(grueso);
         this.clase = new SimpleStringProperty(clase);
         this.total = new SimpleDoubleProperty(total);
+    }
+
+    public Resumen(String clase, int piezas) {
+        this.clase = new SimpleStringProperty(clase);
+        this.piezas = new SimpleIntegerProperty(piezas);
     }
 
     public String getMedida() {
@@ -205,6 +216,30 @@ public class Resumen extends RecursiveTreeObject<Resumen> {
         this.polin.set(polin);
     }
 
+    public String getLargo() {
+        return largo.get();
+    }
+
+    public StringProperty largoProperty() {
+        return largo;
+    }
+
+    public void setLargo(String largo) {
+        this.largo.set(largo);
+    }
+
+    public int getPiezas() {
+        return piezas.get();
+    }
+
+    public IntegerProperty piezasProperty() {
+        return piezas;
+    }
+
+    public void setPiezas(int piezas) {
+        this.piezas.set(piezas);
+    }
+
     public double getTotalSum() {
         NumberFormat format = new DecimalFormat("#0.000");
         var returned = primera.get() + segunda.get() +
@@ -217,24 +252,31 @@ public class Resumen extends RecursiveTreeObject<Resumen> {
          try{
              ObservableList<Resumen> fxlis = FXCollections.observableArrayList();
 
-             //TEMPORAL VALUES
+             //TEMPORAL VALUES 8 1/4
              var r1 = new Resumen();
-                r1.setMedida("3/4\"");
+                r1.setMedida("3/4\" 8 1/4\"");
              var r2 = new Resumen();
-                r2.setMedida("1 1/2\"");
+                r2.setMedida("1 1/2\" 8 1/4\"");
              var r3 = new Resumen();
-                r3.setMedida("2\"");
+                r3.setMedida("2\" 8 1/4\"");
+             //16 1/2
+             var r4 = new Resumen();
+             r4.setMedida("3/4\" 16 1/2\"");
+             var r5 = new Resumen();
+             r5.setMedida("1 1/2\" 16 1/2\"");
+             var r6 = new Resumen();
+             r6.setMedida("2\" 16 1/2\"");
 
              var query = "SELECT * FROM get_resumen('"+date1+"'::date,'"+date2+"'::date)";
              var statement = connection.createStatement();
              var rs = statement.executeQuery(query);
 
              while (rs.next())
-                 fxlis.add(new Resumen(rs.getString(1), rs.getString(2), rs.getDouble(3)));
+                 fxlis.add(new Resumen(rs.getString(1), rs.getString(2), rs.getDouble(3), rs.getString(4)));
 
              fxlis.forEach(x -> {
-                 switch (x.getMedida()) {
-                     case "3/4\"":
+                 switch (x.getMedida() + " "+ x.getLargo()) {
+                     case "3/4\" 8 1/4\"":
                          if (r1.getPrimera() == 0.000)
                              r1.setPrimera((x.getClase().equals("PRIMERA")) ? x.getTotal() : 0.000);
 
@@ -250,16 +292,10 @@ public class Resumen extends RecursiveTreeObject<Resumen> {
                          if (r1.getMadera_cruzada() == 0.000)
                              r1.setMadera_cruzada((x.getClase().equals("MADERA CRUZADA")) ? x.getTotal() : 0.000);
 
-                         if (r1.getCuadrado() == 0.000)
-                             r1.setCuadrado((x.getClase().equals("CUADRADO")) ? x.getTotal() : 0.000);
-
-                         if (r1.getViga() == 0.000)
-                             r1.setViga((x.getClase().equals("VIGA")) ? x.getTotal() : 0.000);
-
                          r1.setTotal(r1.getTotalSum());
 
                          break;
-                     case "1 1/2\"":
+                     case "1 1/2\" 8 1/4\"":
                          if (r2.getPrimera() == 0.000)
                              r2.setPrimera((x.getClase().equals("PRIMERA")) ? x.getTotal() : 0.000);
 
@@ -277,7 +313,7 @@ public class Resumen extends RecursiveTreeObject<Resumen> {
 
                          r2.setTotal(r2.getTotalSum());
                          break;
-                     case "2\"":
+                     case "2\" 8 1/4\"":
                          if (r3.getPrimera() == 0.000)
                              r3.setPrimera((x.getClase().equals("PRIMERA")) ? x.getTotal() : 0.000);
 
@@ -295,11 +331,66 @@ public class Resumen extends RecursiveTreeObject<Resumen> {
 
                          r3.setTotal(r3.getTotalSum());
                          break;
+                     case "3/4\" 16 1/2\"":
+                         if (r4.getPrimera() == 0.000)
+                             r4.setPrimera((x.getClase().equals("PRIMERA")) ? x.getTotal() : 0.000);
+
+                         if (r4.getSegunda() == 0.000)
+                             r4.setSegunda((x.getClase().equals("SEGUNDA")) ? x.getTotal() : 0.000);
+
+                         if (r4.getTercera_buena() == 0.000)
+                             r4.setTercera_buena((x.getClase().equals("TERCERA BUENA")) ? x.getTotal() : 0.000);
+
+                         if (r4.getTercera_mala() == 0.000)
+                             r4.setTercera_mala((x.getClase().equals("TERCERA MALA")) ? x.getTotal() : 0.000);
+
+                         if (r4.getMadera_cruzada() == 0.000)
+                             r4.setMadera_cruzada((x.getClase().equals("MADERA CRUZADA")) ? x.getTotal() : 0.000);
+
+                         r4.setTotal(r4.getTotalSum());
+
+                         break;
+                     case "1 1/2\" 16 1/2\"":
+                         if (r5.getPrimera() == 0.000)
+                             r5.setPrimera((x.getClase().equals("PRIMERA")) ? x.getTotal() : 0.000);
+
+                         if (r5.getSegunda() == 0.000)
+                             r5.setSegunda((x.getClase().equals("SEGUNDA")) ? x.getTotal() : 0.000);
+
+                         if (r5.getTercera_buena() == 0.000)
+                             r5.setTercera_buena((x.getClase().equals("TERCERA BUENA")) ? x.getTotal() : 0.000);
+
+                         if (r5.getTercera_mala() == 0.000)
+                             r5.setTercera_mala((x.getClase().equals("TERCERA MALA")) ? x.getTotal() : 0.000);
+
+                         if (r5.getMadera_cruzada() == 0.000)
+                             r5.setMadera_cruzada((x.getClase().equals("MADERA CRUZADA")) ? x.getTotal() : 0.000);
+
+                         r5.setTotal(r5.getTotalSum());
+                         break;
+                     case "2\" 16 1/2\"":
+                         if (r6.getPrimera() == 0.000)
+                             r6.setPrimera((x.getClase().equals("PRIMERA")) ? x.getTotal() : 0.000);
+
+                         if (r6.getSegunda() == 0.000)
+                             r6.setSegunda((x.getClase().equals("SEGUNDA")) ? x.getTotal() : 0.000);
+
+                         if (r6.getTercera_buena() == 0.000)
+                             r6.setTercera_buena((x.getClase().equals("TERCERA BUENA")) ? x.getTotal() : 0.000);
+
+                         if (r6.getTercera_mala() == 0.000)
+                             r6.setTercera_mala((x.getClase().equals("TERCERA MALA")) ? x.getTotal() : 0.000);
+
+                         if (r6.getMadera_cruzada() == 0.000)
+                             r6.setMadera_cruzada((x.getClase().equals("MADERA CRUZADA")) ? x.getTotal() : 0.000);
+
+                         r6.setTotal(r6.getTotalSum());
+                         break;
                  }
 
              });
 
-             lista.addAll(r1,r2,r3);
+             lista.addAll(r1,r2,r3,r4,r5,r6);
 
          }catch (SQLException e) {
              e.printStackTrace();
@@ -316,9 +407,9 @@ public class Resumen extends RecursiveTreeObject<Resumen> {
             var r2 = new Resumen();
             r2.setMedida("POL 3.5X3.5");
             var r3 = new Resumen();
-            r3.setMedida("CUAD 2X4");
+            r3.setMedida("BAR 2X4");
             var r4 = new Resumen();
-            r4.setMedida("CUAD 1.5X3.5");
+            r4.setMedida("BAR 1.5X3.5");
             var r5 = new Resumen();
             r5.setMedida("VIGA 4x4");
             var r6 = new Resumen();
@@ -355,15 +446,15 @@ public class Resumen extends RecursiveTreeObject<Resumen> {
 
                         r2.setTotal(r2.getTotalSum());
                         break;
-                    case "CUAD 2X4":
+                    case "BAR 2X4":
                         if (r3.getCuadrado() == 0.000)
-                            r3.setCuadrado((x.getClase().equals("CUAD 2X4")) ? x.getTotal() : 0.000);
+                            r3.setCuadrado((x.getClase().equals("BAR 2X4")) ? x.getTotal() : 0.000);
 
                         r3.setTotal(r3.getTotalSum());
                         break;
-                    case "CUAD 1.5X3.5":
+                    case "BAR 1.5X3.5":
                         if (r4.getCuadrado() == 0.000)
-                            r4.setCuadrado((x.getClase().equals("CUAD 1.5X3.5")) ? x.getTotal() : 0.000);
+                            r4.setCuadrado((x.getClase().equals("BAR 1.5X3.5")) ? x.getTotal() : 0.000);
 
                         r4.setTotal(r4.getTotalSum());
                         break;
@@ -389,6 +480,78 @@ public class Resumen extends RecursiveTreeObject<Resumen> {
             });
 
             lista.addAll(r1,r2,r8,r3,r4,r5,r6,r7);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void get_piezas(Connection connection, ObservableList<Resumen> lista, String date1, String date2) {
+        try{
+            ObservableList<Resumen> fxlis = FXCollections.observableArrayList();
+
+            //TEMPORAL VALUES
+            var r1 = new Resumen();
+            r1.setMedida("PIEZAS");
+
+            var query = "SELECT clase, SUM(piezas) FROM control_produccion WHERE FECHA BETWEEN '"+date1+"'::date AND '"+date2+"'::date  GROUP BY clase;";
+            var statement = connection.createStatement();
+            var rs = statement.executeQuery(query);
+
+            while (rs.next())
+                fxlis.add(new Resumen(rs.getString(1), rs.getInt(2)));
+
+            fxlis.forEach(x -> {
+                switch (x.getClase()) {
+                    case "PRIMERA":
+                        if (r1.getPrimera() == 0)
+                            r1.setPrimera(x.getPiezas());
+                        break;
+                    case "SEGUNDA":
+                        if (r1.getSegunda() == 0)
+                            r1.setSegunda(x.getPiezas());
+                        break;
+                    case "TERCERA BUENA":
+                        if (r1.getTercera_buena() == 0)
+                            r1.setTercera_buena(x.getPiezas());
+                        break;
+                    case "TERCERA MALA":
+                        if (r1.getTercera_mala() == 0)
+                            r1.setTercera_mala(x.getPiezas());
+                        break;
+                    case "MADERA CRUZADA":
+                        if (r1.getMadera_cruzada() == 0)
+                            r1.setMadera_cruzada(x.getPiezas());
+                        break;
+                }
+            });
+
+            fxlis.removeIf(x -> true);
+
+            var query1 = "SELECT otros, SUM(piezas) FROM otras WHERE FECHA BETWEEN '"+date1+"'::date AND '"+date2+"'::date  GROUP BY otros;";
+            var statement1 = connection.createStatement();
+            var rs1 = statement1.executeQuery(query1);
+
+            while (rs1.next())
+                fxlis.add(new Resumen(rs1.getString(1), rs1.getInt(2)));
+
+            fxlis.forEach(x -> {
+                switch (x.getClase().substring(0,2)) {
+                    case "PO":
+                        r1.setPolin(r1.getPolin() + x.getPiezas());
+                        break;
+                    case "VI":
+                        r1.setViga(r1.getViga() + x.getPiezas());
+                        break;
+                    case "BA":
+                        r1.setCuadrado(r1.getCuadrado() + x.getPiezas());
+                        break;
+                }
+            });
+
+            r1.setTotal(r1.getTotalSum());
+
+            lista.addAll(r1);
 
         } catch (SQLException e) {
             e.printStackTrace();

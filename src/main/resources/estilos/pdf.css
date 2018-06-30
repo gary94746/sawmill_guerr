@@ -1,0 +1,37 @@
+.tree-table-cell {
+    -fx-border-color: black !important;
+    -fx-border-width: 0.1px;
+}
+
+.tree-table-row-cell {
+    -fx-cell-size: 24px !important;
+}
+
+.jfx-tree-table-view .tree-table-cell {
+    -fx-pref-height: 20px;
+}
+
+.tree-table-view .tree-table-cell {
+    -fx-alignment: center;
+}
+
+.tree-table-view .column-header {
+   -fx-border-color: black !important;
+   -fx-border-width: 0.1px;
+}
+
+.tree-table-view .column-header .label {
+    -fx-text-fill: black;
+    -fx-padding: 2 0 2 0;
+}
+
+.label {
+    -fx-font-family: "Open Sans Condensed" !important;
+    -fx-font-size: 14px;
+}
+
+.jfx-button {
+    -jfx-button-type: RAISED;
+    -fx-background-color: #009931 !important;
+    -fx-text-fill: white;
+}

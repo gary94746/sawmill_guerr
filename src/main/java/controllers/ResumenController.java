@@ -9,14 +9,21 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import modelo.Conexion;
 import modelo.resumen.Resumen;
 import modelo.rollo.Rollo;
 import tray.notification.NotificationType;
 
+import java.io.IOException;
 import java.net.URL;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
@@ -38,12 +45,15 @@ public class ResumenController implements Initializable {
     @FXML private TextField txtCofA;
     @FXML private Label lblResumen;
 
-
-    private ObservableList<Resumen> list;
+    protected static String texResumen;
+    protected static ObservableList<Resumen> list;
     private Conexion conexion = Conexion.getInstance();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        //Resumen label
+        lblResumen.textProperty().addListener(x -> texResumen = lblResumen.getText());
+
         //Tooltips
         btnImprimir.setTooltip(Messages.setTooltipMessage("Imprimir en pdf"));
         btnBuscar.setTooltip(Messages.setTooltipMessage("Buscar"));
@@ -59,7 +69,6 @@ public class ResumenController implements Initializable {
 
         //actual data
         loadData(dateFormat1.format(new Date()),dateFormat1.format(new Date()));
-
     }
 
     @FXML
@@ -82,8 +91,8 @@ public class ResumenController implements Initializable {
         var datePicker2 = date2.getValue().getYear() + "-" + date2.getValue().getMonthValue()+ "-" + date2.getValue().getDayOfMonth();
 
         lblResumen.setText("Resumen del: " +
-                date1.getValue().getDayOfMonth() + "/" + date1.getValue().getMonth()+ "/" + date1.getValue().getYear() + " al: " +
-                date2.getValue().getDayOfMonth() + "/" + date2.getValue().getMonth()+ "/" + date2.getValue().getYear()
+                date1.getValue().getDayOfMonth() + "/" + date1.getValue().getMonthValue()+ "/" + date1.getValue().getYear() + " al: " +
+                date2.getValue().getDayOfMonth() + "/" + date2.getValue().getMonthValue()+ "/" + date2.getValue().getYear()
         );
 
         loadData(datePicker1, datePicker2);
@@ -93,8 +102,16 @@ public class ResumenController implements Initializable {
     }
 
     @FXML
-    void imprimir(ActionEvent event) {
-        System.out.println("Imprimio en pdf");
+    void imprimir(ActionEvent event) throws IOException {
+        Parent parent = FXMLLoader.load(getClass().getResource("/views/pdf.fxml"));
+        Stage stage = new Stage();
+        Scene scene = new Scene(parent);
+        stage.setScene(scene);
+        stage.getIcons().add(new Image(getClass().getResourceAsStream("/images/servicio02.png")));
+        stage.setTitle("Impresion");
+        stage.setResizable(false);
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.show();
     }
 
     private double format3Decimals(double numero) {
@@ -108,6 +125,7 @@ public class ResumenController implements Initializable {
         conexion.establecerConexion();
         Resumen.get_data(conexion.getConection(), list, datePicker1, datePicker2);
         Resumen.get_data_otros(conexion.getConection(), list, datePicker1, datePicker2);
+        Resumen.get_piezas(conexion.getConection(), list, datePicker1, datePicker2);
         var volRollos = Rollo.getVolumenRollosFecha(conexion.getConection(), datePicker1, datePicker2);
         conexion.cerrarConexion();
 
@@ -156,7 +174,7 @@ public class ResumenController implements Initializable {
         JFXTreeTableColumn<Resumen, Double> clmTerceraBuena = new JFXTreeTableColumn<>("Tercera Buena".toUpperCase());
         JFXTreeTableColumn<Resumen, Double> clmTerceraMala = new JFXTreeTableColumn<>("Tercera Mala".toUpperCase());
         JFXTreeTableColumn<Resumen, Double> clmMaderaCruzada = new JFXTreeTableColumn<>("Madera Cruzada".toUpperCase());
-        JFXTreeTableColumn<Resumen, Double> clmCuadrado = new JFXTreeTableColumn<>("Cuadrado".toUpperCase());
+        JFXTreeTableColumn<Resumen, Double> clmCuadrado = new JFXTreeTableColumn<>("Barrote".toUpperCase());
         JFXTreeTableColumn<Resumen, Double> clmViga = new JFXTreeTableColumn<>("Viga".toUpperCase());
         JFXTreeTableColumn<Resumen, Double> clmPolin = new JFXTreeTableColumn<>("Polin".toUpperCase());
         JFXTreeTableColumn<Resumen, Double> clmTotal = new JFXTreeTableColumn<>("Total".toUpperCase());

@@ -70,6 +70,7 @@ public class MaderaEnRolloController implements Initializable {
         lblTitulo.setText("Control de transformacion de madera en rollo.");
 
         fecha.getEditor().clear();
+        fecha.setValue(null);
     }
 
     @FXML
@@ -94,19 +95,24 @@ public class MaderaEnRolloController implements Initializable {
 
     @FXML
     void buscarFecha(ActionEvent event) {
-        var datePicker1 = fecha.getValue().getYear() + "-" + fecha.getValue().getMonthValue()+ "-" + fecha.getValue().getDayOfMonth();
-        lblTitulo.setText("Historia del: " + fecha.getValue().getDayOfMonth() + "/" + fecha.getValue().getMonth() + "/" + fecha.getValue().getYear()
-        );
+        try {
+            var datePicker1 = fecha.getValue().getYear() + "-" + fecha.getValue().getMonthValue() + "-" + fecha.getValue().getDayOfMonth();
+            lblTitulo.setText("Historia del: " + fecha.getValue().getDayOfMonth() + "/" + fecha.getValue().getMonth() + "/" + fecha.getValue().getYear()
+            );
 
-        cargarDatos(datePicker1);
+            cargarDatos(datePicker1);
 
-        txtD2.setDisable(true);
-        txtD1.setDisable(true);
-        botonAgregar.setDisable(true);
-        botonEliminar.setDisable(true);
+            txtD2.setDisable(true);
+            txtD1.setDisable(true);
+            botonAgregar.setDisable(true);
+            botonEliminar.setDisable(true);
 
-        var total = list.parallelStream().mapToDouble(Rollo::getVol).sum();
-        volumenTotal.setText(format3Decimals(total) + "");
+            var total = list.parallelStream().mapToDouble(Rollo::getVol).sum();
+            volumenTotal.setText(format3Decimals(total) + "");
+        } catch (Exception e) {
+            Messages.setMessage("Error", "No selecciono una fecha", NotificationType.ERROR);
+        }
+
     }
 
     private void cargarDatos(String datePicker) {
@@ -219,6 +225,8 @@ public class MaderaEnRolloController implements Initializable {
         }catch (Exception e ) {
             txtD1.setText("");
             txtD2.setText("");
+            Messages.setMessage("Error", "Ambos campos deben contener datos validos", NotificationType.ERROR);
+
         }
 
     }

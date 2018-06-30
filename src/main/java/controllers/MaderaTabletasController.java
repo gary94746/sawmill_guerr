@@ -64,29 +64,35 @@ public class MaderaTabletasController implements Initializable {
             agregarRegistro(null);
         } catch (NumberFormatException e) {
             //e.printStackTrace();
-            Messages.setMessage("Error.", "No se agrego numero de piezas.", NotificationType.ERROR);
+            Messages.setMessage("Error.", "No se agrego un numero de piezas.", NotificationType.ERROR);
         }
     }
 
     @FXML
     void buscarFechaTableta(ActionEvent event) {
-        var datePicker1 = fechaTableta.getValue().getYear() + "-" + fechaTableta.getValue().getMonthValue() + "-" + fechaTableta.getValue().getDayOfMonth();
-        lblTitulo.setText("Registro del: " +
-                fechaTableta.getValue().getDayOfMonth() + "/" + fechaTableta.getValue().getMonth() + "/" + fechaTableta.getValue().getYear()
-        );
+        try {
+            var datePicker1 = fechaTableta.getValue().getYear() + "-" + fechaTableta.getValue().getMonthValue() + "-" + fechaTableta.getValue().getDayOfMonth();
+            lblTitulo.setText("Registro del: " +
+                    fechaTableta.getValue().getDayOfMonth() + "/" + fechaTableta.getValue().getMonth() + "/" + fechaTableta.getValue().getYear()
+            );
 
-        cargarDatos(datePicker1);
+            cargarDatos(datePicker1);
 
-        comboGrueso.setDisable(true);
-        comboAncho.setDisable(true);
-        comboLongitud.setDisable(true);
-        txtPiezas.setDisable(true);
-        btnAgregar.setDisable(true);
-        btnEliminar.setDisable(true);
-        //btnSubtotales.setDisable(true);
+            comboGrueso.setDisable(true);
+            comboAncho.setDisable(true);
+            comboLongitud.setDisable(true);
+            txtPiezas.setDisable(true);
+            btnAgregar.setDisable(true);
+            btnEliminar.setDisable(true);
+            //btnSubtotales.setDisable(true);
 
-        comboFiltro.setValue("Todos");
-        subTotales();
+            comboFiltro.setValue("Todos");
+            subTotales();
+        } catch (Exception e) {
+            Messages.setMessage("Error", "No selecciono una fecha", NotificationType.ERROR);
+
+        }
+
     }
 
     @FXML
@@ -115,14 +121,15 @@ public class MaderaTabletasController implements Initializable {
 
     @FXML
     void eliminaTableta(ActionEvent event) {
-
-        int row = tabla2.getSelectionModel().getSelectedItem().getValue().getId();
-        conexion.establecerConexion();
-        Tabletas.eliminarTableta(conexion.getConection(), row);
-        conexion.cerrarConexion();
-        list.removeIf(x -> x.getId() == row);
-
-        //Messages.setMessage("Error.", "Seleccione una fila primero.", NotificationType.ERROR);
+        try {
+            int row = tabla2.getSelectionModel().getSelectedItem().getValue().getId();
+            conexion.establecerConexion();
+            Tabletas.eliminarTableta(conexion.getConection(), row);
+            conexion.cerrarConexion();
+            list.removeIf(x -> x.getId() == row);
+        } catch (Exception e) {
+            Messages.setMessage("Error", "No se selecciono una fila", NotificationType.ERROR);
+        }
     }
 
     @FXML
