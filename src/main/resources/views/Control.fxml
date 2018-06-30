@@ -152,7 +152,7 @@
                   <Insets bottom="10.0" right="100.0" />
                </GridPane.margin>
             </JFXTextField>
-            <JFXTextField fx:id="txtPiezas" maxHeight="-Infinity" maxWidth="-Infinity" onKeyReleased="#ActionPieza" prefHeight="26.0" prefWidth="119.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+            <JFXTextField fx:id="txtPiezas" maxHeight="-Infinity" maxWidth="-Infinity" onKeyReleased="#ActionPieza" onKeyTyped="#validarSoloNumeros" prefHeight="26.0" prefWidth="119.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <GridPane.margin>
                   <Insets bottom="10.0" right="60.0" />
                </GridPane.margin></JFXTextField>

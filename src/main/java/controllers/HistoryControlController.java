@@ -1,12 +1,10 @@
 package controllers;
 
-import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXTreeTableColumn;
-import com.jfoenix.controls.JFXTreeTableView;
-import com.jfoenix.controls.RecursiveTreeItem;
+import com.jfoenix.controls.*;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TreeItem;
@@ -27,12 +25,24 @@ public class HistoryControlController implements Initializable{
     @FXML
     private JFXTreeTableView<?> tablaHistorial2;
 
+    @FXML
+    private JFXComboBox<String> histLargo;
+
+    @FXML
+    private JFXComboBox<String> histGrueso;
+
     private ObservableList<madera_control> list;
     private Conexion conexion = Conexion.getInstance();
 
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        histLargo.getItems().addAll("8 1/4\"","16 1/2\"");
+        histLargo.setValue("8 1/4\"");
+
+        histGrueso.getItems().addAll("3/4\"", "1 1/2\"", "2\"");
+        histGrueso.setValue("3/4\"");
+
         list = FXCollections.observableArrayList();
         columns();
         llenarTabla();
@@ -42,7 +52,7 @@ public class HistoryControlController implements Initializable{
     public void llenarTabla(){
             list.removeIf(x->true);
             conexion.establecerConexion();
-            madera_control.obtenerDatosHistorial(conexion.getConection(),list);
+            madera_control.obtenerDatosHistorial(conexion.getConection(),list,histGrueso.getSelectionModel().getSelectedItem(),histLargo.getSelectionModel().getSelectedItem());
             conexion.cerrarConexion();
 
         }
@@ -342,6 +352,14 @@ public class HistoryControlController implements Initializable{
         Columna5.getColumns().setAll(subcolumna13,subcolumna14,subcolumna15);
 
   }
+
+    @FXML
+    void filtarGrueso(ActionEvent event) {
+        list.removeIf(x->true);
+        conexion.establecerConexion();
+        madera_control.obtenerDatosHistorial(conexion.getConection(),list,histGrueso.getSelectionModel().getSelectedItem(),histLargo.getSelectionModel().getSelectedItem());
+        conexion.cerrarConexion();
+    }
 
 
 

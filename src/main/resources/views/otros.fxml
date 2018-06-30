@@ -96,20 +96,12 @@
                   <Insets top="20.0" />
                </GridPane.margin>
             </JFXButton>
-            <JFXButton fx:id="btnEditar" contentDisplay="CENTER" onAction="#EditOtros" prefHeight="14.0" prefWidth="0.0" style="-fx-background-color: #916b47;" text="." textFill="WHITE" GridPane.columnIndex="3" GridPane.rowIndex="1">
-               <graphic>
-                  <FontAwesomeIconView fill="WHITE" glyphName="EDIT" />
-               </graphic>
-               <GridPane.margin>
-                  <Insets left="40.0" top="20.0" />
-               </GridPane.margin>
-            </JFXButton>
             <JFXButton fx:id="btnDelete" contentDisplay="CENTER" onAction="#deleteOtros" prefHeight="14.0" prefWidth="0.0" style="-fx-background-color: #916b47;" text="." textFill="WHITE" GridPane.columnIndex="3" GridPane.rowIndex="1">
                <graphic>
                   <FontAwesomeIconView fill="WHITE" glyphName="TRASH" />
                </graphic>
                <GridPane.margin>
-                  <Insets left="80.0" top="20.0" />
+                  <Insets left="35.0" top="20.0" />
                </GridPane.margin>
             </JFXButton>
             <JFXTextField fx:id="txtPieza" onKeyReleased="#ActionPieza" GridPane.columnIndex="1" GridPane.rowIndex="1" />

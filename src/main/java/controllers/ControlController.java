@@ -2,15 +2,19 @@ package controllers;
 
 import com.jfoenix.controls.*;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
+import controllers.utils.Messages;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.Tooltip;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeTableColumn;
 import javafx.scene.image.Image;
@@ -19,11 +23,14 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import modelo.Conexion;
 import modelo.Control_madera.madera_control;
+import tray.notification.NotificationType;
 
 import java.net.URL;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.ResourceBundle;
+
+import static controllers.utils.Validators.onlyNumbers;
 
 public class ControlController implements Initializable {
 
@@ -42,6 +49,11 @@ public class ControlController implements Initializable {
     @FXML private JFXDatePicker fecha;
     @FXML private Label tituloRegistro;
     @FXML private JFXComboBox<String> FiltrarLargo;
+    @FXML private JFXButton desplegar;
+    @FXML private JFXButton agregar;
+    @FXML private JFXButton btnDelete;
+    @FXML private JFXButton historial;
+    @FXML private JFXButton restablecer;
 
     double valcub;
     private Conexion conexion = Conexion.getInstance();
@@ -75,7 +87,8 @@ public class ControlController implements Initializable {
 
         valcub=(.75*4*8.25)/12;
         txtCubicacion.setEditable(false);
-        txtCubicacion.setText(String.valueOf(valcub));
+        var tresCubicacion = format3Decimals(valcub);
+        txtCubicacion.setText(String.valueOf(tresCubicacion));
 
         txtPT.setText("0");
         txtPT.setEditable(false);
@@ -83,12 +96,18 @@ public class ControlController implements Initializable {
 
         txtTotalPieza.setEditable(false);
         txtTotalPt.setEditable(false);
+        desplegar.setVisible(false);
+
+        agregar.setTooltip(new Tooltip("Agregar"));
+        btnDelete.setTooltip(new Tooltip("Eliminar"));
+        historial.setTooltip(new Tooltip("Buscar"));
+        restablecer.setTooltip(new Tooltip("Regrese al dia actual"));
 
         llenarTabla();
         columns();
         Totales();
-
     }
+
     //Declaracion de la tabla y columnas
     //Columna1
     JFXTreeTableColumn<madera_control, String> Columna1 = new JFXTreeTableColumn<>("CLASE");
@@ -204,7 +223,8 @@ public class ControlController implements Initializable {
             double val1 = Double.parseDouble(txtCubicacion.getText());
             double val2 = Integer.parseInt(txtPiezas.getText());
             double resultado = val1 * val2;
-            txtPT.setText(String.valueOf(resultado));
+            var pttres = format3Decimals(resultado);
+            txtPT.setText(String.valueOf(pttres));
         }catch (Exception e){
 
         }
@@ -228,19 +248,24 @@ public class ControlController implements Initializable {
 
             if (comboAnc.getSelectionModel().getSelectedItem() == "4") {
                 valcub = (var * 4 * 8.25) / 12;
-                txtCubicacion.setText(String.valueOf(valcub));
+                var tresCubicacion = format3Decimals(valcub);
+                txtCubicacion.setText(String.valueOf(tresCubicacion));
             } else if (comboAnc.getSelectionModel().getSelectedItem() == "6") {
                 valcub = (var * 6 * 8.25) / 12;
-                txtCubicacion.setText(String.valueOf(valcub));
+                var tresCubicacion = format3Decimals(valcub);
+                txtCubicacion.setText(String.valueOf(tresCubicacion));
             } else if (comboAnc.getSelectionModel().getSelectedItem() == "8") {
                 valcub = (var * 8 * 8.25) / 12;
-                txtCubicacion.setText(String.valueOf(valcub));
+                var tresCubicacion = format3Decimals(valcub);
+                txtCubicacion.setText(String.valueOf(tresCubicacion));
             } else if (comboAnc.getSelectionModel().getSelectedItem() == "10") {
                 valcub = (var * 10 * 8.25) / 12;
-                txtCubicacion.setText(String.valueOf(valcub));
+                var tresCubicacion = format3Decimals(valcub);
+                txtCubicacion.setText(String.valueOf(tresCubicacion));
             } else if (comboAnc.getSelectionModel().getSelectedItem() == "12") {
                 valcub = (var * 12 * 8.25) / 12;
-                txtCubicacion.setText(String.valueOf(valcub));
+                var tresCubicacion = format3Decimals(valcub);
+                txtCubicacion.setText(String.valueOf(tresCubicacion));
             }
 
      }else{
@@ -278,12 +303,17 @@ public class ControlController implements Initializable {
     }
 
     public void agregarRegistro(madera_control x){
+        try{
         conexion.establecerConexion();
         var newOtros = madera_control.addControl(conexion.getConection(),x);
         conexion.cerrarConexion();
         System.out.println(newOtros==null);
         if (newOtros != null) {
             list.add(newOtros);
+        }
+
+        }catch (NumberFormatException e){
+            Messages.setMessage("Error.", "No se agrego numero de piezas.", NotificationType.ERROR);
         }
     }
 
@@ -306,10 +336,19 @@ public class ControlController implements Initializable {
 
 
     private void cargarDatos(String datePicker) {
-        list.removeIf(x -> true);
-        conexion.establecerConexion();
-        madera_control.historial(conexion.getConection(), list, datePicker,FiltrarGrueso.getSelectionModel().getSelectedItem());
-        conexion.cerrarConexion();
+        if(FiltrarClase.getSelectionModel().getSelectedItem()=="TODOS") {
+            list.removeIf(x -> true);
+            conexion.establecerConexion();
+            madera_control.obtenerDatosFechaTodos(conexion.getConection(), list, datePicker, FiltrarGrueso.getSelectionModel().getSelectedItem(), FiltrarLargo.getSelectionModel().getSelectedItem());
+            conexion.cerrarConexion();
+        }else{
+            list.removeIf(x -> true);
+            conexion.establecerConexion();
+            madera_control.obtenerDatosFecha(conexion.getConection(), list, datePicker, FiltrarGrueso.getSelectionModel().getSelectedItem(),FiltrarClase.getSelectionModel().getSelectedItem() ,FiltrarLargo.getSelectionModel().getSelectedItem());
+            conexion.cerrarConexion();
+
+
+        }
     }
 
     private double format3Decimals(double numero) {
@@ -327,10 +366,15 @@ public class ControlController implements Initializable {
 
     @FXML
     void ActionHistorial(ActionEvent event) {
+        buscarporFecha ();
+
+    }
+
+    public void buscarporFecha (){
         txtPiezas.setEditable(false);
         var datePicker1 = fecha.getValue().getYear() + "-" + fecha.getValue().getMonthValue()+ "-" + fecha.getValue().getDayOfMonth();
         tituloRegistro.setText("Historial del: " +
-               fecha.getValue().getDayOfMonth() + "/" +
+                fecha.getValue().getDayOfMonth() + "/" +
                 fecha.getValue().getMonth()+ "/" + fecha.getValue().getYear()
         );
 
@@ -340,13 +384,19 @@ public class ControlController implements Initializable {
 
     @FXML
     void addControl(ActionEvent event) {
+        try {
             agregarRegistro(new madera_control(comboGr.getSelectionModel().getSelectedItem(),
-                    comboAnc.getSelectionModel().getSelectedItem(),comboClase.getSelectionModel().getSelectedItem(),
-                    Integer.parseInt(txtPiezas.getText()),Double.parseDouble(txtCubicacion.getText()),
-                    Double.parseDouble(txtPT.getText()),comboLargo.getSelectionModel().getSelectedItem()));
-        llenarTabla();
-        Totales();
-        txtPiezas.setText("");
+                    comboAnc.getSelectionModel().getSelectedItem(), comboClase.getSelectionModel().getSelectedItem(),
+                    Integer.parseInt(txtPiezas.getText()), Double.parseDouble(txtCubicacion.getText()),
+                    Double.parseDouble(txtPT.getText()), comboLargo.getSelectionModel().getSelectedItem()));
+            llenarTabla();
+            Totales();
+            txtPiezas.setText("");
+
+        }catch (NumberFormatException e){
+        Messages.setMessage("Error.", "No se agrego numero de piezas.", NotificationType.ERROR);
+     }
+
     }
 
 
@@ -358,6 +408,7 @@ public class ControlController implements Initializable {
 
     @FXML
     void ActionPieza(KeyEvent event) {
+
         if(txtPiezas.getText().equals("")){
             txtPT.setText("0");
         }else{
@@ -369,6 +420,11 @@ public class ControlController implements Initializable {
     }
 
     @FXML
+    void validarSoloNumeros(KeyEvent event) {
+
+    }
+
+    @FXML
     void ActionClase(ActionEvent event) {
         columns();
 
@@ -376,14 +432,24 @@ public class ControlController implements Initializable {
 
     @FXML
     void actionFiltroClase(ActionEvent event) {
-        llenarTabla();
-        Totales();
+        if(fecha.getValue() == null) {
+            llenarTabla();
+            Totales();
+        }else{
+            buscarporFecha();
+            Totales();
+        }
     }
 
     @FXML
     void actionFiltroGrueso(ActionEvent event) {
-        llenarTabla();
-        Totales();
+        if(fecha.getValue() == null) {
+            llenarTabla();
+            Totales();
+        }else{
+            buscarporFecha();
+            Totales();
+        }
     }
 
     @FXML
@@ -412,14 +478,21 @@ public class ControlController implements Initializable {
     void ActionRestablecer(ActionEvent event) {
         tituloRegistro.setText("TABLA DE REGISTROS DEL DIA ACTUAL");
         txtPiezas.setEditable(true);
+        fecha.getEditor().clear();
         llenarTabla();
         Totales();
     }
 
     @FXML
     void actionFiltroLargo(ActionEvent event) {
-        llenarTabla();
-        Totales();
+        if(fecha.getValue() == null) {
+            llenarTabla();
+            Totales();
+        }else{
+            buscarporFecha();
+            Totales();
+        }
+
     }
 
     @FXML

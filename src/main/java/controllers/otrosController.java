@@ -2,20 +2,19 @@ package controllers;
 
 import com.jfoenix.controls.*;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
+import controllers.utils.Messages;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-import javafx.scene.control.TreeItem;
-import javafx.scene.control.TreeTableColumn;
+import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.VBox;
 import modelo.Conexion;
 import modelo.Control_madera.madera_control;
 import modelo.otros_madera.otros_mad;
+import tray.notification.NotificationType;
 
 import java.net.URL;
 import java.text.DecimalFormat;
@@ -33,6 +32,10 @@ public class otrosController implements Initializable {
     @FXML private JFXTextField txtTotalPt;
     @FXML private JFXDatePicker fechaOtros;
     @FXML private Label TituloRegistroOtros;
+    @FXML private JFXButton btnAgregar;
+    @FXML private JFXButton btnDelete;
+    @FXML private JFXButton historial;
+    @FXML private JFXButton restablecer;
 
 
 
@@ -54,12 +57,19 @@ public class otrosController implements Initializable {
         txtCubicacion.setEditable(false);
         txtPt.setEditable(false);
         valcub=(4*4*8.25)/12;
+        var valcub3 = format3Decimals(valcub);
         conexion.establecerConexion();
         otros_mad.obtenerDatos(conexion.getConection(), list);
         conexion.cerrarConexion();
-        txtCubicacion.setText(String.valueOf(valcub));
+        txtCubicacion.setText(String.valueOf(valcub3));
         txtTotalPieza.setEditable(false);
         txtTotalPt.setEditable(false);
+
+        btnAgregar.setTooltip(new Tooltip("Agregar"));
+        btnDelete.setTooltip(new Tooltip("Eliminar"));
+        historial.setTooltip(new Tooltip("Buscar"));
+        restablecer.setTooltip(new Tooltip("Regrese al dia actual"));
+
         columns();
         Totales();
     }
@@ -155,7 +165,8 @@ public class otrosController implements Initializable {
             double val1 = Double.parseDouble(txtCubicacion.getText());
             double val2 = Integer.parseInt(txtPieza.getText());
             double resultado = val1 * val2;
-            txtPt.setText(String.valueOf(resultado));
+            var resultado3 = format3Decimals(resultado);
+            txtPt.setText(String.valueOf(resultado3));
         }catch (Exception e){
 
         }
@@ -172,28 +183,36 @@ public class otrosController implements Initializable {
     void CalCubicacion(){
         if(ComboPz.getSelectionModel().getSelectedItem()=="POL 4X4"){
             valcub=(4*4*8.25)/12;
-            txtCubicacion.setText(String.valueOf(valcub));
+            var valcub3 = format3Decimals(valcub);
+            txtCubicacion.setText(String.valueOf(valcub3));
         }else if(ComboPz.getSelectionModel().getSelectedItem()=="POL 3.5X3.5"){
             valcub=(3.5*3.5*8.25)/12;
-            txtCubicacion.setText(String.valueOf(valcub));
+            var valcub3 = format3Decimals(valcub);
+            txtCubicacion.setText(String.valueOf(valcub3));
         }else if(ComboPz.getSelectionModel().getSelectedItem()=="POL 3X3") {
             valcub = (3 * 3 * 8.25) / 12;
-            txtCubicacion.setText(String.valueOf(valcub));
+            var valcub3 = format3Decimals(valcub);
+            txtCubicacion.setText(String.valueOf(valcub3));
         }else if(ComboPz.getSelectionModel().getSelectedItem()=="BAR 2X4"){
             valcub=(2*4*8.25)/12;
-            txtCubicacion.setText(String.valueOf(valcub));
+            var valcub3 = format3Decimals(valcub);
+            txtCubicacion.setText(String.valueOf(valcub3));
         }else if(ComboPz.getSelectionModel().getSelectedItem()=="BAR 1.5X3.5"){
             valcub=(1.5*3.5*8.25)/12;
-            txtCubicacion.setText(String.valueOf(valcub));
+            var valcub3 = format3Decimals(valcub);
+            txtCubicacion.setText(String.valueOf(valcub3));
         }else if(ComboPz.getSelectionModel().getSelectedItem()=="VIGA 4x4"){
             valcub=(4*4*16.5)/12;
-            txtCubicacion.setText(String.valueOf(valcub));
+            var valcub3 = format3Decimals(valcub);
+            txtCubicacion.setText(String.valueOf(valcub3));
         }else if(ComboPz.getSelectionModel().getSelectedItem()=="VIGA 4x6"){
             valcub=(4*6*16.5)/12;
-            txtCubicacion.setText(String.valueOf(valcub));
+            var valcub3 = format3Decimals(valcub);
+            txtCubicacion.setText(String.valueOf(valcub3));
         }else if(ComboPz.getSelectionModel().getSelectedItem()=="VIGA 4x8"){
             valcub=(4*8*16.5)/12;
-            txtCubicacion.setText(String.valueOf(valcub));
+            var valcub3 = format3Decimals(valcub);
+            txtCubicacion.setText(String.valueOf(valcub3));
         }
 
 
@@ -249,10 +268,14 @@ public class otrosController implements Initializable {
 
     @FXML
     void addOtros(ActionEvent event) {
-        agregarRegistro(new otros_mad(ComboPz.getSelectionModel().getSelectedItem(),
-                Integer.parseInt(txtPieza.getText()),Double.parseDouble(txtCubicacion.getText()),
-                Double.parseDouble(txtPt.getText())));
-        Totales();
+        try {
+            agregarRegistro(new otros_mad(ComboPz.getSelectionModel().getSelectedItem(),
+                    Integer.parseInt(txtPieza.getText()), Double.parseDouble(txtCubicacion.getText()),
+                    Double.parseDouble(txtPt.getText())));
+            Totales();
+        }catch (NumberFormatException e){
+            Messages.setMessage("Error.", "No se agrego numero de piezas.", NotificationType.ERROR);
+        }
     }
 
     @FXML

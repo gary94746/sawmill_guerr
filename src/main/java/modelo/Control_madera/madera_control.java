@@ -695,7 +695,7 @@ public class madera_control extends RecursiveTreeObject<madera_control> {
 
     }
 
-    public static void obtenerDatosHistorial(Connection connection, ObservableList<madera_control> list) {
+    public static void obtenerDatosHistorial(Connection connection, ObservableList<madera_control> list,String grueso,String largo) {
         try {
              ObservableList<madera_control> listaHis = FXCollections.observableArrayList();
 
@@ -748,10 +748,7 @@ public class madera_control extends RecursiveTreeObject<madera_control> {
             c15.setAncho("12");
             c15.setGrueso("2\"");
 
-
-
-
-            var datos = "select * from control_produccion";
+            var datos = "select * from control_produccion where grueso like '" +grueso+ "' "+"and largo like '" +largo+ "' ";
 
             System.out.println(datos);
             var statementP = connection.createStatement();
@@ -771,11 +768,18 @@ public class madera_control extends RecursiveTreeObject<madera_control> {
                     }
 
                 //listaHis.stream().filter(c->c.getGrueso().equals("3/4\"")).forEach(x-> System.out.println(x.getGrueso() +":"+x.getAncho()+":"+ x.getPieza()));
+                if(grueso.equals("3/4\"")){
+                listaHis.stream().filter(c->c.getGrueso().equals("3/4\""));
+                }else if(grueso.equals("1 1/2\"")){
+                    listaHis.stream().filter(c->c.getGrueso().equals("1 1/2\""));
+                }else{
+                    listaHis.stream().filter(c->c.getGrueso().equals("2\""));
+                }
                 //listaHis.forEach(System.out::println);
                 listaHis.forEach(x->{
-                    switch (x.getAncho()+","+x.getGrueso()) {
+                    switch (x.getAncho()) {
 
-                        case "4,3/4\"" :
+                        case "4" :
 
                             if (c1.getGrueso() == "")
                                 c1.setGrueso((x.getClase().equals("PRIMERA"))? x.getGrueso():"");
@@ -858,7 +862,7 @@ public class madera_control extends RecursiveTreeObject<madera_control> {
 
                             break;
 
-                        case "6,3/4\"":
+                        case "6":
                             if (c2.getGrueso() == "")
                                 c2.setGrueso((x.getClase().equals("PRIMERA"))? x.getGrueso():"");
 
@@ -967,6 +971,59 @@ public class madera_control extends RecursiveTreeObject<madera_control> {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+
+    public static void obtenerDatosFecha(Connection connection, ObservableList<madera_control> list,String date,String grueso,String clase,String largo) {
+
+        try {
+            var datos = "select * from control_produccion where fecha = '" + date + "'::date"+" and grueso like '" +grueso+ "' "+"and clase like '" + clase + "'" +"and largo like '" +largo+ "' ";
+
+            System.out.println(datos);
+            var statementP = connection.createStatement();
+            var resultSet1 = statementP.executeQuery(datos);
+
+            while (resultSet1.next()) {
+                list.add(new madera_control(
+                        resultSet1.getInt("id"),
+                        resultSet1.getString("grueso"),
+                        resultSet1.getString("ancho"),
+                        resultSet1.getString("clase"),
+                        resultSet1.getInt("piezas"),
+                        resultSet1.getDouble("cubicacion"),
+                        resultSet1.getDouble("pies_tabla"),
+                        resultSet1.getString("largo")));
+            }
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    public static void obtenerDatosFechaTodos(Connection connection, ObservableList<madera_control> list,String date, String grueso,String largo) {
+        try {
+            var datos = "select * from control_produccion where fecha = '" + date + "'::date"+" and grueso like '" +grueso+ "' "+"and largo like '" +largo+ "' ";
+
+            System.out.println(datos);
+            var statementP = connection.createStatement();
+            var resultSet1 = statementP.executeQuery(datos);
+
+            while (resultSet1.next()) {
+                list.add(new madera_control(
+                        resultSet1.getInt("id"),
+                        resultSet1.getString("grueso"),
+                        resultSet1.getString("ancho"),
+                        resultSet1.getString("clase"),
+                        resultSet1.getInt("piezas"),
+                        resultSet1.getDouble("cubicacion"),
+                        resultSet1.getDouble("pies_tabla"),
+                        resultSet1.getString("largo")));
+            }
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
     }
 
 
