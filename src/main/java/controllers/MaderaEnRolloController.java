@@ -40,9 +40,6 @@ public class MaderaEnRolloController implements Initializable {
     private JFXButton botonAgregar;
 
     @FXML
-    private JFXButton botonEditar;
-
-    @FXML
     private JFXButton botonEliminar;
 
     @FXML
@@ -85,13 +82,14 @@ public class MaderaEnRolloController implements Initializable {
         txtD1.setDisable(false);
         txtD2.setDisable(false);
         botonAgregar.setDisable(false);
-        botonEditar.setDisable(false);
         botonEliminar.setDisable(false);
 
         var total = list.parallelStream().mapToDouble(Rollo::getVol).sum();
         volumenTotal.setText(format3Decimals(total) + "");
 
         lblTitulo.setText("Control de transformacion de madera en rollo.");
+
+        fecha.getEditor().clear();
     }
 
     @FXML
@@ -117,7 +115,6 @@ public class MaderaEnRolloController implements Initializable {
         txtD2.setDisable(true);
         txtD1.setDisable(true);
         botonAgregar.setDisable(true);
-        botonEditar.setDisable(true);
         botonEliminar.setDisable(true);
 
         var total = list.parallelStream().mapToDouble(Rollo::getVol).sum();
@@ -153,7 +150,6 @@ public class MaderaEnRolloController implements Initializable {
 
         botonAgregar.setTooltip(new Tooltip("Agregar"));
         botonBuscar.setTooltip(new Tooltip("Buscar"));
-        botonEditar.setTooltip(new Tooltip("Editar"));
         botonEliminar.setTooltip(new Tooltip("Eliminar"));
         botonFechaActual.setTooltip(new Tooltip("Regrese al dia actual"));
     }
