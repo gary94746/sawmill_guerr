@@ -134,7 +134,7 @@ public class HistoryControlController implements Initializable{
             Columna2.setEditable(false);
             Columna2.setCellValueFactory((TreeTableColumn.CellDataFeatures<madera_control, String> param) -> {
                 if (Columna2.validateValue(param)) {
-                    return param.getValue().getValue().claseProperty();
+                    return param.getValue().getValue().clase_segundaProperty();
                 } else
                     return Columna2.getComputedValue(param);
             });
@@ -144,7 +144,7 @@ public class HistoryControlController implements Initializable{
 
             subcolumna4.setCellValueFactory((TreeTableColumn.CellDataFeatures<madera_control, Integer> param) -> {
                 if (subcolumna4.validateValue(param)) {
-                    return param.getValue().getValue().piezaProperty().asObject();
+                    return param.getValue().getValue().pieza_segundaProperty().asObject();
                 } else
                     return subcolumna4.getComputedValue(param);
             });
@@ -154,7 +154,7 @@ public class HistoryControlController implements Initializable{
 
             subcolumna5.setCellValueFactory((TreeTableColumn.CellDataFeatures<madera_control, Double> param) -> {
                 if (subcolumna5.validateValue(param)) {
-                    return param.getValue().getValue().cubicacionProperty().asObject();
+                    return param.getValue().getValue().cubicacion_segundaProperty().asObject();
                 } else
                     return subcolumna5.getComputedValue(param);
             });
@@ -165,7 +165,7 @@ public class HistoryControlController implements Initializable{
 
             subcolumna6.setCellValueFactory((TreeTableColumn.CellDataFeatures<madera_control, Double> param) -> {
                 if (subcolumna6.validateValue(param)) {
-                    return param.getValue().getValue().ptProperty().asObject();
+                    return param.getValue().getValue().pt_segundaProperty().asObject();
                 } else
                     return subcolumna6.getComputedValue(param);
             });
@@ -175,7 +175,7 @@ public class HistoryControlController implements Initializable{
             Columna3.setEditable(false);
             Columna3.setCellValueFactory((TreeTableColumn.CellDataFeatures<madera_control, String> param) -> {
                 if (Columna3.validateValue(param)) {
-                    return param.getValue().getValue().claseProperty();
+                    return param.getValue().getValue().clase_terceraBProperty();
                 } else
                     return Columna3.getComputedValue(param);
             });
@@ -185,7 +185,7 @@ public class HistoryControlController implements Initializable{
 
             subcolumna7.setCellValueFactory((TreeTableColumn.CellDataFeatures<madera_control, Integer> param) -> {
                 if (subcolumna7.validateValue(param)) {
-                    return param.getValue().getValue().piezaProperty().asObject();
+                    return param.getValue().getValue().pieza_terceraBProperty().asObject();
                 } else
                     return subcolumna7.getComputedValue(param);
             });
@@ -195,7 +195,7 @@ public class HistoryControlController implements Initializable{
 
             subcolumna8.setCellValueFactory((TreeTableColumn.CellDataFeatures<madera_control, Double> param) -> {
                 if (subcolumna8.validateValue(param)) {
-                    return param.getValue().getValue().cubicacionProperty().asObject();
+                    return param.getValue().getValue().cubicacion_terceraBProperty().asObject();
                 } else
                     return subcolumna8.getComputedValue(param);
             });
@@ -206,7 +206,7 @@ public class HistoryControlController implements Initializable{
 
             subcolumna9.setCellValueFactory((TreeTableColumn.CellDataFeatures<madera_control, Double> param) -> {
                 if (subcolumna9.validateValue(param)) {
-                    return param.getValue().getValue().ptProperty().asObject();
+                    return param.getValue().getValue().pt_terceraBProperty().asObject();
                 } else
                     return subcolumna9.getComputedValue(param);
             });
@@ -216,7 +216,7 @@ public class HistoryControlController implements Initializable{
             Columna4.setEditable(false);
             Columna4.setCellValueFactory((TreeTableColumn.CellDataFeatures<madera_control, String> param) -> {
                 if (Columna4.validateValue(param)) {
-                    return param.getValue().getValue().claseProperty();
+                    return param.getValue().getValue().clase_terceraMProperty();
                 } else
                     return Columna4.getComputedValue(param);
             });
@@ -226,7 +226,7 @@ public class HistoryControlController implements Initializable{
 
             subcolumna10.setCellValueFactory((TreeTableColumn.CellDataFeatures<madera_control, Integer> param) -> {
                 if (subcolumna10.validateValue(param)) {
-                    return param.getValue().getValue().piezaProperty().asObject();
+                    return param.getValue().getValue().pieza_terceraMProperty().asObject();
                 } else
                     return subcolumna10.getComputedValue(param);
             });
@@ -235,7 +235,7 @@ public class HistoryControlController implements Initializable{
             subcolumna11.setEditable(false);
             subcolumna11.setCellValueFactory((TreeTableColumn.CellDataFeatures<madera_control, Double> param) -> {
                 if (subcolumna11.validateValue(param)) {
-                    return param.getValue().getValue().cubicacionProperty().asObject();
+                    return param.getValue().getValue().cubicacion_terceraMProperty().asObject();
                 } else
                     return subcolumna11.getComputedValue(param);
             });
@@ -245,7 +245,7 @@ public class HistoryControlController implements Initializable{
             subcolumna12.setEditable(false);
             subcolumna12.setCellValueFactory((TreeTableColumn.CellDataFeatures<madera_control, Double> param) -> {
                 if (subcolumna12.validateValue(param)) {
-                    return param.getValue().getValue().ptProperty().asObject();
+                    return param.getValue().getValue().pt_terceraMProperty().asObject();
                 } else
                     return subcolumna12.getComputedValue(param);
             });
@@ -256,7 +256,7 @@ public class HistoryControlController implements Initializable{
             Columna5.setEditable(false);
             Columna5.setCellValueFactory((TreeTableColumn.CellDataFeatures<madera_control, String> param) -> {
                 if (Columna5.validateValue(param)) {
-                    return param.getValue().getValue().claseProperty();
+                    return param.getValue().getValue().clase_cruzadaProperty();
                 } else
                     return Columna5.getComputedValue(param);
             });
@@ -265,7 +265,7 @@ public class HistoryControlController implements Initializable{
             subcolumna13.setEditable(false);
             subcolumna13.setCellValueFactory((TreeTableColumn.CellDataFeatures<madera_control, Integer> param) -> {
                 if (subcolumna13.validateValue(param)) {
-                    return param.getValue().getValue().piezaProperty().asObject();
+                    return param.getValue().getValue().pieza_cruzadaProperty().asObject();
                 } else
                     return subcolumna13.getComputedValue(param);
             });
@@ -275,7 +275,7 @@ public class HistoryControlController implements Initializable{
 
             subcolumna14.setCellValueFactory((TreeTableColumn.CellDataFeatures<madera_control, Double> param) -> {
                 if (subcolumna14.validateValue(param)) {
-                    return param.getValue().getValue().cubicacionProperty().asObject();
+                    return param.getValue().getValue().cubicacion_cruzadaProperty().asObject();
                 } else
                     return subcolumna14.getComputedValue(param);
             });
@@ -286,7 +286,7 @@ public class HistoryControlController implements Initializable{
 
             subcolumna15.setCellValueFactory((TreeTableColumn.CellDataFeatures<madera_control, Double> param) -> {
                 if (subcolumna15.validateValue(param)) {
-                    return param.getValue().getValue().ptProperty().asObject();
+                    return param.getValue().getValue().pt_cruzadaProperty().asObject();
                 } else
                     return subcolumna15.getComputedValue(param);
             });

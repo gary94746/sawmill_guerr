@@ -296,6 +296,7 @@ public class Resumen extends RecursiveTreeObject<Resumen> {
                          r3.setTotal(r3.getTotalSum());
                          break;
                  }
+
              });
 
              lista.addAll(r1,r2,r3);

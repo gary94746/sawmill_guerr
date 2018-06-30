@@ -42,7 +42,7 @@ public class otrosController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        ComboPz.getItems().addAll("POL 4X4","POL 3.5X3.5","POL 3X3","CUAD 2X4","CUAD 1.5X3.5","VIGA 4x4","VIGA 4x6","VIGA 4x8");
+        ComboPz.getItems().addAll("POL 4X4","POL 3.5X3.5","POL 3X3","BAR 2X4","BAR 1.5X3.5","VIGA 4x4","VIGA 4x6","VIGA 4x8");
         ComboPz.setValue("POL 4X4");
         txtPt.setText("0");
         list = FXCollections.observableArrayList();
@@ -174,10 +174,10 @@ public class otrosController implements Initializable {
         }else if(ComboPz.getSelectionModel().getSelectedItem()=="POL 3X3") {
             valcub = (3 * 3 * 8.25) / 12;
             txtCubicacion.setText(String.valueOf(valcub));
-        }else if(ComboPz.getSelectionModel().getSelectedItem()=="CUAD 2X4"){
+        }else if(ComboPz.getSelectionModel().getSelectedItem()=="BAR 2X4"){
             valcub=(2*4*8.25)/12;
             txtCubicacion.setText(String.valueOf(valcub));
-        }else if(ComboPz.getSelectionModel().getSelectedItem()=="CUAD 1.5X3.5"){
+        }else if(ComboPz.getSelectionModel().getSelectedItem()=="BAR 1.5X3.5"){
             valcub=(1.5*3.5*8.25)/12;
             txtCubicacion.setText(String.valueOf(valcub));
         }else if(ComboPz.getSelectionModel().getSelectedItem()=="VIGA 4x4"){
