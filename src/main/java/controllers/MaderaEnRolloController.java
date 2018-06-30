@@ -3,10 +3,7 @@ package controllers;
 import com.jfoenix.controls.*;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import controllers.utils.Validators;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
-import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -15,50 +12,27 @@ import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
 import modelo.Conexion;
 import modelo.rollo.Rollo;
-import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
-import java.sql.Connection;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.ResourceBundle;
 
 public class MaderaEnRolloController implements Initializable {
 
-    @FXML
-    private JFXTextField txtD1;
+    @FXML private JFXTextField txtD1;
+    @FXML private JFXTextField txtD2;
+    @FXML private JFXTextField volumenTotal;
+    @FXML private JFXDatePicker fecha;
+    @FXML private JFXButton botonAgregar;
+    @FXML private JFXButton botonEliminar;
+    @FXML private JFXButton botonBuscar;
+    @FXML private JFXButton botonFechaActual;
+    @FXML private Label lblTitulo;
+    @FXML private JFXTreeTableView<Rollo> tabla1;
 
-    @FXML
-    private JFXTextField txtD2;
-
-    @FXML
-    private JFXTextField volumenTotal;
-
-    @FXML
-    private JFXDatePicker fecha;
-
-    @FXML
-    private JFXButton botonAgregar;
-
-    @FXML
-    private JFXButton botonEliminar;
-
-    @FXML
-    private JFXButton botonBuscar;
-
-    @FXML
-    private JFXButton botonFechaActual;
-
-    @FXML
-    private Label lblTitulo;
-
-    @FXML
-    private JFXTreeTableView<Rollo> tabla1;
     private ObservableList<Rollo> list;
-
     private int count = 1;
-
     private Conexion conexion = Conexion.getInstance();
-
 
     @FXML
     void agregaRollo(ActionEvent event) {
@@ -121,20 +95,6 @@ public class MaderaEnRolloController implements Initializable {
         volumenTotal.setText(format3Decimals(total) + "");
     }
 
-    private void cargarDatos(String datePicker) {
-        list.removeIf(x -> true);
-        conexion.establecerConexion();
-        Rollo.historial(conexion.getConection(), list, datePicker);
-        conexion.cerrarConexion();
-    }
-
-    private double format3Decimals(double numero) {
-        NumberFormat d = new DecimalFormat("#0.000");
-        var f = d.format(numero);
-        return Double.parseDouble(f);
-    }
-
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         list = FXCollections.observableArrayList();
@@ -154,7 +114,6 @@ public class MaderaEnRolloController implements Initializable {
         botonFechaActual.setTooltip(new Tooltip("Regrese al dia actual"));
     }
 
-    // Se establecen las columnas de la tabla.
     private void columnas() {
         final TreeItem<Rollo> root = new RecursiveTreeItem<>(list, RecursiveTreeObject::getChildren);
         list.forEach(x -> System.out.println(x));
@@ -228,5 +187,18 @@ public class MaderaEnRolloController implements Initializable {
             if (newRollo != null) {
                 list.add(newRollo);
             }
+    }
+
+    private void cargarDatos(String datePicker) {
+        list.removeIf(x -> true);
+        conexion.establecerConexion();
+        Rollo.historial(conexion.getConection(), list, datePicker);
+        conexion.cerrarConexion();
+    }
+
+    private double format3Decimals(double numero) {
+        NumberFormat d = new DecimalFormat("#0.000");
+        var f = d.format(numero);
+        return Double.parseDouble(f);
     }
 }
