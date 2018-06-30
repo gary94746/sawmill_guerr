@@ -104,6 +104,7 @@ public class MaderaTabletasController implements Initializable {
         btnEliminar.setDisable(false);
 
         fechaTableta.getEditor().clear();
+        fechaTableta.setValue(null);
         comboFiltro.setValue("Todos");
     }
 
@@ -161,9 +162,6 @@ public class MaderaTabletasController implements Initializable {
         btnSubtotales.setTooltip(new Tooltip("Despliega los subtotales"));
 
         var x = list.parallelStream().mapToDouble(Tabletas::getPiestabla).sum();
-        //System.out.println(x);
-
-        //System.out.println(fechaTableta.getValue());
     }
 
     private void cargarDatos(String datePicker) {
@@ -187,7 +185,21 @@ public class MaderaTabletasController implements Initializable {
                 conexion.cerrarConexion();
             }
         } else {
+            if (comboFiltro.getSelectionModel().getSelectedItem() == "Todos") {
+                var datePicker1 = fechaTableta.getValue().getYear() + "-" + fechaTableta.getValue().getMonthValue()+ "-" + fechaTableta.getValue().getDayOfMonth();
 
+                list.removeIf(x -> true);
+                conexion.establecerConexion();
+                Tabletas.obtenerDatosFecha(conexion.getConection(), list, datePicker1);
+                conexion.cerrarConexion();
+            } else {
+                var datePicker1 = fechaTableta.getValue().getYear() + "-" + fechaTableta.getValue().getMonthValue()+ "-" + fechaTableta.getValue().getDayOfMonth();
+
+                list.removeIf(x -> true);
+                conexion.establecerConexion();
+                Tabletas.obtenerDatosFiltradosFecha(conexion.getConection(), list, comboFiltro.getSelectionModel().getSelectedItem(), datePicker1);
+                conexion.cerrarConexion();
+            }
         }
     }
 
