@@ -34,6 +34,8 @@ public class PdfController implements Initializable {
     @FXML private Label lblHora;
     @FXML private JFXButton btnImprimir;
     @FXML private HBox boxImprimir;
+    @FXML private Label lblResumenFecha;
+
 
 
     @Override
@@ -43,6 +45,7 @@ public class PdfController implements Initializable {
 
         lblFecha.setText(date.format(new Date()));
         lblHora.setText(hour.format(new Date()));
+        lblResumenFecha.setText(ResumenController.texResumen);
 
         columns();
     }

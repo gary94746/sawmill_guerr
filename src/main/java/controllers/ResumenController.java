@@ -45,12 +45,15 @@ public class ResumenController implements Initializable {
     @FXML private TextField txtCofA;
     @FXML private Label lblResumen;
 
-
+    protected static String texResumen;
     protected static ObservableList<Resumen> list;
     private Conexion conexion = Conexion.getInstance();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        //Resumen label
+        lblResumen.textProperty().addListener(x -> texResumen = lblResumen.getText());
+
         //Tooltips
         btnImprimir.setTooltip(Messages.setTooltipMessage("Imprimir en pdf"));
         btnBuscar.setTooltip(Messages.setTooltipMessage("Buscar"));
@@ -88,8 +91,8 @@ public class ResumenController implements Initializable {
         var datePicker2 = date2.getValue().getYear() + "-" + date2.getValue().getMonthValue()+ "-" + date2.getValue().getDayOfMonth();
 
         lblResumen.setText("Resumen del: " +
-                date1.getValue().getDayOfMonth() + "/" + date1.getValue().getMonth()+ "/" + date1.getValue().getYear() + " al: " +
-                date2.getValue().getDayOfMonth() + "/" + date2.getValue().getMonth()+ "/" + date2.getValue().getYear()
+                date1.getValue().getDayOfMonth() + "/" + date1.getValue().getMonthValue()+ "/" + date1.getValue().getYear() + " al: " +
+                date2.getValue().getDayOfMonth() + "/" + date2.getValue().getMonthValue()+ "/" + date2.getValue().getYear()
         );
 
         loadData(datePicker1, datePicker2);
@@ -122,6 +125,7 @@ public class ResumenController implements Initializable {
         conexion.establecerConexion();
         Resumen.get_data(conexion.getConection(), list, datePicker1, datePicker2);
         Resumen.get_data_otros(conexion.getConection(), list, datePicker1, datePicker2);
+        Resumen.get_piezas(conexion.getConection(), list, datePicker1, datePicker2);
         var volRollos = Rollo.getVolumenRollosFecha(conexion.getConection(), datePicker1, datePicker2);
         conexion.cerrarConexion();
 
