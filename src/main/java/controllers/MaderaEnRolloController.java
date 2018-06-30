@@ -150,7 +150,6 @@ public class MaderaEnRolloController implements Initializable {
         var total = list.parallelStream().mapToDouble(Rollo::getVol).sum();
         volumenTotal.setText(format3Decimals(total) + "");
 
-        txtD1.addEventFilter(KeyEvent.ANY, Validators.onlyNumbers());
 
         botonAgregar.setTooltip(new Tooltip("Agregar"));
         botonBuscar.setTooltip(new Tooltip("Buscar"));
@@ -226,12 +225,19 @@ public class MaderaEnRolloController implements Initializable {
     }
 
     public void agregarRegistro(){
+        try {
             conexion.establecerConexion();
             var newRollo = Rollo.addRollo(conexion.getConection(), Double.parseDouble(txtD1.getText()), Double.parseDouble(txtD2.getText()));
+
             conexion.cerrarConexion();
             if (newRollo != null) {
                 list.add(newRollo);
                 Messages.setMessage("Agregado", "Se agrego el rollo", NotificationType.SUCCESS);
             }
+        }catch (Exception e ) {
+            txtD1.setText("");
+            txtD2.setText("");
+        }
+
     }
 }
