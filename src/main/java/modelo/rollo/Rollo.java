@@ -5,10 +5,7 @@ import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import modelo.otros_madera.otros_mad;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -194,6 +191,4 @@ public class Rollo extends RecursiveTreeObject<Rollo> {
             return 0;
         }
     }
-
-
 }
