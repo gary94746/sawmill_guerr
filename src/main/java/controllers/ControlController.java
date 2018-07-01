@@ -109,6 +109,8 @@ public class ControlController implements Initializable {
         btnDelete.setTooltip(new Tooltip("Eliminar"));
         historial.setTooltip(new Tooltip("Buscar"));
         restablecer.setTooltip(new Tooltip("Regrese al dia actual"));
+        fecha.setEditable(false);
+        fecha.setValue(null);
 
         llenarTabla();
         columns();
@@ -243,36 +245,25 @@ public class ControlController implements Initializable {
         //comboLargo.getItems().addAll("3/4\"","16 1/2\"");
         if(comboLargo.getSelectionModel().getSelectedItem()=="8 1/4\""){
 
-
-            /**if (comboGr.getSelectionModel().getSelectedItem() == "3/4\"") {
-                var = .75;
-            }*/
-
             var=(comboGr.getSelectionModel().getSelectedItem() == "3/4\"")?.75 : 1.5;
-
 
               if (comboGr.getSelectionModel().getSelectedItem() == "2\"") {var = 2;}
 
             if (comboAnc.getSelectionModel().getSelectedItem() == "4") {
-                valcub = (var * 4 * 8.25) / 12;
-                var tresCubicacion = format3Decimals(valcub);
-                txtCubicacion.setText(String.valueOf(tresCubicacion));
+                valcub = 2.062;
+                txtCubicacion.setText(String.valueOf(valcub));
             } else if (comboAnc.getSelectionModel().getSelectedItem() == "6") {
-                valcub = (var * 6 * 8.25) / 12;
-                var tresCubicacion = format3Decimals(valcub);
-                txtCubicacion.setText(String.valueOf(tresCubicacion));
+                valcub = 3.093;
+                txtCubicacion.setText(String.valueOf(valcub));
             } else if (comboAnc.getSelectionModel().getSelectedItem() == "8") {
-                valcub = (var * 8 * 8.25) / 12;
-                var tresCubicacion = format3Decimals(valcub);
-                txtCubicacion.setText(String.valueOf(tresCubicacion));
+                valcub = 4.125;
+                txtCubicacion.setText(String.valueOf(valcub));
             } else if (comboAnc.getSelectionModel().getSelectedItem() == "10") {
-                valcub = (var * 10 * 8.25) / 12;
-                var tresCubicacion = format3Decimals(valcub);
-                txtCubicacion.setText(String.valueOf(tresCubicacion));
+                valcub = 5.156;
+                txtCubicacion.setText(String.valueOf(valcub));
             } else if (comboAnc.getSelectionModel().getSelectedItem() == "12") {
-                valcub = (var * 12 * 8.25) / 12;
-                var tresCubicacion = format3Decimals(valcub);
-                txtCubicacion.setText(String.valueOf(tresCubicacion));
+                valcub = 6.187;
+                txtCubicacion.setText(String.valueOf(valcub));
             }
 
      }else{
@@ -292,19 +283,24 @@ public class ControlController implements Initializable {
 
         if (comboAnc.getSelectionModel().getSelectedItem() == "4") {
             valcub = (var * 4 * 16.5) / 12;
-            txtCubicacion.setText(String.valueOf(valcub));
+            var valcub3d = format3Decimals(valcub);
+            txtCubicacion.setText(String.valueOf(valcub3d));
         } else if (comboAnc.getSelectionModel().getSelectedItem() == "6") {
             valcub = (var * 6 * 16.5) / 12;
-            txtCubicacion.setText(String.valueOf(valcub));
+            var valcub3d = format3Decimals(valcub);
+            txtCubicacion.setText(String.valueOf(valcub3d));
         } else if (comboAnc.getSelectionModel().getSelectedItem() == "8") {
             valcub = (var * 8 * 16.5) / 12;
-            txtCubicacion.setText(String.valueOf(valcub));
+            var valcub3d = format3Decimals(valcub);
+            txtCubicacion.setText(String.valueOf(valcub3d));
         } else if (comboAnc.getSelectionModel().getSelectedItem() == "10") {
             valcub = (var * 10 * 16.5) / 12;
-            txtCubicacion.setText(String.valueOf(valcub));
+            var valcub3d = format3Decimals(valcub);
+            txtCubicacion.setText(String.valueOf(valcub3d));
         } else if (comboAnc.getSelectionModel().getSelectedItem() == "12") {
             valcub = (var * 12 * 16.5) / 12;
-            txtCubicacion.setText(String.valueOf(valcub));
+            var valcub3d = format3Decimals(valcub);
+            txtCubicacion.setText(String.valueOf(valcub3d));
         }
 
     }
@@ -373,19 +369,21 @@ public class ControlController implements Initializable {
 
     @FXML
     void ActionHistorial(ActionEvent event) {
-        txtPiezas.setEditable(true);
+
+        txtPiezas.setEditable(false);
         agregar.setDisable(true);
         btnDelete.setDisable(true);
-
         buscarporFecha ();
         Totales();
+
+        Messages.setMessage("Filtar", "Historial del: " +
+                fecha.getValue().getDayOfMonth() + "/" +
+                fecha.getValue().getMonth() + "/" + fecha.getValue().getYear(), NotificationType.SUCCESS);
 
     }
 
     public void buscarporFecha (){
         try {
-
-
             var datePicker1 = fecha.getValue().getYear() + "-" + fecha.getValue().getMonthValue() + "-" + fecha.getValue().getDayOfMonth();
             tituloRegistro.setText("Historial del: " +
                     fecha.getValue().getDayOfMonth() + "/" +
@@ -408,6 +406,9 @@ public class ControlController implements Initializable {
             llenarTabla();
             Totales();
             txtPiezas.setText("");
+            txtPT.setText("0");
+            Messages.setMessage("Agregado", "El registro se a agregado exitosamente", NotificationType.SUCCESS);
+
 
         }catch (NumberFormatException e){
         Messages.setMessage("Error.", "No se agrego numero de piezas.", NotificationType.ERROR);
@@ -449,6 +450,7 @@ public class ControlController implements Initializable {
     @FXML
     void actionFiltroClase(ActionEvent event) {
         if(fecha.getValue() == null) {
+            System.out.println(fecha.getValue());
             llenarTabla();
             Totales();
         }else{
@@ -476,6 +478,8 @@ public class ControlController implements Initializable {
             madera_control.eliminarOtros(conexion.getConection(), row);
             conexion.cerrarConexion();
             list.removeIf(x -> x.getId() == row);
+            Totales();
+            Messages.setMessage("Eliminado", "El registro se elimino exitosamente", NotificationType.SUCCESS);
         }catch (java.lang.NullPointerException e){
             Messages.setMessage("Error.", "Seleccione un registro para eliminar", NotificationType.ERROR);
         }
@@ -495,8 +499,10 @@ public class ControlController implements Initializable {
 
     @FXML
     void ActionRestablecer(ActionEvent event) {
+        fecha.setValue(null);
         tituloRegistro.setText("TABLA DE REGISTROS DEL DIA ACTUAL");
-        txtPiezas.setEditable(false);
+        Messages.setMessage("Restablecido", "Registros de la fecha actual", NotificationType.SUCCESS);
+        txtPiezas.setEditable(true);
         agregar.setDisable(false);
         btnDelete.setDisable(false);
         fecha.getEditor().clear();

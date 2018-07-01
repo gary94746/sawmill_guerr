@@ -17,7 +17,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="499.0" prefWidth="774.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.otrosController">
+<VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="499.0" prefWidth="774.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.otrosController">
    <children>
       <GridPane>
         <columnConstraints>
@@ -67,7 +67,7 @@
             </Label>
             <JFXComboBox fx:id="ComboPz" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#ActionComboPz" prefHeight="26.0" prefWidth="140.0" GridPane.columnIndex="1">
                <GridPane.margin>
-                  <Insets bottom="10.0" />
+                  <Insets bottom="10.0" right="40.0" />
                </GridPane.margin></JFXComboBox>
             <Label text="CUBICACION:" GridPane.columnIndex="2">
                <GridPane.margin>
@@ -76,17 +76,17 @@
             </Label>
             <JFXTextField fx:id="txtCubicacion" prefHeight="26.0" prefWidth="114.0" GridPane.columnIndex="3">
                <GridPane.margin>
-                  <Insets bottom="10.0" />
+                  <Insets bottom="10.0" right="40.0" />
                </GridPane.margin>
             </JFXTextField>
-            <Label text="PT" GridPane.columnIndex="4">
+            <Label text="PT:" GridPane.columnIndex="4">
                <GridPane.margin>
-                  <Insets left="20.0" />
+                  <Insets left="80.0" />
                </GridPane.margin>
             </Label>
             <JFXTextField fx:id="txtPt" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="26.0" prefWidth="119.0" GridPane.columnIndex="5">
                <GridPane.margin>
-                  <Insets bottom="10.0" right="10.0" />
+                  <Insets bottom="10.0" right="40.0" />
                </GridPane.margin></JFXTextField>
             <JFXButton fx:id="btnAgregar" contentDisplay="CENTER" onAction="#addOtros" prefHeight="14.0" prefWidth="0.0" style="-fx-background-color: #916b47;" text="." textFill="WHITE" GridPane.columnIndex="3" GridPane.rowIndex="1">
                <graphic>
@@ -95,16 +95,25 @@
                <GridPane.margin>
                   <Insets top="20.0" />
                </GridPane.margin>
+               <font>
+                  <Font size="14.0" />
+               </font>
             </JFXButton>
             <JFXButton fx:id="btnDelete" contentDisplay="CENTER" onAction="#deleteOtros" prefHeight="14.0" prefWidth="0.0" style="-fx-background-color: #916b47;" text="." textFill="WHITE" GridPane.columnIndex="3" GridPane.rowIndex="1">
                <graphic>
                   <FontAwesomeIconView fill="WHITE" glyphName="TRASH" />
                </graphic>
                <GridPane.margin>
-                  <Insets left="35.0" top="20.0" />
+                  <Insets left="40.0" top="20.0" />
                </GridPane.margin>
+               <font>
+                  <Font size="14.0" />
+               </font>
             </JFXButton>
-            <JFXTextField fx:id="txtPieza" onKeyReleased="#ActionPieza" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <JFXTextField fx:id="txtPieza" onKeyReleased="#ActionPieza" GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <GridPane.margin>
+                  <Insets right="40.0" />
+               </GridPane.margin></JFXTextField>
          </children>
          <VBox.margin>
             <Insets top="20.0" />

@@ -53,7 +53,7 @@ public class otrosController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        ComboPz.getItems().addAll("POL 4X4","POL 3.5X3.5","POL 3X3","BAR 2X4","BAR 1.5X3.5","VIGA 4x4","VIGA 4x6","VIGA 4x8");
+        ComboPz.getItems().addAll("POL 4X4","POL 3.5X3.5","POL 3X3","BAR 2X4","BAR 1.5X3.5","VIGA 4x4","VIGA 4x6","VIGA 4x8","CUAD 1*1");
         ComboPz.setValue("POL 4X4");
         txtPt.setText("0");
         list = FXCollections.observableArrayList();
@@ -74,6 +74,7 @@ public class otrosController implements Initializable {
         restablecer.setTooltip(new Tooltip("Regrese al dia actual"));
         txtPieza.addEventFilter(KeyEvent.ANY, handler.onlyNumbers());
 
+        //fechaOtros.setEditable(false);
         columns();
         Totales();
     }
@@ -149,20 +150,6 @@ public class otrosController implements Initializable {
        }
     }
 
-    public void updateOtros(otros_mad x){
-        var actual = tablaOtros.getSelectionModel().getSelectedItem().getValue();
-
-
-        conexion.establecerConexion();
-        var success = otros_mad.updateOtros(conexion.getConection(),x);
-        if(success != null){
-            list.removeIf(l -> l.getId() == success.getId());
-            list.add(success);
-            tablaOtros.getSelectionModel().getSelectedIndex();
-        }
-    }
-
-
 
     public void CalPt(){
         try {
@@ -217,6 +204,8 @@ public class otrosController implements Initializable {
             valcub=(4*8*16.5)/12;
             var valcub3 = format3Decimals(valcub);
             txtCubicacion.setText(String.valueOf(valcub3));
+        }else if(ComboPz.getSelectionModel().getSelectedItem()=="CUAD 1*1"){
+            txtCubicacion.setText("0.333");
         }
 
 
@@ -235,18 +224,39 @@ public class otrosController implements Initializable {
         conexion.cerrarConexion();
     }
 
+    private void ObtenerDatos(){
+        list.removeIf(x -> true);
+        conexion.establecerConexion();
+        otros_mad.obtenerDatos(conexion.getConection(), list);
+        conexion.cerrarConexion();
+    }
+
 
     @FXML
     void ActionHistorialOtros(ActionEvent event) {
-        txtPieza.setEditable(false);
-        var datePicker1 = fechaOtros.getValue().getYear() + "-" + fechaOtros.getValue().getMonthValue()+ "-" + fechaOtros.getValue().getDayOfMonth();
-        TituloRegistroOtros.setText("Historial del: " +
-                fechaOtros.getValue().getDayOfMonth() + "/" +
-                fechaOtros.getValue().getMonth()+ "/" + fechaOtros.getValue().getYear()
-        );
+        try {
+            txtPieza.setEditable(false);
+            btnAgregar.setDisable(true);
+            btnDelete.setDisable(true);
+            var datePicker1 = fechaOtros.getValue().getYear() + "-" + fechaOtros.getValue().getMonthValue() + "-" + fechaOtros.getValue().getDayOfMonth();
+            TituloRegistroOtros.setText("Historial del: " +
+                    fechaOtros.getValue().getDayOfMonth() + "/" +
+                    fechaOtros.getValue().getMonth() + "/" + fechaOtros.getValue().getYear()
+            );
 
-        cargarDatos(datePicker1);
+            Messages.setMessage("Filtar", "Historial del: " +
+                    fechaOtros.getValue().getDayOfMonth() + "/" +
+                    fechaOtros.getValue().getMonth() + "/" + fechaOtros.getValue().getYear(), NotificationType.SUCCESS);
 
+            cargarDatos(datePicker1);
+            Totales();
+        }catch (java.lang.NullPointerException e){
+            Messages.setMessage("Error.", "Ingrese una fecha", NotificationType.ERROR);
+            txtPieza.setEditable(true);
+            btnAgregar.setDisable(false);
+            btnDelete.setDisable(false);
+
+        }
     }
 
 
@@ -276,39 +286,43 @@ public class otrosController implements Initializable {
             agregarRegistro(new otros_mad(ComboPz.getSelectionModel().getSelectedItem(),
                     Integer.parseInt(txtPieza.getText()), Double.parseDouble(txtCubicacion.getText()),
                     Double.parseDouble(txtPt.getText())));
+            txtPt.setText("0");
+            txtPieza.setText("");
+            ObtenerDatos();
             Totales();
+            Messages.setMessage("Agregado", "El registro se agrego exitosamente", NotificationType.SUCCESS);
+
         }catch (NumberFormatException e){
             Messages.setMessage("Error.", "No se agrego numero de piezas.", NotificationType.ERROR);
         }
     }
 
     @FXML
-    void EditOtros(ActionEvent event) {
-        updateOtros(new otros_mad(ComboPz.getSelectionModel().getSelectedItem(),
-                Integer.parseInt(txtPieza.getText()),Double.parseDouble(txtCubicacion.getText()),
-                Double.parseDouble(txtPt.getText())));
-
-    }
-
-    public void camposEditar(otros_mad otros){
-        //otros.set
-    }
-
-    @FXML
     void deleteOtros(ActionEvent event) {
-        int row = tablaOtros.getSelectionModel().getSelectedItem().getValue().getId();
-        conexion.establecerConexion();
-        otros_mad.eliminarOtros(conexion.getConection(), row);
-        conexion.cerrarConexion();
-        list.removeIf(x -> x.getId() == row);
+        try {
+            int row = tablaOtros.getSelectionModel().getSelectedItem().getValue().getId();
+            conexion.establecerConexion();
+            otros_mad.eliminarOtros(conexion.getConection(), row);
+            conexion.cerrarConexion();
+            list.removeIf(x -> x.getId() == row);
+            ObtenerDatos();
+            Totales();
+            Messages.setMessage("Eliminado", "El registro se elimino exitosamente", NotificationType.SUCCESS);
+        }catch (java.lang.NullPointerException e){
+            Messages.setMessage("Error.", "Seleccione un registro para eliminar", NotificationType.ERROR);
 
+        }
     }
 
 
     @FXML
     public void ActionRestablecerOtros(ActionEvent actionEvent) {
         TituloRegistroOtros.setText("TABLA DE REGISTROS DEL DIA ACTUAL");
+        list.removeIf(x -> true);
+        fechaOtros.getEditor().clear();
         txtPieza.setEditable(true);
+        btnAgregar.setDisable(false);
+        btnDelete.setDisable(false);
         conexion.establecerConexion();
         otros_mad.obtenerDatos(conexion.getConection(), list);
         conexion.cerrarConexion();

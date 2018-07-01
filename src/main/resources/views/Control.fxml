@@ -17,7 +17,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="499.0" prefWidth="774.0" stylesheets="@../estilos/dashboard.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ControlController">
+<VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="499.0" prefWidth="774.0" style="-fx-background-color: white;" stylesheets="@../estilos/dashboard.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ControlController">
    <children>
       <GridPane>
         <columnConstraints>
@@ -99,14 +99,14 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="GRUESO:" GridPane.rowIndex="1">
+            <Label maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="GRUESO:">
                <GridPane.margin>
                   <Insets left="60.0" />
                </GridPane.margin>
             </Label>
-            <JFXComboBox fx:id="comboGr" maxHeight="-Infinity" maxWidth="-Infinity" onAction="#ActionComboGr" prefHeight="26.0" prefWidth="119.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <JFXComboBox fx:id="comboGr" maxHeight="-Infinity" maxWidth="-Infinity" onAction="#ActionComboGr" prefHeight="26.0" prefWidth="119.0" GridPane.columnIndex="1">
                <GridPane.margin>
-                  <Insets bottom="10.0" right="60.0" />
+                  <Insets bottom="10.0" right="40.0" />
                </GridPane.margin></JFXComboBox>
             <Label maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="ANCHO:" GridPane.columnIndex="2" GridPane.rowIndex="1">
                <GridPane.margin>
@@ -115,7 +115,7 @@
             </Label>
             <JFXComboBox fx:id="comboAnc" maxHeight="-Infinity" maxWidth="-Infinity" onAction="#actionAncho" prefHeight="26.0" prefWidth="119.0" GridPane.columnIndex="3" GridPane.rowIndex="1">
                <GridPane.margin>
-                  <Insets bottom="10.0" right="60.0" />
+                  <Insets bottom="10.0" right="40.0" />
                </GridPane.margin></JFXComboBox>
             <Label maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="CLASE:" GridPane.columnIndex="4" GridPane.rowIndex="1">
                <GridPane.margin>
@@ -139,7 +139,7 @@
             </Label>
             <JFXTextField fx:id="txtCubicacion" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="26.0" prefWidth="119.0" GridPane.columnIndex="3" GridPane.rowIndex="2">
                <GridPane.margin>
-                  <Insets bottom="10.0" right="60.0" />
+                  <Insets bottom="10.0" right="40.0" />
                </GridPane.margin>
             </JFXTextField>
             <Label maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="PT:" GridPane.columnIndex="4" GridPane.rowIndex="2">
@@ -154,16 +154,16 @@
             </JFXTextField>
             <JFXTextField fx:id="txtPiezas" maxHeight="-Infinity" maxWidth="-Infinity" onKeyReleased="#ActionPieza" onKeyTyped="#validarSoloNumeros" prefHeight="26.0" prefWidth="119.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <GridPane.margin>
-                  <Insets bottom="10.0" right="60.0" />
+                  <Insets bottom="10.0" right="40.0" />
                </GridPane.margin></JFXTextField>
-            <Label alignment="CENTER" text="LARGO:">
+            <Label alignment="CENTER" text="LARGO:" GridPane.rowIndex="1">
                <GridPane.margin>
-                  <Insets bottom="20.0" left="60.0" />
+                  <Insets left="60.0" />
                </GridPane.margin>
             </Label>
-            <JFXComboBox fx:id="comboLargo" maxHeight="-Infinity" maxWidth="-Infinity" onAction="#ActionComboLargo" prefHeight="26.0" prefWidth="129.0" GridPane.columnIndex="1">
+            <JFXComboBox fx:id="comboLargo" maxHeight="-Infinity" maxWidth="-Infinity" onAction="#ActionComboLargo" prefHeight="26.0" prefWidth="119.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <GridPane.margin>
-                  <Insets bottom="40.0" right="60.0" />
+                  <Insets bottom="10.0" right="40.0" />
                </GridPane.margin>
             </JFXComboBox>
          </children>
@@ -228,10 +228,6 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <Label maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="18.0" prefWidth="119.0" text="Grueso:" GridPane.columnIndex="5">
-               <GridPane.margin>
-                  <Insets left="50.0" />
-               </GridPane.margin></Label>
             <Label text="Clase:" GridPane.columnIndex="1">
                <GridPane.margin>
                   <Insets left="60.0" />
@@ -240,15 +236,14 @@
             <JFXComboBox fx:id="FiltrarClase" onAction="#actionFiltroClase" prefHeight="26.0" prefWidth="140.0" GridPane.columnIndex="2" />
             <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="6">
                <children>
-                  <JFXComboBox fx:id="FiltrarGrueso" maxHeight="-Infinity" maxWidth="-Infinity" onAction="#actionFiltroGrueso" prefHeight="26.0" prefWidth="126.0" />
+                  <JFXComboBox fx:id="FiltrarLargo" onAction="#actionFiltroLargo" prefHeight="26.0" prefWidth="159.0" />
                </children>
             </HBox>
-            <Label text="Largo:" GridPane.columnIndex="3">
+            <Label text="Largo:" GridPane.columnIndex="5">
                <GridPane.margin>
                   <Insets left="50.0" />
                </GridPane.margin>
             </Label>
-            <JFXComboBox fx:id="FiltrarLargo" onAction="#actionFiltroLargo" prefHeight="26.0" prefWidth="159.0" GridPane.columnIndex="4" />
             <Label text="Mostrar por:">
                <GridPane.margin>
                   <Insets left="20.0" />
@@ -273,6 +268,11 @@
                   <Insets right="60.0" />
                </GridPane.margin>
             </HBox>
+            <JFXComboBox fx:id="FiltrarGrueso" maxHeight="-Infinity" maxWidth="-Infinity" onAction="#actionFiltroGrueso" prefHeight="26.0" prefWidth="126.0" GridPane.columnIndex="4" />
+            <Label maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="18.0" prefWidth="119.0" text="Grueso:" GridPane.columnIndex="3">
+               <GridPane.margin>
+                  <Insets left="50.0" />
+               </GridPane.margin></Label>
          </children>
          <VBox.margin>
             <Insets top="10.0" />
