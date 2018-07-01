@@ -39,7 +39,7 @@
          </padding></HBox>
    </top>
    <left>
-      <VBox prefHeight="497.0" prefWidth="179.0" styleClass="background" BorderPane.alignment="CENTER">
+      <VBox prefHeight="499.0" prefWidth="167.0" styleClass="background" BorderPane.alignment="CENTER">
          <children>
             <Label text="MENU" textFill="GREY">
                <font>
@@ -55,7 +55,7 @@
             </Label>
             <HBox onMouseClicked="#setResumen" prefHeight="29.0" prefWidth="168.0" styleClass="hover_border" stylesheets="@../estilos/dashboard.css">
                <children>
-                  <MaterialIconView fill="WHITE" glyphName="ASSIGNMENT" size="20" text="" wrappingWidth="30.0" HBox.hgrow="ALWAYS">
+                  <MaterialIconView fill="WHITE" glyphName="ASSIGNMENT" size="20" text="" wrappingWidth="20.0" HBox.hgrow="ALWAYS">
                      <HBox.margin>
                         <Insets right="10.0" top="5.0" />
                      </HBox.margin>
@@ -67,46 +67,46 @@
                   </Label>
                </children>
                <padding>
-                  <Insets left="10.0" />
+                  <Insets left="5.0" />
                </padding>
             </HBox>
             <HBox onMouseClicked="#setTransformacion" prefHeight="29.0" prefWidth="168.0" styleClass="hover_border" stylesheets="@../estilos/dashboard.css">
                <children>
-                  <FontAwesomeIconView fill="WHITE" glyphName="STEAM" size="20" wrappingWidth="30.0">
+                  <FontAwesomeIconView fill="WHITE" glyphName="STEAM" size="20" wrappingWidth="20.0">
                      <HBox.margin>
                         <Insets right="10.0" top="5.0" />
                      </HBox.margin>
                   </FontAwesomeIconView>
-                  <Label prefHeight="60.0" prefWidth="123.0" styleClass="labelDash" text="TRANSFORMACION" textFill="WHITE" HBox.hgrow="ALWAYS">
+                  <Label prefHeight="60.0" prefWidth="123.0" styleClass="labelDash" text="VOL. ASIERRE" textFill="WHITE" HBox.hgrow="ALWAYS">
                      <font>
                         <Font name="Open Sans Condensed Light" size="15.0" />
                      </font>
                   </Label>
                </children>
                <padding>
-                  <Insets left="10.0" />
+                  <Insets left="5.0" />
                </padding>
             </HBox>
             <HBox onMouseClicked="#setControl" prefHeight="29.0" prefWidth="168.0" styleClass="hover_border" stylesheets="@../estilos/dashboard.css">
                <children>
-                  <FontAwesomeIconView fill="WHITE" glyphName="BULLSEYE" size="20" wrappingWidth="30.0">
+                  <FontAwesomeIconView fill="WHITE" glyphName="BULLSEYE" size="20" wrappingWidth="20.0">
                      <HBox.margin>
                         <Insets right="10.0" top="5.0" />
                      </HBox.margin>
                   </FontAwesomeIconView>
-                  <Label prefHeight="60.0" prefWidth="123.0" styleClass="labelDash" text="CONTROL" textFill="WHITE" HBox.hgrow="ALWAYS">
+                  <Label prefHeight="60.0" prefWidth="123.0" styleClass="labelDash" text="PROD. MAD. ASERR." textFill="WHITE" HBox.hgrow="ALWAYS">
                      <font>
                         <Font name="Open Sans Condensed Light" size="15.0" />
                      </font>
                   </Label>
                </children>
                <padding>
-                  <Insets left="10.0" />
+                  <Insets left="5.0" />
                </padding>
             </HBox>
             <HBox onMouseClicked="#setTableta" prefHeight="29.0" prefWidth="168.0" styleClass="hover_border" stylesheets="@../estilos/dashboard.css">
                <children>
-                  <FontAwesomeIconView fill="WHITE" glyphName="TABLE" size="20" wrappingWidth="30.0">
+                  <FontAwesomeIconView fill="WHITE" glyphName="TABLE" size="20" wrappingWidth="20.0">
                      <HBox.margin>
                         <Insets right="10.0" top="5.0" />
                      </HBox.margin>
@@ -118,12 +118,12 @@
                   </Label>
                </children>
                <padding>
-                  <Insets left="10.0" />
+                  <Insets left="5.0" />
                </padding>
             </HBox>
             <HBox onMouseClicked="#setOtros" prefHeight="29.0" prefWidth="168.0" styleClass="hover_border" stylesheets="@../estilos/dashboard.css">
                <children>
-                  <FontAwesomeIconView fill="WHITE" glyphName="QUESTION" size="20" wrappingWidth="30.0">
+                  <FontAwesomeIconView fill="WHITE" glyphName="QUESTION" size="20" wrappingWidth="20.0">
                      <HBox.margin>
                         <Insets right="10.0" top="5.0" />
                      </HBox.margin>
@@ -135,12 +135,12 @@
                   </Label>
                </children>
                <padding>
-                  <Insets left="10.0" />
+                  <Insets left="5.0" />
                </padding>
             </HBox>
             <HBox onMouseClicked="#setEmpleados" prefHeight="29.0" prefWidth="168.0" styleClass="hover_border" stylesheets="@../estilos/dashboard.css">
                <children>
-                  <FontAwesomeIconView fill="WHITE" glyphName="USER_CIRCLE" size="20" wrappingWidth="30.0">
+                  <FontAwesomeIconView fill="WHITE" glyphName="USER_CIRCLE" size="20" wrappingWidth="20.0">
                      <HBox.margin>
                         <Insets right="10.0" top="5.0" />
                      </HBox.margin>
@@ -152,7 +152,7 @@
                   </Label>
                </children>
                <padding>
-                  <Insets left="10.0" />
+                  <Insets left="5.0" />
                </padding>
                <VBox.margin>
                   <Insets top="20.0" />

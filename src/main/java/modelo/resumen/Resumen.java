@@ -254,18 +254,20 @@ public class Resumen extends RecursiveTreeObject<Resumen> {
 
              //TEMPORAL VALUES 8 1/4
              var r1 = new Resumen();
-                r1.setMedida("3/4\" 8 1/4\"");
              var r2 = new Resumen();
-                r2.setMedida("1 1/2\" 8 1/4\"");
              var r3 = new Resumen();
-                r3.setMedida("2\" 8 1/4\"");
              //16 1/2
              var r4 = new Resumen();
-             r4.setMedida("3/4\" 16 1/2\"");
              var r5 = new Resumen();
-             r5.setMedida("1 1/2\" 16 1/2\"");
              var r6 = new Resumen();
-             r6.setMedida("2\" 16 1/2\"");
+
+             //medidas
+             r1.setMedida("3/4\"    8 1/4\"");
+             r4.setMedida("3/4\"    16 1/2\"");
+             r2.setMedida("1 1/2\" 8 1/4\"");
+             r5.setMedida("1 1/2\" 16 1/2\"");
+             r3.setMedida("2\"       8 1/4\"");
+             r6.setMedida("2\"       16 1/2\"");
 
              var query = "SELECT * FROM get_resumen('"+date1+"'::date,'"+date2+"'::date)";
              var statement = connection.createStatement();

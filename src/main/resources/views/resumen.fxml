@@ -91,19 +91,20 @@
         <columnConstraints>
           <ColumnConstraints halignment="RIGHT" hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
           <ColumnConstraints fillWidth="false" halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints fillWidth="false" halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="150.0" />
+            <ColumnConstraints fillWidth="false" halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
         </columnConstraints>
         <rowConstraints>
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label text="Volumen Aserrado:" GridPane.rowIndex="1">
+            <Label text="Volumen Aserrado:" GridPane.columnIndex="2">
                <styleClass>
                   <String fx:value="labelResumen" />
                   <String fx:value="labelResult" />
                </styleClass></Label>
-            <Label text="Coeficiente de Aserrio:" GridPane.rowIndex="2">
+            <Label text="Coeficiente de Aserrio:" GridPane.rowIndex="1">
                <styleClass>
                   <String fx:value="labelResumen" />
                   <String fx:value="labelResult" />
@@ -114,8 +115,15 @@
                   <String fx:value="labelResult" />
                </styleClass></Label>
             <TextField fx:id="txtRollo" editable="false" styleClass="textField" GridPane.columnIndex="1" />
-            <TextField fx:id="txtVolA" editable="false" styleClass="textField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <TextField fx:id="txtCofA" editable="false" styleClass="textField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField fx:id="txtVolA" editable="false" styleClass="textField" GridPane.columnIndex="3" />
+            <TextField fx:id="txtCofA" editable="false" styleClass="textField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Label text="Total Piezas:" GridPane.columnIndex="2" GridPane.rowIndex="1">
+               <styleClass>
+                  <String fx:value="labelResumen" />
+                  <String fx:value="labelResult" />
+               </styleClass>
+            </Label>
+            <TextField fx:id="txtTotalPiezas" editable="false" styleClass="textField" GridPane.columnIndex="3" GridPane.rowIndex="1" />
          </children>
          <VBox.margin>
             <Insets top="10.0" />

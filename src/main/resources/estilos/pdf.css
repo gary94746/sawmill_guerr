@@ -4,11 +4,11 @@
 }
 
 .tree-table-row-cell {
-    -fx-cell-size: 24px !important;
+    -fx-cell-size: 23px !important;
 }
 
 .jfx-tree-table-view .tree-table-cell {
-    -fx-pref-height: 20px;
+    -fx-pref-height: 18px;
 }
 
 .tree-table-view .tree-table-cell {
@@ -25,9 +25,17 @@
     -fx-padding: 2 0 2 0;
 }
 
+.leftAlignment {
+    -fx-alignment: center-left !important;
+}
+
 .label {
     -fx-font-family: "Open Sans Condensed" !important;
     -fx-font-size: 14px;
+}
+
+.textField {
+    -fx-border-color: #329f5b;
 }
 
 .jfx-button {

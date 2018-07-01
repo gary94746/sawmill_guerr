@@ -106,6 +106,10 @@
     -fx-alignment: center;
 }
 
+.leftAlignment {
+    -fx-alignment: center-left !important;
+}
+
 .tree-table-view .column-header {
    -fx-border-color: black !important;
    -fx-border-width: 0.1px;

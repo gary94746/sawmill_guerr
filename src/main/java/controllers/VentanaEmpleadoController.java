@@ -53,8 +53,8 @@ public class VentanaEmpleadoController implements Initializable {
             conexion.establecerConexion();
             var em = new Empleado(
                     EmpleadoController.empleado.getId(),
-                    txtNombre.getText(),
-                    txtApellidos.getText(),
+                    txtNombre.getText().toUpperCase(),
+                    txtApellidos.getText().toUpperCase(),
                     cmbCargo.getValue(),
                     txtUsuario.getText(),
                     txtPass.getText()

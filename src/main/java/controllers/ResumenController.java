@@ -43,10 +43,17 @@ public class ResumenController implements Initializable {
     @FXML private TextField txtRollo;
     @FXML private TextField txtVolA;
     @FXML private TextField txtCofA;
+    @FXML private TextField txtTotalPiezas;
     @FXML private Label lblResumen;
 
+    //static fields
     protected static String texResumen;
     protected static ObservableList<Resumen> list;
+    protected static Double rollo;
+    protected static Double volA;
+    protected static Double coefA;
+    protected static Double totPiezas;
+
     private Conexion conexion = Conexion.getInstance();
 
     @Override
@@ -87,18 +94,21 @@ public class ResumenController implements Initializable {
 
     @FXML
     void buscar(ActionEvent event) {
-        var datePicker1 = date1.getValue().getYear() + "-" + date1.getValue().getMonthValue()+ "-" + date1.getValue().getDayOfMonth();
-        var datePicker2 = date2.getValue().getYear() + "-" + date2.getValue().getMonthValue()+ "-" + date2.getValue().getDayOfMonth();
+        try {
+            var datePicker1 = date1.getValue().getYear() + "-" + date1.getValue().getMonthValue() + "-" + date1.getValue().getDayOfMonth();
+            var datePicker2 = date2.getValue().getYear() + "-" + date2.getValue().getMonthValue() + "-" + date2.getValue().getDayOfMonth();
 
-        lblResumen.setText("Resumen del: " +
-                date1.getValue().getDayOfMonth() + "/" + date1.getValue().getMonthValue()+ "/" + date1.getValue().getYear() + " al: " +
-                date2.getValue().getDayOfMonth() + "/" + date2.getValue().getMonthValue()+ "/" + date2.getValue().getYear()
-        );
+            lblResumen.setText("Resumen del: " +
+                    date1.getValue().getDayOfMonth() + "/" + date1.getValue().getMonthValue() + "/" + date1.getValue().getYear() + " al: " +
+                    date2.getValue().getDayOfMonth() + "/" + date2.getValue().getMonthValue() + "/" + date2.getValue().getYear()
+            );
 
-        loadData(datePicker1, datePicker2);
+            loadData(datePicker1, datePicker2);
 
-        Messages.setMessage("Resumen", "De:" + datePicker1 + " al " + datePicker2, NotificationType.SUCCESS);
-
+            Messages.setMessage("Resumen", "De:" + datePicker1 + " al " + datePicker2, NotificationType.SUCCESS);
+        }catch (NullPointerException e) {
+            Messages.setMessage("Seleccione fechas","No selecciono fechas a filtrar", NotificationType.INFORMATION);
+        }
     }
 
     @FXML
@@ -125,7 +135,6 @@ public class ResumenController implements Initializable {
         conexion.establecerConexion();
         Resumen.get_data(conexion.getConection(), list, datePicker1, datePicker2);
         Resumen.get_data_otros(conexion.getConection(), list, datePicker1, datePicker2);
-        Resumen.get_piezas(conexion.getConection(), list, datePicker1, datePicker2);
         var volRollos = Rollo.getVolumenRollosFecha(conexion.getConection(), datePicker1, datePicker2);
         conexion.cerrarConexion();
 
@@ -143,9 +152,15 @@ public class ResumenController implements Initializable {
 
         //Text Fields Inferiores
         var suma = tPrimera * 0.00236;
-        txtVolA.setText(""+format3Decimals(suma));
+
+        //
+        volA = format3Decimals(suma);
+        rollo = volRollos;
+        coefA = format3Decimals((suma/volRollos)*100);
+
+        txtVolA.setText(""+volA);
         txtRollo.setText(volRollos +"");
-        txtCofA.setText(""+format3Decimals((suma/volRollos)*100));
+        txtCofA.setText(""+coefA);
 
         //  total
         list.add(new Resumen("TOTAL", tPrimera, tSegunda, tTBuena, tTMala, tMCruz, tCuadrado, tViga, tPolin, tTotal));
@@ -162,6 +177,14 @@ public class ResumenController implements Initializable {
                 format3Decimals((tViga/tTotal)*100),
                 format3Decimals((tPolin/tTotal)*100)
         ));
+
+        conexion.establecerConexion();
+        Resumen.get_piezas(conexion.getConection(), list, datePicker1, datePicker2);
+        conexion.cerrarConexion();
+
+        //piezas totales
+        totPiezas = format3Decimals(list.get(list.size()-1).getTotal());
+        txtTotalPiezas.setText(""+ totPiezas);
     }
 
     private void columns() {
@@ -250,6 +273,7 @@ public class ResumenController implements Initializable {
         });
 
         //Operaciones con la tabla
+        clmMedida.getStyleClass().add("leftAlignment");
         treTable.setEditable(false);
         treTable.setShowRoot(false);
         treTable.getColumns().setAll(clmMedida, clmPrimera, clmSegunda, clmTerceraBuena, clmTerceraMala, clmMaderaCruzada, clmCuadrado, clmViga, clmPolin, clmTotal);

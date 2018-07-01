@@ -196,17 +196,19 @@ public class EmpleadoController implements Initializable {
     }
 
     private void eliminar() {
-        value = Action.ELIMINAR;
-        conexion.establecerConexion();
-        var success =Empleado.eliminarEmpleado(conexion.getConection(), val.getId());
-        conexion.cerrarConexion();
+        if (val.getId() != 17) {
+            value = Action.ELIMINAR;
+            conexion.establecerConexion();
+            var success = Empleado.eliminarEmpleado(conexion.getConection(), val.getId());
+            conexion.cerrarConexion();
 
-        if (success == 1) {
-            lista.removeIf(x -> x.getId() == val.getId());
-            Messages.setMessage("Eliminado", "El empleado se elimino", NotificationType.SUCCESS);
+            if (success == 1) {
+                lista.removeIf(x -> x.getId() == val.getId());
+                Messages.setMessage("Eliminado", "El empleado se elimino", NotificationType.SUCCESS);
+            } else
+                Messages.setMessage("No se elimino", "Algo salio mal, intentelo despues", NotificationType.INFORMATION);
         }else
-            Messages.setMessage("No se elimino","Algo salio mal, intentelo despues", NotificationType.INFORMATION);
-
+            Messages.setMessage("No se realizo","No se puede eliminar este empleado", NotificationType.INFORMATION);
     }
 }
 

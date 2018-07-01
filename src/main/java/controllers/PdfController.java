@@ -12,6 +12,7 @@ import javafx.fxml.Initializable;
 import javafx.print.*;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeTableColumn;
 import javafx.scene.layout.HBox;
@@ -35,6 +36,10 @@ public class PdfController implements Initializable {
     @FXML private JFXButton btnImprimir;
     @FXML private HBox boxImprimir;
     @FXML private Label lblResumenFecha;
+    @FXML private TextField txtRollo;
+    @FXML private TextField txtVolA;
+    @FXML private TextField txtCofA;
+    @FXML private TextField txtTotalPiezas;
 
 
 
@@ -42,6 +47,12 @@ public class PdfController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         var date = new SimpleDateFormat("dd-MM-yyyy");
         var hour = new SimpleDateFormat("HH:mm");
+
+        //Text
+        txtRollo.setText(ResumenController.rollo+"");
+        txtVolA.setText(ResumenController.volA+"");
+        txtCofA.setText(ResumenController.coefA+"");
+        txtTotalPiezas.setText(ResumenController.totPiezas+"");
 
         lblFecha.setText(date.format(new Date()));
         lblHora.setText(hour.format(new Date()));
@@ -136,6 +147,7 @@ public class PdfController implements Initializable {
         });
 
         //Operaciones con la tabla
+        clmMedida.getStyleClass().add("leftAlignment");
         treeTable.setEditable(false);
         treeTable.setShowRoot(false);
         treeTable.getColumns().setAll(clmMedida, clmPrimera, clmSegunda, clmTerceraBuena, clmTerceraMala, clmMaderaCruzada, clmCuadrado, clmViga, clmPolin, clmTotal);
@@ -150,7 +162,7 @@ public class PdfController implements Initializable {
 
         Printer printer = Printer.getDefaultPrinter();
         PageLayout pageLayout
-                = printer.createPageLayout(Paper.A4, PageOrientation.LANDSCAPE, Printer.MarginType.HARDWARE_MINIMUM);
+                = printer.createPageLayout(Paper.NA_LETTER, PageOrientation.LANDSCAPE, Printer.MarginType.HARDWARE_MINIMUM);
         PrinterAttributes attr = printer.getPrinterAttributes();
         PrinterJob job = PrinterJob.createPrinterJob();
         double scaleX
