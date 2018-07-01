@@ -164,7 +164,7 @@ public class Rollo extends RecursiveTreeObject<Rollo> {
     public static void historial(Connection connection, ObservableList<Rollo> list, String date) {
         try {
 
-            System.out.println(date);
+            //System.out.println(date);
             var query = "SELECT * FROM rollo where fecha = '" + date + "'::date order by numero";
 
             var statementP = connection.createStatement();

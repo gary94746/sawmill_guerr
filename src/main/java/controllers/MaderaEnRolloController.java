@@ -71,6 +71,8 @@ public class MaderaEnRolloController implements Initializable {
 
         fecha.getEditor().clear();
         fecha.setValue(null);
+
+        Messages.setMessage("Dia actual", "Ahora visualiza la fecha actual", NotificationType.SUCCESS);
     }
 
     @FXML
@@ -97,7 +99,7 @@ public class MaderaEnRolloController implements Initializable {
     void buscarFecha(ActionEvent event) {
         try {
             var datePicker1 = fecha.getValue().getYear() + "-" + fecha.getValue().getMonthValue() + "-" + fecha.getValue().getDayOfMonth();
-            lblTitulo.setText("Historia del: " + fecha.getValue().getDayOfMonth() + "/" + fecha.getValue().getMonth() + "/" + fecha.getValue().getYear()
+            lblTitulo.setText("Registro del: " + fecha.getValue().getDayOfMonth() + "/" + fecha.getValue().getMonth() + "/" + fecha.getValue().getYear()
             );
 
             cargarDatos(datePicker1);
@@ -109,6 +111,9 @@ public class MaderaEnRolloController implements Initializable {
 
             var total = list.parallelStream().mapToDouble(Rollo::getVol).sum();
             volumenTotal.setText(format3Decimals(total) + "");
+
+            Messages.setMessage("Registros", "Ahora visualiza una fecha distinta a la actual", NotificationType.SUCCESS);
+
         } catch (Exception e) {
             Messages.setMessage("Error", "No selecciono una fecha", NotificationType.ERROR);
         }

@@ -195,7 +195,7 @@ public class Tabletas extends RecursiveTreeObject<Tabletas> {
     public static void historial(Connection connection, ObservableList<Tabletas> list, String date) {
         try {
 
-            System.out.println(date);
+           // System.out.println(date);
             var query = "SELECT * FROM tabletas where fecha = '" + date + "'::date order by longitud";
 
             var statementP = connection.createStatement();

@@ -62,6 +62,9 @@ public class MaderaTabletasController implements Initializable {
             calcularPt(cubos, Integer.parseInt(txtPiezas.getText()));
             gruesoAncho(comboGrueso.getSelectionModel().getSelectedItem(), comboAncho.getSelectionModel().getSelectedItem());
             agregarRegistro(null);
+            txtPiezas.setText("");
+            Messages.setMessage("Agregado", "Se han agregado las piezas", NotificationType.SUCCESS);
+
         } catch (NumberFormatException e) {
             //e.printStackTrace();
             Messages.setMessage("Error.", "No se agrego un numero de piezas.", NotificationType.ERROR);
@@ -88,6 +91,9 @@ public class MaderaTabletasController implements Initializable {
 
             comboFiltro.setValue("Todos");
             subTotales();
+
+            Messages.setMessage("Registros", "Ahora visualiza una fecha distinta a la actual", NotificationType.SUCCESS);
+
         } catch (Exception e) {
             Messages.setMessage("Error", "No selecciono una fecha", NotificationType.ERROR);
 
@@ -117,6 +123,8 @@ public class MaderaTabletasController implements Initializable {
         fechaTableta.setValue(null);
         comboFiltro.setValue("Todos");
         subTotales();
+
+        Messages.setMessage("Dia actual", "Ahora visualiza la fecha actual", NotificationType.SUCCESS);
     }
 
     @FXML
@@ -127,6 +135,8 @@ public class MaderaTabletasController implements Initializable {
             Tabletas.eliminarTableta(conexion.getConection(), row);
             conexion.cerrarConexion();
             list.removeIf(x -> x.getId() == row);
+            Messages.setMessage("Se elimino", "La tableta se elimino satisfactoriamente", NotificationType.SUCCESS);
+
         } catch (Exception e) {
             Messages.setMessage("Error", "No se selecciono una fila", NotificationType.ERROR);
         }
@@ -155,8 +165,8 @@ public class MaderaTabletasController implements Initializable {
         list = FXCollections.observableArrayList();
         comboLongitud.getItems().addAll("2", "3", "4", "5", "6", "7");
         comboLongitud.setValue("2");
-        comboGrueso.getItems().addAll("3/4", "1 1/2");
-        comboGrueso.setValue("3/4");
+        comboGrueso.getItems().addAll("3/4\"", "1 1/2\"");
+        comboGrueso.setValue("3/4\"");
         comboAncho.getItems().addAll("4", "6", "8", "10", "12");
         comboAncho.setValue("4");
         comboFiltro.getItems().addAll("Todos", "2", "3", "4", "5", "6", "7");
@@ -284,9 +294,9 @@ public class MaderaTabletasController implements Initializable {
     public void asignarCubicacion(String grueso, double ancho, double longitud) {
         double valorGrueso = 0;
 
-        if (grueso == "3/4") {
+        if (grueso == "3/4\"") {
             valorGrueso = 0.75;
-        } else if (grueso == "1 1/2") {
+        } else if (grueso == "1 1/2\"") {
             valorGrueso = 1.5;
         }
 
