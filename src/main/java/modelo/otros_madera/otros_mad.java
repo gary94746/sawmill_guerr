@@ -41,7 +41,7 @@ public class otros_mad extends RecursiveTreeObject<otros_mad> {
                    "'," + otros.getPieza() + "" +
                    "," + otros.getCubicacion() + "," +
                    otros.getPt() + ");";
-           System.out.println(others_added);
+           //System.out.println(others_added);
 
            var statementP = connection.createStatement();
            var resultSet1 = statementP.executeQuery(others_added);
@@ -72,7 +72,7 @@ public class otros_mad extends RecursiveTreeObject<otros_mad> {
                     "',"+ otros.getPieza()      + "" +
                     "," + otros.getCubicacion() + "," +
                     otros.getPt() + ");";
-            System.out.println(others_added);
+            //System.out.println(others_added);
 
             var statementP = connection.createStatement();
             var resultSet1 = statementP.executeQuery(others_added);
@@ -94,7 +94,7 @@ public class otros_mad extends RecursiveTreeObject<otros_mad> {
     public static void obtenerDatos(Connection connection, ObservableList<otros_mad> list) {
         try {
             var datos = "SELECT * FROM otras where fecha = current_date";
-            System.out.println(datos);
+            //System.out.println(datos);
             var statementP = connection.createStatement();
             var resultSet1 = statementP.executeQuery(datos);
 
@@ -127,9 +127,9 @@ public class otros_mad extends RecursiveTreeObject<otros_mad> {
     public static void historial(Connection connection, ObservableList<otros_mad> list, String date) {
         try {
 
-            System.out.println(date);
+            //System.out.println(date);
             var query = "SELECT * FROM otras where fecha = '" + date + "'::date";
-            System.out.println(query);
+            //System.out.println(query);
             var statementP = connection.createStatement();
             var resultSet1 = statementP.executeQuery(query);
 

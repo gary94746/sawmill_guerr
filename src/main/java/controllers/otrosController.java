@@ -144,7 +144,7 @@ public class otrosController implements Initializable {
         conexion.establecerConexion();
         var newOtros = otros_mad.addOtros(conexion.getConection(),x);
         conexion.cerrarConexion();
-        System.out.println(newOtros==null);
+        //System.out.println(newOtros==null);
         if (newOtros != null) {
            list.add(newOtros);
        }
@@ -204,7 +204,7 @@ public class otrosController implements Initializable {
             valcub=(4*8*16.5)/12;
             var valcub3 = format3Decimals(valcub);
             txtCubicacion.setText(String.valueOf(valcub3));
-        }else if(ComboPz.getSelectionModel().getSelectedItem()=="CUAD 1*1"){
+        }else if(ComboPz.getSelectionModel().getSelectedItem()=="CUAD 1x1"){
             txtCubicacion.setText("0.333");
         }
 
@@ -328,4 +328,5 @@ public class otrosController implements Initializable {
         conexion.cerrarConexion();
         Totales();
     }
+
 }

@@ -310,7 +310,7 @@ public class ControlController implements Initializable {
         conexion.establecerConexion();
         var newOtros = madera_control.addControl(conexion.getConection(),x);
         conexion.cerrarConexion();
-        System.out.println(newOtros==null);
+        //System.out.println(newOtros==null);
         if (newOtros != null) {
             list.add(newOtros);
         }
@@ -425,7 +425,9 @@ public class ControlController implements Initializable {
 
     @FXML
     void ActionPieza(KeyEvent event) {
-
+        if(txtPiezas.getText()==""){
+            txtCubicacion.setText("");
+        }
         if(txtPiezas.getText().equals("")){
             txtPT.setText("0");
         }else{
@@ -450,7 +452,7 @@ public class ControlController implements Initializable {
     @FXML
     void actionFiltroClase(ActionEvent event) {
         if(fecha.getValue() == null) {
-            System.out.println(fecha.getValue());
+            //System.out.println(fecha.getValue());
             llenarTabla();
             Totales();
         }else{
