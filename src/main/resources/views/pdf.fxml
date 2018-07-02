@@ -6,7 +6,6 @@
 <?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.TreeTableView?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -17,7 +16,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox fx:id="vBox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="728.0" prefWidth="1001.0" style="-fx-background-color: white;" stylesheets="@../estilos/pdf.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.PdfController">
+<VBox fx:id="vBox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="793.0" prefWidth="1001.0" style="-fx-background-color: white;" stylesheets="@../estilos/pdf.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.PdfController">
    <children>
       <HBox fx:id="boxImprimir" alignment="CENTER_RIGHT" prefHeight="34.0" prefWidth="981.0">
          <children>
@@ -31,9 +30,9 @@
             </JFXButton>
          </children>
       </HBox>
-      <HBox prefHeight="123.0" prefWidth="981.0">
+      <HBox prefHeight="106.0" prefWidth="961.0">
          <children>
-            <ImageView fitHeight="146.0" fitWidth="177.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="112.0" fitWidth="171.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../images/60c83449-dd46-44df-9384-0713810ea1c3.jpeg" />
                </image>
@@ -69,7 +68,7 @@
             </HBox>
          </children>
       </HBox>
-      <JFXTreeTableView fx:id="treeTable" editable="true" prefHeight="423.0" prefWidth="981.0" VBox.vgrow="SOMETIMES">
+      <JFXTreeTableView fx:id="treeTable" editable="true" prefHeight="443.0" prefWidth="951.0" VBox.vgrow="SOMETIMES">
          <VBox.margin>
             <Insets />
          </VBox.margin>
@@ -77,12 +76,12 @@
             <TreeTableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </JFXTreeTableView>
-      <GridPane hgap="20.0" vgap="5.0" VBox.vgrow="ALWAYS">
+      <GridPane hgap="20.0" prefHeight="20.0" prefWidth="981.0" vgap="5.0" VBox.vgrow="SOMETIMES">
          <columnConstraints>
             <ColumnConstraints halignment="RIGHT" hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints fillWidth="false" halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints fillWidth="false" halignment="LEFT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             <ColumnConstraints fillWidth="false" halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="150.0" />
-            <ColumnConstraints fillWidth="false" halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints fillWidth="false" halignment="LEFT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
          </columnConstraints>
          <rowConstraints>
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -107,16 +106,16 @@
                   <String fx:value="labelResult" />
                </styleClass>
             </Label>
-            <TextField fx:id="txtRollo" editable="false" styleClass="textField" GridPane.columnIndex="1" />
-            <TextField fx:id="txtVolA" editable="false" styleClass="textField" GridPane.columnIndex="3" />
-            <TextField fx:id="txtCofA" editable="false" styleClass="textField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <Label text="Total Piezas:" GridPane.columnIndex="2" GridPane.rowIndex="1">
                <styleClass>
                   <String fx:value="labelResumen" />
                   <String fx:value="labelResult" />
                </styleClass>
             </Label>
-            <TextField fx:id="txtTotalPiezas" editable="false" styleClass="textField" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+            <Label fx:id="txtRollo" text="Label" GridPane.columnIndex="1" />
+            <Label fx:id="txtCofA" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Label fx:id="txtVolA" text="Label" GridPane.columnIndex="3" />
+            <Label fx:id="txtTotalPiezas" text="Label" GridPane.columnIndex="3" GridPane.rowIndex="1" />
          </children>
          <VBox.margin>
             <Insets top="5.0" />
@@ -158,6 +157,6 @@
       </VBox>
    </children>
    <padding>
-      <Insets bottom="2.0" left="10.0" right="10.0" top="10.0" />
+      <Insets bottom="2.0" left="25.0" right="25.0" top="2.0" />
    </padding>
 </VBox>

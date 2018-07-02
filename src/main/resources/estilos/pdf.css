@@ -4,11 +4,11 @@
 }
 
 .tree-table-row-cell {
-    -fx-cell-size: 23px !important;
+    -fx-cell-size: 22px !important;
 }
 
 .jfx-tree-table-view .tree-table-cell {
-    -fx-pref-height: 18px;
+    -fx-pref-height: 16px;
 }
 
 .tree-table-view .tree-table-cell {
@@ -31,11 +31,7 @@
 
 .label {
     -fx-font-family: "Open Sans Condensed" !important;
-    -fx-font-size: 14px;
-}
-
-.textField {
-    -fx-border-color: #329f5b;
+    -fx-font-size: 13px;
 }
 
 .jfx-button {

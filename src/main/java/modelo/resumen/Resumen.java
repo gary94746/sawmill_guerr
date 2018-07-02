@@ -412,6 +412,8 @@ public class Resumen extends RecursiveTreeObject<Resumen> {
             r3.setMedida("BAR 2X4");
             var r4 = new Resumen();
             r4.setMedida("BAR 1.5X3.5");
+            var r9 = new Resumen();
+            r9.setMedida("CUAD 1x1");
             var r5 = new Resumen();
             r5.setMedida("VIGA 4x4");
             var r6 = new Resumen();
@@ -460,6 +462,12 @@ public class Resumen extends RecursiveTreeObject<Resumen> {
 
                         r4.setTotal(r4.getTotalSum());
                         break;
+                    case "CUAD 1x1":
+                        if (r9.getCuadrado() == 0.000)
+                            r9.setCuadrado((x.getClase().equals("CUAD 1x1")) ? x.getTotal() : 0.000);
+
+                        r9.setTotal(r9.getTotalSum());
+                        break;
                     case "VIGA 4x4":
                         if (r5.getViga() == 0.000)
                             r5.setViga((x.getClase().equals("VIGA 4x4")) ? x.getTotal() : 0.000);
@@ -481,7 +489,7 @@ public class Resumen extends RecursiveTreeObject<Resumen> {
                 }
             });
 
-            lista.addAll(r1,r2,r8,r3,r4,r5,r6,r7);
+            lista.addAll(r1,r2,r8,r3,r4,r9,r5,r6,r7);
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -546,6 +554,9 @@ public class Resumen extends RecursiveTreeObject<Resumen> {
                         r1.setViga(r1.getViga() + x.getPiezas());
                         break;
                     case "BA":
+                        r1.setCuadrado(r1.getCuadrado() + x.getPiezas());
+                        break;
+                    case "CU":
                         r1.setCuadrado(r1.getCuadrado() + x.getPiezas());
                         break;
                 }

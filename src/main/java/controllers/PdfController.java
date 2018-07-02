@@ -36,10 +36,10 @@ public class PdfController implements Initializable {
     @FXML private JFXButton btnImprimir;
     @FXML private HBox boxImprimir;
     @FXML private Label lblResumenFecha;
-    @FXML private TextField txtRollo;
-    @FXML private TextField txtVolA;
-    @FXML private TextField txtCofA;
-    @FXML private TextField txtTotalPiezas;
+    @FXML private Label txtRollo;
+    @FXML private Label txtVolA;
+    @FXML private Label txtCofA;
+    @FXML private Label txtTotalPiezas;
 
 
 
@@ -147,6 +147,7 @@ public class PdfController implements Initializable {
         });
 
         //Operaciones con la tabla
+        clmMedida.setMinWidth(22);
         clmMedida.getStyleClass().add("leftAlignment");
         treeTable.setEditable(false);
         treeTable.setShowRoot(false);
