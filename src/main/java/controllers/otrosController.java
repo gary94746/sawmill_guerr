@@ -74,7 +74,7 @@ public class otrosController implements Initializable {
         restablecer.setTooltip(new Tooltip("Regrese al dia actual"));
         txtPieza.addEventFilter(KeyEvent.ANY, handler.onlyNumbers());
 
-        //fechaOtros.setEditable(false);
+        fechaOtros.setEditable(false);
         columns();
         Totales();
     }
