@@ -10,10 +10,13 @@ import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.VBox;
 import modelo.Conexion;
 import modelo.rollo.Rollo;
 import tray.notification.NotificationType;
@@ -27,8 +30,10 @@ import java.util.ResourceBundle;
 
 public class MaderaEnRolloController implements Initializable {
 
+    @FXML private VBox panel;
     @FXML private JFXTextField txtD1;
     @FXML private JFXTextField txtD2;
+    @FXML private JFXComboBox <String> comboTamaño;
     @FXML private JFXTextField volumenTotal;
     @FXML private JFXDatePicker fecha;
     @FXML private JFXButton botonAgregar;
@@ -40,6 +45,11 @@ public class MaderaEnRolloController implements Initializable {
 
     private ObservableList<Rollo> list;
     private Conexion conexion = Conexion.getInstance();
+
+    @FXML
+    void entradaAgregar(KeyEvent event) {
+
+    }
 
     @FXML
     void agregaRollo(ActionEvent event) {
@@ -63,6 +73,8 @@ public class MaderaEnRolloController implements Initializable {
         txtD2.setDisable(false);
         botonAgregar.setDisable(false);
         botonEliminar.setDisable(false);
+        comboTamaño.setDisable(false);
+
 
         var total = list.parallelStream().mapToDouble(Rollo::getVol).sum();
         volumenTotal.setText(format3Decimals(total) + "");
@@ -108,6 +120,7 @@ public class MaderaEnRolloController implements Initializable {
             txtD1.setDisable(true);
             botonAgregar.setDisable(true);
             botonEliminar.setDisable(true);
+            comboTamaño.setDisable(true);
 
             var total = list.parallelStream().mapToDouble(Rollo::getVol).sum();
             volumenTotal.setText(format3Decimals(total) + "");
@@ -136,6 +149,8 @@ public class MaderaEnRolloController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         list = FXCollections.observableArrayList();
+        comboTamaño.getItems().addAll("8\" 1/4", "16\" 1/2");
+        comboTamaño.setValue("8\" 1/4");
         columnas();
         conexion.establecerConexion();
         Rollo.obtenerDatos(conexion.getConection(), list);
@@ -149,6 +164,17 @@ public class MaderaEnRolloController implements Initializable {
         botonBuscar.setTooltip(new Tooltip("Buscar"));
         botonEliminar.setTooltip(new Tooltip("Eliminar"));
         botonFechaActual.setTooltip(new Tooltip("Regrese al dia actual"));
+
+        panel.addEventHandler(KeyEvent.ANY, x -> {
+            if (x.getCode().getCode() == 10) {
+                agregarRegistro();
+                txtD1.setText("");
+                txtD2.setText("");
+
+                var total1 = list.parallelStream().mapToDouble(Rollo::getVol).sum();
+                volumenTotal.setText(format3Decimals(total1) + "");
+            }
+        });
     }
 
     private void columnas() {
@@ -200,6 +226,17 @@ public class MaderaEnRolloController implements Initializable {
                 return diametropromedio.getComputedValue(param);
         });
 
+        // Columna de tamaño.
+        JFXTreeTableColumn<Rollo, String> tamanio = new JFXTreeTableColumn<>("Tamaño");
+        tamanio.setEditable(false);
+
+        tamanio.setCellValueFactory((TreeTableColumn.CellDataFeatures<Rollo, String> param) -> {
+            if (tamanio.validateValue(param))
+                return param.getValue().getValue().tamProperty();
+            else
+                return tamanio.getComputedValue(param);
+        });
+
         // Columna de volumen.
         JFXTreeTableColumn<Rollo, Double> volumen = new JFXTreeTableColumn<>("Volumen");
         volumen.setEditable(false);
@@ -214,13 +251,22 @@ public class MaderaEnRolloController implements Initializable {
         //Operaciones con la tabla
         tabla1.setEditable(false);
         tabla1.setShowRoot(false);
-        tabla1.getColumns().setAll(numero, diametro1, diametro2, diametropromedio, volumen);
+        tabla1.getColumns().setAll(numero, diametro1, diametro2, diametropromedio, tamanio, volumen);
     }
 
     public void agregarRegistro(){
+        String combito = comboTamaño.getSelectionModel().getSelectedItem();
+        double valorTam = 0;
+
+        if (combito == "8\" 1/4"){
+            valorTam = 8.25;
+        } else if (combito == "16\" 1/2"){
+            valorTam = 16.5;
+        }
+
         try {
             conexion.establecerConexion();
-            var newRollo = Rollo.addRollo(conexion.getConection(), Double.parseDouble(txtD1.getText()), Double.parseDouble(txtD2.getText()));
+            var newRollo = Rollo.addRollo(conexion.getConection(), Double.parseDouble(txtD1.getText()), Double.parseDouble(txtD2.getText()), valorTam);
 
             conexion.cerrarConexion();
             if (newRollo != null) {

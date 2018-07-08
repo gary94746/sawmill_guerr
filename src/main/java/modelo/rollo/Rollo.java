@@ -1,10 +1,7 @@
 package modelo.rollo;
 
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleDoubleProperty;
-import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.*;
 import javafx.collections.ObservableList;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -16,6 +13,7 @@ public class Rollo extends RecursiveTreeObject<Rollo> {
     private DoubleProperty d1;
     private DoubleProperty d2;
     private DoubleProperty dt;
+    private StringProperty tam;
     private DoubleProperty vol;
 
     public Rollo(int id, int num, double d1, double d2, double dt, double vol) {
@@ -33,6 +31,28 @@ public class Rollo extends RecursiveTreeObject<Rollo> {
         this.d2 = new SimpleDoubleProperty(d2);
         this.dt = new SimpleDoubleProperty(dt);
         this.vol = new SimpleDoubleProperty(vol);
+    }
+
+    public Rollo(int id, int num, double d1, double d2, double dt, String tam, double vol) {
+        this.id = new SimpleIntegerProperty(id);
+        this.num = new SimpleIntegerProperty(num);
+        this.d1 = new SimpleDoubleProperty(d1);
+        this.d2 = new SimpleDoubleProperty(d2);
+        this.dt = new SimpleDoubleProperty(dt);
+        this.tam = new SimpleStringProperty(tam);
+        this.vol = new SimpleDoubleProperty(vol);
+    }
+
+    public String getTam() {
+        return tam.get();
+    }
+
+    public StringProperty tamProperty() {
+        return tam;
+    }
+
+    public void setTam(String tam) {
+        this.tam.set(tam);
     }
 
     public int getId() {
@@ -120,9 +140,9 @@ public class Rollo extends RecursiveTreeObject<Rollo> {
         return -1.0;
     }
 
-    public static Rollo addRollo(Connection connection, double diametro1, double diametro2) {
+    public static Rollo addRollo(Connection connection, double diametro1, double diametro2, double tamanio) {
         try {
-            var roll_added = "SELECT * FROM add_rollos("+ diametro1 + "," + diametro2 + ")";
+            var roll_added = "SELECT * FROM add_rollos("+ diametro1 + "," + diametro2 + "," + tamanio + ")";
 
             var statementP = connection.createStatement();
             var resultSet1 = statementP.executeQuery(roll_added);
@@ -134,6 +154,7 @@ public class Rollo extends RecursiveTreeObject<Rollo> {
                         resultSet1.getInt("diametro1"),
                         resultSet1.getDouble("diametro2"),
                         resultSet1.getDouble("diametro_promedio"),
+                        resultSet1.getString("tamanio"),
                         resultSet1.getDouble("volumen")
                 );
 
@@ -153,7 +174,7 @@ public class Rollo extends RecursiveTreeObject<Rollo> {
 
             while (resultSet1.next()) {
                 list.add(new Rollo(resultSet1.getInt("id"), resultSet1.getInt("numero"),  resultSet1.getInt("diametro1"), resultSet1.getDouble("diametro2"),
-                        resultSet1.getDouble("diametro_promedio"), resultSet1.getDouble("volumen")));
+                        resultSet1.getDouble("diametro_promedio"),resultSet1.getString("tamanio"), resultSet1.getDouble("volumen")));
             }
 
         }catch (Exception e){
@@ -172,7 +193,7 @@ public class Rollo extends RecursiveTreeObject<Rollo> {
 
             while (resultSet1.next()) {
                 list.add(new Rollo(resultSet1.getInt("id"), resultSet1.getInt("numero"),  resultSet1.getInt("diametro1"), resultSet1.getDouble("diametro2"),
-                        resultSet1.getDouble("diametro_promedio"), resultSet1.getDouble("volumen")));
+                        resultSet1.getDouble("diametro_promedio"),resultSet1.getString("tamanio"), resultSet1.getDouble("volumen")));
             }
 
         } catch (SQLException e) {
