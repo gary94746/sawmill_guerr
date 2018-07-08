@@ -25,8 +25,6 @@ public class LoginController {
 
     @FXML
     void login(ActionEvent event) throws IOException {
-        txtUser.setText("martin09");
-        txtPass.setText("485519w");
         //Close login stage
         var loginStage = (Stage)((Node) event.getSource()).getScene().getWindow();
 

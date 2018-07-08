@@ -1,11 +1,10 @@
 package controllers;
 
-import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXTreeTableColumn;
-import com.jfoenix.controls.JFXTreeTableView;
-import com.jfoenix.controls.RecursiveTreeItem;
+import com.jfoenix.controls.*;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import controllers.utils.Messages;
+import javafx.beans.binding.Bindings;
+import javafx.beans.binding.BooleanBinding;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -59,6 +58,20 @@ public class PdfController implements Initializable {
         lblResumenFecha.setText(ResumenController.texResumen);
 
         columns();
+
+        treeTable.setRowFactory(c -> {
+            JFXTreeTableRow<Resumen> row = new JFXTreeTableRow<>();
+
+            BooleanBinding critical = row.itemProperty().isEqualTo(ResumenController.list.get(ResumenController.list.size()-3))
+                    .or(row.itemProperty().isEqualTo(ResumenController.list.get(ResumenController.list.size()-2)))
+                    .or(row.itemProperty().isEqualTo(ResumenController.list.get(ResumenController.list.size()-1)));
+
+            row.styleProperty().bind(Bindings.when(critical)
+                    .then("-fx-background-color: #8BB5C3 !important;")
+                    .otherwise(""));
+
+            return row ;
+        });
     }
 
     private void columns() {
