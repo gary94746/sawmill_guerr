@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXDatePicker?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import com.jfoenix.controls.JFXTreeTableView?>
@@ -13,7 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="588.0" prefWidth="754.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.MaderaEnRolloController">
+<VBox fx:id="panel" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="588.0" prefWidth="924.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.MaderaEnRolloController">
    <children>
       <Label fx:id="lblTitulo" stylesheets="@../estilos/dashboard.css" text="Control de transformacion de madera en rollo." wrapText="true">
          <VBox.margin>
@@ -47,7 +48,17 @@
                <HBox.margin>
                   <Insets left="2.0" />
                </HBox.margin></JFXTextField>
-            <JFXButton fx:id="botonAgregar" contentDisplay="CENTER" onAction="#agregaRollo" prefHeight="25.0" prefWidth="14.0" style="-fx-background-color: #916b47;" text="." textAlignment="JUSTIFY" textFill="WHITE">
+            <Label contentDisplay="RIGHT" layoutX="184.0" layoutY="22.0" text="Longitud: ">
+               <HBox.margin>
+                  <Insets left="10.0" />
+               </HBox.margin>
+            </Label>
+            <JFXComboBox fx:id="comboTamaño" prefHeight="25.0" prefWidth="100.0">
+               <HBox.margin>
+                  <Insets left="2.0" />
+               </HBox.margin>
+            </JFXComboBox>
+            <JFXButton fx:id="botonAgregar" contentDisplay="CENTER" onAction="#agregaRollo" onKeyReleased="#entradaAgregar" prefHeight="25.0" prefWidth="14.0" style="-fx-background-color: #916b47;" text="." textAlignment="JUSTIFY" textFill="WHITE">
                <HBox.margin>
                   <Insets left="30.0" />
                </HBox.margin>
@@ -66,6 +77,13 @@
                   <Insets left="10.0" />
                </HBox.margin>
             </JFXButton>
+         </children>
+         <VBox.margin>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="30.0" />
+         </VBox.margin>
+      </HBox>
+      <HBox alignment="CENTER" prefHeight="47.0" prefWidth="924.0">
+         <children>
             <Label text="Fecha:">
                <HBox.margin>
                   <Insets left="30.0" />
@@ -81,7 +99,7 @@
                   <FontAwesomeIconView fill="WHITE" glyphName="SEARCH" size="14" />
                </graphic>
             </JFXButton>
-            <JFXButton fx:id="botonFechaActual" contentDisplay="CENTER" layoutX="706.0" layoutY="18.0" onAction="#returnFecha" prefHeight="25.0" prefWidth="14.0" style="-fx-background-color: #916b47;" text="." textAlignment="JUSTIFY" textFill="WHITE">
+            <JFXButton fx:id="botonFechaActual" contentDisplay="CENTER" onAction="#returnFecha" prefHeight="25.0" prefWidth="14.0" style="-fx-background-color: #916b47;" text="." textAlignment="JUSTIFY" textFill="WHITE">
                <graphic>
                   <FontAwesomeIconView fill="WHITE" glyphName="ARROW_DOWN" size="14" />
                </graphic>
@@ -90,9 +108,6 @@
                </HBox.margin>
             </JFXButton>
          </children>
-         <VBox.margin>
-            <Insets bottom="10.0" left="10.0" right="10.0" top="30.0" />
-         </VBox.margin>
       </HBox>
       <JFXTreeTableView fx:id="tabla1" VBox.vgrow="ALWAYS">
          <VBox.margin>
