@@ -3,9 +3,12 @@ package controllers;
 import com.jfoenix.controls.*;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import controllers.utils.Messages;
+import javafx.beans.binding.Bindings;
+import javafx.beans.binding.BooleanBinding;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -89,8 +92,22 @@ public class ResumenController implements Initializable {
         lblResumen.setText("Resumen del: " + dateFormat.format(new Date()));
         loadData(dateFormat1.format(new Date()),dateFormat1.format(new Date()));
         Messages.setMessage("Resumen actual", "Se muestra el resumen actual", NotificationType.SUCCESS);
-    }
 
+        treTable.setRowFactory(c -> {
+            JFXTreeTableRow<Resumen> row = new JFXTreeTableRow<>();
+
+            BooleanBinding critical = row.itemProperty().isEqualTo(list.get(list.size()-3))
+                    .or(row.itemProperty().isEqualTo(list.get(list.size()-2)))
+                    .or(row.itemProperty().isEqualTo(list.get(list.size()-1)));
+
+            row.styleProperty().bind(Bindings.when(critical)
+                    .then("-fx-background-color: #8BB5C3 !important;")
+                    .otherwise(""));
+
+            return row ;
+        });
+
+    }
 
     @FXML
     void buscar(ActionEvent event) {
@@ -108,6 +125,20 @@ public class ResumenController implements Initializable {
             Messages.setMessage("Resumen", "De:" + datePicker1 + " al " + datePicker2, NotificationType.SUCCESS);
         }catch (NullPointerException e) {
             Messages.setMessage("Seleccione fechas","No selecciono fechas a filtrar", NotificationType.INFORMATION);
+        }finally {
+            treTable.setRowFactory(c -> {
+                JFXTreeTableRow<Resumen> row = new JFXTreeTableRow<>();
+
+                BooleanBinding critical = row.itemProperty().isEqualTo(list.get(list.size()-3))
+                        .or(row.itemProperty().isEqualTo(list.get(list.size()-2)))
+                        .or(row.itemProperty().isEqualTo(list.get(list.size()-1)));
+
+                row.styleProperty().bind(Bindings.when(critical)
+                        .then("-fx-background-color: #8BB5C3 !important;")
+                        .otherwise(""));
+
+                return row ;
+            });
         }
     }
 
@@ -120,7 +151,7 @@ public class ResumenController implements Initializable {
         stage.getIcons().add(new Image(getClass().getResourceAsStream("/images/servicio02.png")));
         stage.setTitle("Impresion");
         stage.setResizable(false);
-        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.initModality(Modality.WINDOW_MODAL);
         stage.show();
     }
 
@@ -151,7 +182,7 @@ public class ResumenController implements Initializable {
 
 
         //Text Fields Inferiores
-        var suma = tPrimera * 0.00236;
+        var suma = tTotal * 0.00236;
 
         //
         volA = format3Decimals(suma);
@@ -185,6 +216,21 @@ public class ResumenController implements Initializable {
         //piezas totales
         totPiezas = format3Decimals(list.get(list.size()-1).getTotal());
         txtTotalPiezas.setText(""+ totPiezas);
+
+        treTable.setRowFactory(c -> {
+            JFXTreeTableRow<Resumen> row = new JFXTreeTableRow<>();
+
+            BooleanBinding critical = row.itemProperty().isEqualTo(list.get(list.size()-3))
+                    .or(row.itemProperty().isEqualTo(list.get(list.size()-2)))
+                    .or(row.itemProperty().isEqualTo(list.get(list.size()-1)));
+
+            row.styleProperty().bind(Bindings.when(critical)
+                    .then("-fx-background-color: #8BB5C3 !important;")
+                    .otherwise(""));
+
+            return row ;
+        });
+
     }
 
     private void columns() {
