@@ -243,30 +243,60 @@ public class ControlController implements Initializable {
     double var;
     public void calCubicacion() {
         //comboLargo.getItems().addAll("3/4\"","16 1/2\"");
+
+
         if(comboLargo.getSelectionModel().getSelectedItem()=="8 1/4\""){
 
-            var=(comboGr.getSelectionModel().getSelectedItem() == "3/4\"")?.75 : 1.5;
-
-              if (comboGr.getSelectionModel().getSelectedItem() == "2\"") {var = 2;}
-
             if (comboAnc.getSelectionModel().getSelectedItem() == "4") {
-                valcub = 2.062;
+
+                if (comboGr.getSelectionModel().getSelectedItem() == "3/4\"") {
+                    valcub = 2.062;
+                }else if(comboGr.getSelectionModel().getSelectedItem() == "1 1/2\""){
+                    valcub =4.125;
+                }else if (comboGr.getSelectionModel().getSelectedItem() == "2\""){
+                    valcub =5.500;
+                }
                 txtCubicacion.setText(String.valueOf(valcub));
             } else if (comboAnc.getSelectionModel().getSelectedItem() == "6") {
-                valcub = 3.093;
+                if (comboGr.getSelectionModel().getSelectedItem() == "3/4\"") {
+                    valcub = 3.093;
+                }else if(comboGr.getSelectionModel().getSelectedItem() == "1 1/2\""){
+                    valcub =6.187;
+                }else if (comboGr.getSelectionModel().getSelectedItem() == "2\""){
+                    valcub =8.250;
+                }
                 txtCubicacion.setText(String.valueOf(valcub));
             } else if (comboAnc.getSelectionModel().getSelectedItem() == "8") {
-                valcub = 4.125;
+                if (comboGr.getSelectionModel().getSelectedItem() == "3/4\"") {
+                    valcub = 4.125;
+                }else if(comboGr.getSelectionModel().getSelectedItem() == "1 1/2\""){
+                    valcub =8.250;
+                }else if (comboGr.getSelectionModel().getSelectedItem() == "2\""){
+                    valcub =11.000;
+                }
                 txtCubicacion.setText(String.valueOf(valcub));
             } else if (comboAnc.getSelectionModel().getSelectedItem() == "10") {
-                valcub = 5.156;
+                if (comboGr.getSelectionModel().getSelectedItem() == "3/4\"") {
+                    valcub = 5.156;
+                }else if(comboGr.getSelectionModel().getSelectedItem() == "1 1/2\""){
+                    valcub =10.312;
+                }else if (comboGr.getSelectionModel().getSelectedItem() == "2\""){
+                    valcub =13.750;
+                }
                 txtCubicacion.setText(String.valueOf(valcub));
             } else if (comboAnc.getSelectionModel().getSelectedItem() == "12") {
-                valcub = 6.187;
+                if (comboGr.getSelectionModel().getSelectedItem() == "3/4\"") {
+                    valcub = 6.187;
+                }else if(comboGr.getSelectionModel().getSelectedItem() == "1 1/2\""){
+                    valcub =12.375;
+                }else if (comboGr.getSelectionModel().getSelectedItem() == "2\""){
+                    valcub =16.500;
+                }
                 txtCubicacion.setText(String.valueOf(valcub));
             }
 
      }else{
+            System.out.println("Calcular cubicaciones 2");
             calCubicacion2();
         }
 
