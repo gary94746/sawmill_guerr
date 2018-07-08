@@ -37,6 +37,7 @@ public class otrosController implements Initializable {
     @FXML private JFXButton btnDelete;
     @FXML private JFXButton historial;
     @FXML private JFXButton restablecer;
+    @FXML private VBox VboxOtros;
     private Validators handler = new Validators();
 
 
@@ -75,6 +76,14 @@ public class otrosController implements Initializable {
         txtPieza.addEventFilter(KeyEvent.ANY, handler.onlyNumbers());
 
         fechaOtros.setEditable(false);
+        VboxOtros.addEventHandler(KeyEvent.ANY,x->{
+                    if(x.getCode().getCode()==10){
+                        agregarOtros();
+                    }
+                }
+        );
+
+
         columns();
         Totales();
     }
@@ -282,6 +291,10 @@ public class otrosController implements Initializable {
 
     @FXML
     void addOtros(ActionEvent event) {
+        agregarOtros();
+    }
+
+    public void agregarOtros(){
         try {
             agregarRegistro(new otros_mad(ComboPz.getSelectionModel().getSelectedItem(),
                     Integer.parseInt(txtPieza.getText()), Double.parseDouble(txtCubicacion.getText()),

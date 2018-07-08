@@ -20,6 +20,7 @@ import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeTableColumn;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import modelo.Conexion;
@@ -55,6 +56,7 @@ public class ControlController implements Initializable {
     @FXML private JFXButton btnDelete;
     @FXML private JFXButton historial;
     @FXML private JFXButton restablecer;
+    @FXML private VBox VboxControl;
 
     private Validators handler = new Validators();
 
@@ -111,6 +113,16 @@ public class ControlController implements Initializable {
         restablecer.setTooltip(new Tooltip("Regrese al dia actual"));
         fecha.setEditable(false);
         fecha.setValue(null);
+
+        VboxControl.addEventHandler(KeyEvent.ANY,x->{
+            if(x.getCode().getCode()==10){
+                AgregarContro();
+            }
+
+                }
+
+
+        );
 
         llenarTabla();
         columns();
@@ -428,6 +440,11 @@ public class ControlController implements Initializable {
 
     @FXML
     void addControl(ActionEvent event) {
+        AgregarContro();
+
+    }
+
+    public void AgregarContro(){
         try {
             agregarRegistro(new madera_control(comboGr.getSelectionModel().getSelectedItem(),
                     comboAnc.getSelectionModel().getSelectedItem(), comboClase.getSelectionModel().getSelectedItem(),
@@ -440,9 +457,9 @@ public class ControlController implements Initializable {
             Messages.setMessage("Agregado", "El registro se a agregado exitosamente", NotificationType.SUCCESS);
 
 
-        }catch (NumberFormatException e){
-        Messages.setMessage("Error.", "No se agrego numero de piezas.", NotificationType.ERROR);
-     }
+        }catch (Exception e){
+            Messages.setMessage("Error.", "No se agrego numero de piezas.", NotificationType.ERROR);
+        }
 
     }
 
@@ -569,5 +586,9 @@ public class ControlController implements Initializable {
         }catch (Exception e){}
 
     }
+
+
+
+
 
 }

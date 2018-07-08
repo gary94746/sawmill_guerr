@@ -17,7 +17,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="499.0" prefWidth="774.0" style="-fx-background-color: white;" stylesheets="@../estilos/dashboard.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.otrosController">
+<VBox fx:id="VboxOtros" minHeight="-Infinity" minWidth="-Infinity" prefHeight="499.0" prefWidth="774.0" style="-fx-background-color: white;" stylesheets="@../estilos/dashboard.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.otrosController">
    <children>
       <GridPane>
         <columnConstraints>
