@@ -1,0 +1,39 @@
+.imagePane {
+    -fx-background-image: url("/images/background.jpeg");
+    -fx-background-size: stretch;
+}
+
+.labelCursiva {
+    -fx-weight: bold;
+    -fx-text-fill: white;
+    -fx-font-family: Sacramento;
+    -fx-font-size: 70px;
+}
+
+.labelSub {
+    -fx-font-size: 25px !important;
+    -fx-font-family: "Open Sans Condensed Light" !important;
+    -fx-text-fill: white;
+}
+
+.title {
+    -fx-font-size: 25px !important;
+    -fx-font-family: "Open Sans Condensed" !important;
+    -fx-text-fill: gray;
+    -fx-weight: bold;
+}
+
+.jfx-button {
+    -fx-background-color: #009931;
+    -fx-text-fill: white;
+    -fx-text-font-family: "Open Sans Condensed" !important;
+    -fx-border-color: #009931;
+    -fx-font-weight: bold;
+}
+
+.jfx-text-field, .jfx-password-field {
+    -fx-prompt-text-fill: #009931;
+    -jfx-focus-color: #009931;
+    -jfx-unfocus-color: #a38171;
+    -fx-text-fill: #009931;
+}

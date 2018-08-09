@@ -18,6 +18,7 @@ import javafx.scene.control.TreeTableColumn;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import modelo.Conexion;
@@ -41,6 +42,7 @@ public class MaderaTabletasController implements Initializable {
     public static Extra subtotales;
     public static Double totalFinal;
 
+    @FXML private VBox panelito;
     @FXML private JFXTreeTableView<Tabletas> tabla2;
     @FXML private JFXComboBox<String> comboLongitud;
     @FXML private JFXComboBox<String> comboFiltro;
@@ -185,6 +187,23 @@ public class MaderaTabletasController implements Initializable {
         btnEliminar.setTooltip(new Tooltip("Eliminar"));
         btnRegreso.setTooltip(new Tooltip("Regrese al dia actual"));
         btnSubtotales.setTooltip(new Tooltip("Despliega los subtotales"));
+
+        panelito.addEventHandler(KeyEvent.ANY, x -> {
+            if (x.getCode().getCode() == 10) {
+                try {
+                    asignarCubicacion(comboGrueso.getSelectionModel().getSelectedItem(), Double.parseDouble(comboAncho.getSelectionModel().getSelectedItem()), Double.parseDouble(comboLongitud.getSelectionModel().getSelectedItem()));
+                    calcularPt(cubos, Integer.parseInt(txtPiezas.getText()));
+                    gruesoAncho(comboGrueso.getSelectionModel().getSelectedItem(), comboAncho.getSelectionModel().getSelectedItem());
+                    agregarRegistro(null);
+                    txtPiezas.setText("");
+                    Messages.setMessage("Agregado", "Se han agregado las piezas", NotificationType.SUCCESS);
+
+                } catch (NumberFormatException e) {
+                    //e.printStackTrace();
+                    Messages.setMessage("Error.", "No se agrego un numero de piezas.", NotificationType.ERROR);
+                }
+            }
+        });
 
         subTotales();
     }

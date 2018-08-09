@@ -1,0 +1,41 @@
+.tree-table-cell {
+    -fx-border-color: black !important;
+    -fx-border-width: 0.1px;
+}
+
+.tree-table-row-cell {
+    -fx-cell-size: 22px !important;
+}
+
+.jfx-tree-table-view .tree-table-cell {
+    -fx-pref-height: 16px;
+}
+
+.tree-table-view .tree-table-cell {
+    -fx-alignment: center;
+}
+
+.tree-table-view .column-header {
+   -fx-border-color: black !important;
+   -fx-border-width: 0.1px;
+}
+
+.tree-table-view .column-header .label {
+    -fx-text-fill: black;
+    -fx-padding: 2 0 2 0;
+}
+
+.leftAlignment {
+    -fx-alignment: center-left !important;
+}
+
+.label {
+    -fx-font-family: "Open Sans Condensed" !important;
+    -fx-font-size: 13px;
+}
+
+.jfx-button {
+    -jfx-button-type: RAISED;
+    -fx-background-color: #009931 !important;
+    -fx-text-fill: white;
+}

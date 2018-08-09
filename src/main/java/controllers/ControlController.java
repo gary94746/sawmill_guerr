@@ -69,6 +69,14 @@ public class ControlController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        //txtPiezas.addEventFilter(KeyEvent.ANY, handler.onlyNumbers());
+
+        VboxControl.addEventHandler(KeyEvent.ANY, x -> {
+            if(x.getCode().getCode() == 10){
+                AgregarContro();
+            }
+        });
+
         //Customizacion de componentes
         FiltrarGrueso.getItems().addAll("3/4\"", "1 1/2\"", "2\"");
         FiltrarGrueso.setValue("3/4\"");
@@ -91,8 +99,6 @@ public class ControlController implements Initializable {
         FiltrarLargo.getItems().addAll("8 1/4\"","16 1/2\"");
         FiltrarLargo.setValue("8 1/4\"");
 
-        txtPiezas.addEventFilter(KeyEvent.ANY, handler.onlyNumbers());
-
 
         valcub=(.75*4*8.25)/12;
         txtCubicacion.setEditable(false);
@@ -113,16 +119,6 @@ public class ControlController implements Initializable {
         restablecer.setTooltip(new Tooltip("Regrese al dia actual"));
         fecha.setEditable(false);
         fecha.setValue(null);
-
-        VboxControl.addEventHandler(KeyEvent.ANY,x->{
-            if(x.getCode().getCode()==10){
-                AgregarContro();
-            }
-
-                }
-
-
-        );
 
         llenarTabla();
         columns();

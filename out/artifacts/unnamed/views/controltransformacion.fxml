@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXDatePicker?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import com.jfoenix.controls.JFXTreeTableView?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TreeTableView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox fx:id="panel" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="588.0" prefWidth="924.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.MaderaEnRolloController">
+   <children>
+      <Label fx:id="lblTitulo" stylesheets="@../estilos/dashboard.css" text="Control de transformacion de madera en rollo." wrapText="true">
+         <VBox.margin>
+            <Insets left="20.0" top="10.0" />
+         </VBox.margin>
+         <font>
+            <Font name="Open Sans Condensed Bold" size="22.0" />
+         </font>
+         <styleClass>
+            <String fx:value="labelResumen" />
+            <String fx:value="labelTitle" />
+         </styleClass>
+      </Label>
+      <HBox alignment="CENTER" prefHeight="41.0" prefWidth="580.0">
+         <children>
+            <Label contentDisplay="RIGHT" text="Diametro 1:">
+               <HBox.margin>
+                  <Insets left="10.0" />
+               </HBox.margin>
+            </Label>
+            <JFXTextField fx:id="txtD1" prefHeight="25.0" prefWidth="80.0">
+               <HBox.margin>
+                  <Insets left="2.0" />
+               </HBox.margin></JFXTextField>
+            <Label contentDisplay="RIGHT" layoutX="151.0" layoutY="10.0" text="Diametro 2:">
+               <HBox.margin>
+                  <Insets left="10.0" />
+               </HBox.margin>
+            </Label>
+            <JFXTextField fx:id="txtD2" prefHeight="25.0" prefWidth="80.0">
+               <HBox.margin>
+                  <Insets left="2.0" />
+               </HBox.margin></JFXTextField>
+            <Label contentDisplay="RIGHT" layoutX="184.0" layoutY="22.0" text="Longitud: ">
+               <HBox.margin>
+                  <Insets left="10.0" />
+               </HBox.margin>
+            </Label>
+            <JFXComboBox fx:id="comboTamaño" prefHeight="25.0" prefWidth="100.0">
+               <HBox.margin>
+                  <Insets left="2.0" />
+               </HBox.margin>
+            </JFXComboBox>
+            <JFXButton fx:id="botonAgregar" contentDisplay="CENTER" onAction="#agregaRollo" onKeyReleased="#entradaAgregar" prefHeight="25.0" prefWidth="14.0" style="-fx-background-color: #916b47;" text="." textAlignment="JUSTIFY" textFill="WHITE">
+               <HBox.margin>
+                  <Insets left="30.0" />
+               </HBox.margin>
+               <graphic>
+                  <FontAwesomeIconView fill="WHITE" glyphName="PLUS" size="14" />
+               </graphic>
+            </JFXButton>
+            <JFXButton fx:id="botonEliminar" contentDisplay="CENTER" layoutX="473.0" layoutY="18.0" onAction="#eliminaRollo" style="-fx-background-color: #916b47;" text="." textFill="#916b47">
+               <graphic>
+                  <FontAwesomeIconView fill="WHITE" glyphName="TRASH" size="14" text="" />
+               </graphic>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <HBox.margin>
+                  <Insets left="10.0" />
+               </HBox.margin>
+            </JFXButton>
+         </children>
+         <VBox.margin>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="30.0" />
+         </VBox.margin>
+      </HBox>
+      <HBox alignment="CENTER" prefHeight="47.0" prefWidth="924.0">
+         <children>
+            <Label text="Fecha:">
+               <HBox.margin>
+                  <Insets left="30.0" />
+               </HBox.margin>
+            </Label>
+            <JFXDatePicker fx:id="fecha">
+               <HBox.margin>
+                  <Insets left="10.0" />
+               </HBox.margin>
+            </JFXDatePicker>
+            <JFXButton fx:id="botonBuscar" contentDisplay="CENTER" onAction="#buscarFecha" prefHeight="25.0" prefWidth="14.0" style="-fx-background-color: #916b47;" text="." textAlignment="JUSTIFY" textFill="WHITE">
+               <graphic>
+                  <FontAwesomeIconView fill="WHITE" glyphName="SEARCH" size="14" />
+               </graphic>
+            </JFXButton>
+            <JFXButton fx:id="botonFechaActual" contentDisplay="CENTER" onAction="#returnFecha" prefHeight="25.0" prefWidth="14.0" style="-fx-background-color: #916b47;" text="." textAlignment="JUSTIFY" textFill="WHITE">
+               <graphic>
+                  <FontAwesomeIconView fill="WHITE" glyphName="ARROW_DOWN" size="14" />
+               </graphic>
+               <HBox.margin>
+                  <Insets left="10.0" />
+               </HBox.margin>
+            </JFXButton>
+         </children>
+      </HBox>
+      <JFXTreeTableView fx:id="tabla1" VBox.vgrow="ALWAYS">
+         <VBox.margin>
+            <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
+         </VBox.margin>
+         <columnResizePolicy>
+            <TreeTableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy>
+      </JFXTreeTableView>
+      <HBox alignment="BOTTOM_RIGHT" prefHeight="34.0" prefWidth="600.0">
+         <children>
+            <Label contentDisplay="RIGHT" prefHeight="25.0" prefWidth="82.0" text="Volumen total:">
+               <HBox.margin>
+                  <Insets left="10.0" />
+               </HBox.margin>
+            </Label>
+            <JFXTextField fx:id="volumenTotal" prefHeight="25.0" prefWidth="131.0">
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+            </JFXTextField>
+            <Label contentDisplay="RIGHT" text="m">
+               <HBox.margin>
+                  <Insets left="2.0" right="20.0" top="3.0" />
+               </HBox.margin>
+            </Label>
+         </children>
+         <VBox.margin>
+            <Insets bottom="10.0" />
+         </VBox.margin>
+      </HBox>
+   </children>
+</VBox>

@@ -73,7 +73,7 @@ public class otrosController implements Initializable {
         btnDelete.setTooltip(new Tooltip("Eliminar"));
         historial.setTooltip(new Tooltip("Buscar"));
         restablecer.setTooltip(new Tooltip("Regrese al dia actual"));
-        txtPieza.addEventFilter(KeyEvent.ANY, handler.onlyNumbers());
+        //txtPieza.addEventFilter(KeyEvent.ANY, handler.onlyNumbers());
 
         fechaOtros.setEditable(false);
         VboxOtros.addEventHandler(KeyEvent.ANY,x->{
@@ -305,7 +305,7 @@ public class otrosController implements Initializable {
             Totales();
             Messages.setMessage("Agregado", "El registro se agrego exitosamente", NotificationType.SUCCESS);
 
-        }catch (NumberFormatException e){
+        }catch (Exception e){
             Messages.setMessage("Error.", "No se agrego numero de piezas.", NotificationType.ERROR);
         }
     }

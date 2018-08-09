@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXDatePicker?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import com.jfoenix.controls.JFXTreeTableView?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TreeTableView?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox fx:id="VboxOtros" minHeight="-Infinity" minWidth="-Infinity" prefHeight="499.0" prefWidth="774.0" style="-fx-background-color: white;" stylesheets="@../estilos/dashboard.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.otrosController">
+   <children>
+      <GridPane>
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Label stylesheets="@../estilos/dashboard.css" text="Otros" textAlignment="CENTER">
+               <GridPane.margin>
+                  <Insets left="10.0" top="10.0" />
+               </GridPane.margin>
+               <styleClass>
+                  <String fx:value="labelResumen" />
+                  <String fx:value="labelTitle" />
+               </styleClass>
+               <font>
+                  <Font name="Open Sans Condensed Bold" size="22.0" />
+               </font>
+            </Label>
+         </children>
+      </GridPane>
+      <GridPane>
+        <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Label text="SELECCIONAR PIEZA:">
+               <GridPane.margin>
+                  <Insets left="10.0" />
+               </GridPane.margin>
+            </Label>
+            <Label prefHeight="18.0" prefWidth="106.0" text="NUMERO DE PIEZA:" GridPane.rowIndex="1">
+               <GridPane.margin>
+                  <Insets left="10.0" top="20.0" />
+               </GridPane.margin>
+            </Label>
+            <JFXComboBox fx:id="ComboPz" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#ActionComboPz" prefHeight="26.0" prefWidth="140.0" styleClass="jfx-combo-box" stylesheets="@../estilos/dashboard.css" GridPane.columnIndex="1">
+               <GridPane.margin>
+                  <Insets bottom="10.0" right="40.0" />
+               </GridPane.margin></JFXComboBox>
+            <Label text="CUBICACION:" GridPane.columnIndex="2">
+               <GridPane.margin>
+                  <Insets left="22.0" />
+               </GridPane.margin>
+            </Label>
+            <JFXTextField fx:id="txtCubicacion" prefHeight="26.0" prefWidth="114.0" GridPane.columnIndex="3">
+               <GridPane.margin>
+                  <Insets bottom="10.0" right="40.0" />
+               </GridPane.margin>
+            </JFXTextField>
+            <Label text="PT:" GridPane.columnIndex="4">
+               <GridPane.margin>
+                  <Insets left="80.0" />
+               </GridPane.margin>
+            </Label>
+            <JFXTextField fx:id="txtPt" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="26.0" prefWidth="119.0" GridPane.columnIndex="5">
+               <GridPane.margin>
+                  <Insets bottom="10.0" right="40.0" />
+               </GridPane.margin></JFXTextField>
+            <JFXButton fx:id="btnAgregar" contentDisplay="CENTER" onAction="#addOtros" prefHeight="14.0" prefWidth="0.0" style="-fx-background-color: #916b47;" text="." textFill="WHITE" GridPane.columnIndex="3" GridPane.rowIndex="1">
+               <graphic>
+                  <FontAwesomeIconView fill="WHITE" glyphName="PLUS" />
+               </graphic>
+               <GridPane.margin>
+                  <Insets top="20.0" />
+               </GridPane.margin>
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </JFXButton>
+            <JFXButton fx:id="btnDelete" contentDisplay="CENTER" onAction="#deleteOtros" prefHeight="14.0" prefWidth="0.0" style="-fx-background-color: #916b47;" text="." textFill="WHITE" GridPane.columnIndex="3" GridPane.rowIndex="1">
+               <graphic>
+                  <FontAwesomeIconView fill="WHITE" glyphName="TRASH" />
+               </graphic>
+               <GridPane.margin>
+                  <Insets left="40.0" top="20.0" />
+               </GridPane.margin>
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </JFXButton>
+            <JFXTextField fx:id="txtPieza" onKeyReleased="#ActionPieza" GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <GridPane.margin>
+                  <Insets right="40.0" />
+               </GridPane.margin></JFXTextField>
+         </children>
+         <VBox.margin>
+            <Insets top="20.0" />
+         </VBox.margin>
+      </GridPane>
+      <GridPane>
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1">
+               <children>
+                  <JFXDatePicker fx:id="fechaOtros">
+                     <HBox.margin>
+                        <Insets right="10.0" />
+                     </HBox.margin>
+                  </JFXDatePicker>
+                  <JFXButton fx:id="historial" alignment="CENTER" contentDisplay="CENTER" onAction="#ActionHistorialOtros" prefHeight="30.0" prefWidth="36.0" style="-fx-background-color: #916b47;" text="." textFill="WHITE">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                     <graphic>
+                        <FontAwesomeIconView fill="WHITE" glyphName="SEARCH" size="14" />
+                     </graphic>
+                     <HBox.margin>
+                        <Insets right="10.0" />
+                     </HBox.margin>
+                  </JFXButton>
+                  <JFXButton fx:id="restablecer" alignment="CENTER" contentDisplay="CENTER" onAction="#ActionRestablecerOtros" prefHeight="30.0" prefWidth="36.0" style="-fx-background-color: #916b47;" text="." textFill="WHITE">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                     <graphic>
+                        <FontAwesomeIconView fill="WHITE" glyphName="ARROW_DOWN" size="14" text="" />
+                     </graphic>
+                     <HBox.margin>
+                        <Insets right="20.0" />
+                     </HBox.margin>
+                  </JFXButton>
+               </children>
+            </HBox>
+            <Label fx:id="TituloRegistroOtros" text="Tabla de Registros">
+               <GridPane.margin>
+                  <Insets left="20.0" />
+               </GridPane.margin>
+            </Label>
+         </children>
+         <VBox.margin>
+            <Insets top="20.0" />
+         </VBox.margin>
+      </GridPane>
+      <JFXTreeTableView fx:id="tablaOtros" prefHeight="239.0" prefWidth="774.0" VBox.vgrow="ALWAYS">
+         <columnResizePolicy>
+            <TreeTableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy>
+         <VBox.margin>
+            <Insets bottom="20.0" left="10.0" right="10.0" top="20.0" />
+         </VBox.margin>
+      </JFXTreeTableView>
+      <GridPane>
+        <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <VBox.margin>
+            <Insets bottom="10.0" left="10.0" right="10.0" />
+         </VBox.margin>
+         <children>
+            <JFXTextField fx:id="txtTotalPieza" GridPane.columnIndex="1">
+               <GridPane.margin>
+                  <Insets bottom="25.0" left="40.0" right="40.0" />
+               </GridPane.margin>
+            </JFXTextField>
+            <JFXTextField fx:id="txtTotalPt" GridPane.columnIndex="3">
+               <GridPane.margin>
+                  <Insets bottom="25.0" left="40.0" right="40.0" />
+               </GridPane.margin>
+            </JFXTextField>
+            <Label text="Total Pieza:">
+               <GridPane.margin>
+                  <Insets bottom="20.0" left="120.0" />
+               </GridPane.margin>
+            </Label>
+            <Label text="Total PT:" GridPane.columnIndex="2">
+               <GridPane.margin>
+                  <Insets bottom="20.0" left="130.0" />
+               </GridPane.margin>
+            </Label>
+         </children>
+      </GridPane>
+   </children>
+</VBox>

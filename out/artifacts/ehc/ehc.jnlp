@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?><jnlp spec="1.0" xmlns:jfx="http://javafx.com" href="ehc.jnlp">
+    <information>
+        <title>Main</title>
+        <vendor>Unknown</vendor>
+        <description>Main</description>
+        <offline-allowed/>
+    </information>
+    <update check="background"/>
+    <resources>
+        <j2se version="10.0.1+" href="http://java.sun.com/products/autodl/j2se"/>
+        <jar href="TrayNotification.jar" size="41019" download="eager"/>
+        <jar href="ehc.jar" size="624906" download="eager"/>
+        <jar href="fontawesomefx-commons-9.1.2.jar" size="24064" download="eager"/>
+        <jar href="fontawesomefx-fontawesome-4.7.0-9.1.2.jar" size="137226" download="eager"/>
+        <jar href="fontawesomefx-materialicons-2.2.0-9.1.2.jar" size="104021" download="eager"/>
+        <jar href="jfoenix-9.0.4.jar" size="2201031" download="eager"/>
+        <jar href="postgresql-42.2.2.jre7.jar" size="718131" download="eager"/>
+    </resources>
+    <jfx:javafx-desc width="600" height="400" main-class="Main" name="Main"/>
+</jnlp>
+
